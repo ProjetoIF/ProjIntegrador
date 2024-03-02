@@ -4,14 +4,14 @@ O Instituto Federal do Paraná (IFPR), campus Foz do Iguaçu, desempenha um pape
 
 Diante desses desafios, o sistema proposto busca solucionar tais questões por meio das seguintes funcionalidades:
 
-Os gestores da área (coordenação dos cursos) terão a capacidade de cadastrar os itens que podem ser utilizados nas aulas pelos professores, juntamente com suas respectivas unidades de medida.
+*Os gestores da área (coordenação dos cursos) terão a capacidade de cadastrar os itens que podem ser utilizados nas aulas pelos professores, juntamente com suas respectivas unidades de medida.
 
-Os gestores da área poderão cadastrar professores e turmas, estabelecendo relações entre eles.
+*Os gestores da área poderão cadastrar professores e turmas, estabelecendo relações entre eles.
 
-Os professores poderão submeter suas aulas para avaliação pelos gestores, os quais poderão alterar o status das aulas para informar sobre a disponibilidade dos insumos.
+*Os professores poderão submeter suas aulas para avaliação pelos gestores, os quais poderão alterar o status das aulas para informar sobre a disponibilidade dos insumos.
 
-Os gestores terão acesso a uma visão abrangente de todas as aulas submetidas para avaliação.
+*Os gestores terão acesso a uma visão abrangente de todas as aulas submetidas para avaliação.
 
-Os gestores terão à disposição relatórios que fornecerão informações sobre os insumos utilizados em cada mês, por professor, turma e disciplina.
+*Os gestores terão à disposição relatórios que fornecerão informações sobre os insumos utilizados em cada mês, por professor, turma e disciplina.
 
 
