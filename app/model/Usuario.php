@@ -11,12 +11,18 @@ class Usuario implements JsonSerializable {
     private ?string $login;
     private ?string $senha;
     private ?string $papel;
+    private ?string $telefone;
+    private ?string $email;
+    private ?int $ativo;
+
 
     public function jsonSerialize(): array {
         return array("id" => $this->id,
                      "nome" => $this->nome,
                      "login" => $this->login,
-                     "papel" => $this->papel);
+                     "papel" => $this->papel,
+                     "telefone"=> $this->telefone,
+                     "ativo"=> $this->ativo);
     }
 
     public function getId(): ?int
@@ -77,5 +83,35 @@ class Usuario implements JsonSerializable {
         $this->papel = $papel;
 
         return $this;
+    }
+
+    public function getTelefone(): ?string
+    {
+        return $this->telefone;
+    }
+
+    public function setTelefone(?string $telefone): void
+    {
+        $this->telefone = $telefone;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getAtivo(): ?int
+    {
+        return $this->ativo;
+    }
+
+    public function setAtivo(?int $ativo): void
+    {
+        $this->ativo = $ativo;
     }
 }
