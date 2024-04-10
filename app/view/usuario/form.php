@@ -19,9 +19,9 @@ require_once(__DIR__ . "/../include/menu.php");
             <form id="frmUsuario" method="POST" 
                 action="<?= BASEURL ?>/controller/UsuarioController.php?action=save" >
                 <div class="form-group">
-                    <label for="txtNome">Nome:</label>
+                    <label for="txtNome">Nome comlpeto:</label>
                     <input class="form-control" type="text" id="txtNome" name="nome" 
-                        maxlength="70" placeholder="Informe o nome"
+                        maxlength="70" placeholder="Informe o nome completo"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNome() : ''); ?>" />
                 </div>
                 
@@ -62,6 +62,19 @@ require_once(__DIR__ . "/../include/menu.php");
                         <?php endforeach; ?>
 
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtTelefone">Telefone:</label>
+                    <input class="form-control" type="text" id="txtTelefone" name="telefone"
+                           maxlength="15" placeholder="Informe o telefone"
+                           value="<?php echo isset($dados['telefone']) ? $dados['telefone'] : '';?>"/>
+                </div>
+                <div class="form-group">
+                    <label for="txtEmail">Email:</label>
+                    <input class="form-control" type="text" id="txtEmail" name="email"
+                           maxlength="15" placeholder="Informe o email"
+                           value="<?php echo isset($dados['email']) ? $dados['email'] : '';?>"/>
                 </div>
 
                 <input type="hidden" id="hddId" name="id" 

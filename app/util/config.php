@@ -6,16 +6,16 @@
 
 //Banco de dados: conexão MySQL
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'crud_pi_template');
+define('DB_NAME', 'projetoIntegrador');
 define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 
 //Caminho para adionar imagens, scripts e chamar páginas no sistema
 //Deve ter o nome da pasta do projeto no servidor APACHE
-define('BASEURL', '/crud_pi_template/app');
+define('BASEURL', '/ProjIntegrador/app');
 
 //Nome do sistema
-define('APP_NAME', 'Template do Projeto Integrador');
+define('APP_NAME', 'Projeto Integrador');
 
 //Página de logout do sistema
 define('LOGIN_PAGE', BASEURL . '/controller/LoginController.php?action=login');

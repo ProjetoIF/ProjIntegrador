@@ -25,7 +25,6 @@ class LoginController extends Controller {
     protected function logon() {
         $login = isset($_POST['login']) ? trim($_POST['login']) : null;
         $senha = isset($_POST['senha']) ? trim($_POST['senha']) : null;
-
         //Validar os campos
         $erros = $this->loginService->validarCampos($login, $senha);
         if(empty($erros)) {

@@ -114,4 +114,12 @@ class Usuario implements JsonSerializable {
     {
         $this->ativo = $ativo;
     }
+    public function isActive()
+    {
+        if($this->getAtivo() == 1){
+            echo "Ativo";
+        }else{
+            echo "Inativo";
+        }
+    }
 }

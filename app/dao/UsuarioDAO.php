@@ -11,7 +11,7 @@ class UsuarioDAO {
     public function list() {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM usuarios u ORDER BY u.nome_usuario";
+        $sql = "SELECT * FROM usuarios u ORDER BY u.nomeCompleto";
         $stm = $conn->prepare($sql);    
         $stm->execute();
         $result = $stm->fetchAll();
@@ -24,7 +24,7 @@ class UsuarioDAO {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM usuarios u" .
-               " WHERE u.id_usuario = ?";
+               " WHERE u.idUsuario = ?";
         $stm = $conn->prepare($sql);    
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -70,8 +70,8 @@ class UsuarioDAO {
     public function insert(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO usuarios (nome_usuario, login, senha, papel)" .
-               " VALUES (:nome, :login, :senha, :papel)";
+        $sql = "INSERT INTO usuarios (nomeCompleto, login, senha, papel, telefone, email)" .
+               " VALUES (:nome, :login, :senha, :papel, :telefone, :email)";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNome());
@@ -79,6 +79,8 @@ class UsuarioDAO {
         $senhaCript = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
         $stm->bindValue("senha", $senhaCript);
         $stm->bindValue("papel", $usuario->getPapel());
+        $stm->bindValue("telefone", $usuario->getPapel());
+        $stm->bindValue("email", $usuario->getPapel());
         $stm->execute();
     }
 
@@ -127,11 +129,14 @@ class UsuarioDAO {
         $usuarios = array();
         foreach ($result as $reg) {
             $usuario = new Usuario();
-            $usuario->setId($reg['id_usuario']);
-            $usuario->setNome($reg['nome_usuario']);
+            $usuario->setId($reg['idUsuario']);
+            $usuario->setNome($reg['nomeCompleto']);
             $usuario->setLogin($reg['login']);
             $usuario->setSenha($reg['senha']);
             $usuario->setPapel($reg['papel']);
+            $usuario->setTelefone($reg['telefone']);
+            $usuario->setEmail($reg['email']);
+            $usuario->setAtivo($reg['ativo']);
             array_push($usuarios, $usuario);
         }
 

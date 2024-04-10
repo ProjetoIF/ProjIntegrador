@@ -2,7 +2,7 @@
 #Nome do arquivo: UsuarioPapel.php
 #Objetivo: classe Enum para os papeis de permissões do model de Usuario
 
-class TipoUsuario {
+class UsuarioPapel {
 
     public static string $SEPARADOR = "|";
 
@@ -10,7 +10,7 @@ class TipoUsuario {
     const ADMINISTRADOR = "ADMINISTRADOR";
 
     public static function getAllAsArray() {
-        return [TipoUsuario::PROFESSOR, TipoUsuario::ADMINISTRADOR];
+        return [UsuarioPapel::PROFESSOR, UsuarioPapel::ADMINISTRADOR];
     }
 
 }
