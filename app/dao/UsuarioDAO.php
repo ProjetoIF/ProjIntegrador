@@ -70,8 +70,8 @@ class UsuarioDAO {
     public function insert(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO usuarios (nomeCompleto, login, senha, papel, telefone, email)" .
-               " VALUES (:nome, :login, :senha, :papel, :telefone, :email)";
+        $sql = "INSERT INTO usuarios (nomeCompleto, login, senha, papel, telefone, email, ativo)" .
+               " VALUES (:nome, :login, :senha, :papel, :telefone, :email, :ativo)";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNome());
@@ -79,8 +79,9 @@ class UsuarioDAO {
         $senhaCript = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
         $stm->bindValue("senha", $senhaCript);
         $stm->bindValue("papel", $usuario->getPapel());
-        $stm->bindValue("telefone", $usuario->getPapel());
-        $stm->bindValue("email", $usuario->getPapel());
+        $stm->bindValue("telefone", $usuario->getTelefone());
+        $stm->bindValue("email", $usuario->getEmail());
+        $stm->bindValue("ativo", 0);
         $stm->execute();
     }
 
@@ -88,9 +89,9 @@ class UsuarioDAO {
     public function update(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "UPDATE usuarios SET nome_usuario = :nome, login = :login," . 
-               " senha = :senha, papel = :papel" .   
-               " WHERE id_usuario = :id";
+        $sql = "UPDATE usuarios SET nomeCompleto = :nome, login = :login," .
+               " senha = :senha, papel = :papel, telefone = :telefone, email = :email".
+               " WHERE idUsuario = :id";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNome());
@@ -99,6 +100,8 @@ class UsuarioDAO {
         $stm->bindValue("senha", $senhaCript);
         $stm->bindValue("papel", $usuario->getPapel());
         $stm->bindValue("id", $usuario->getId());
+        $stm->bindValue("telefone", $usuario->getTelefone());
+        $stm->bindValue("email", $usuario->getEmail());
         $stm->execute();
     }
 
@@ -106,7 +109,7 @@ class UsuarioDAO {
     public function deleteById(int $id) {
         $conn = Connection::getConn();
 
-        $sql = "DELETE FROM usuarios WHERE id_usuario = :id";
+        $sql = "DELETE FROM usuarios WHERE idUsuario = :id";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("id", $id);

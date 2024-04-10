@@ -38,6 +38,9 @@ class UsuarioController extends Controller {
         $senha = trim($_POST['senha']) ? trim($_POST['senha']) : NULL;
         $confSenha = trim($_POST['conf_senha']) ? trim($_POST['conf_senha']) : NULL;
         $papel = trim($_POST['papel']) ? trim($_POST['papel']) : NULL;
+        $telefone = trim($_POST['telefone']) ? trim($_POST['telefone']) : NULL;
+        $email = trim($_POST['email']) ? trim($_POST['email']) : NULL;
+
 
         //Cria objeto Usuario
         $usuario = new Usuario();
@@ -45,6 +48,8 @@ class UsuarioController extends Controller {
         $usuario->setLogin($login);
         $usuario->setSenha($senha);
         $usuario->setPapel($papel);
+        $usuario->setTelefone($telefone);
+        $usuario->setEmail($email);
 
         //Validar os dados
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
@@ -74,6 +79,8 @@ class UsuarioController extends Controller {
         $dados["usuario"] = $usuario;
         $dados["confSenha"] = $confSenha;
         $dados["papeis"] = UsuarioPapel::getAllAsArray();
+        $dados["telefone"] = $usuario->getTelefone();
+        $dados["email"] = $usuario->getEmail();
 
         $msgsErro = implode("<br>", $erros);
         $this->loadView("usuario/form.php", $dados, $msgsErro);
@@ -98,7 +105,9 @@ class UsuarioController extends Controller {
             //Setar os dados
             $dados["id"] = $usuario->getId();
             $dados["usuario"] = $usuario;
-            $dados["papeis"] = UsuarioPapel::getAllAsArray(); 
+            $dados["papeis"] = UsuarioPapel::getAllAsArray();
+            $dados["telefone"] = $usuario->getTelefone();
+            $dados["email"] = $usuario->getEmail();
 
             $this->loadView("usuario/form.php", $dados);
         } else 

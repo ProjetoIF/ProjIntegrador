@@ -21,28 +21,28 @@ require_once(__DIR__ . "/../include/menu.php");
                 <div class="form-group">
                     <label for="txtNome">Nome comlpeto:</label>
                     <input class="form-control" type="text" id="txtNome" name="nome" 
-                        maxlength="70" placeholder="Informe o nome completo"
+                        maxlength="200" placeholder="Informe o nome completo"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNome() : ''); ?>" />
                 </div>
                 
                 <div class="form-group">
                     <label for="txtLogin">Login:</label>
                     <input class="form-control" type="text" id="txtLogin" name="login" 
-                        maxlength="15" placeholder="Informe o login"
+                        maxlength="45" placeholder="Informe o login"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getLogin() : ''); ?>"/>
                 </div>
 
                 <div class="form-group">
                     <label for="txtSenha">Senha:</label>
                     <input class="form-control" type="password" id="txtPassword" name="senha" 
-                        maxlength="15" placeholder="Informe a senha"
+                        maxlength="200" placeholder="Informe a senha"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>"/>
                 </div>
 
                 <div class="form-group">
                     <label for="txtConfSenha">Confirmação da senha:</label>
                     <input class="form-control" type="password" id="txtConfSenha" name="conf_senha" 
-                        maxlength="15" placeholder="Informe a confirmação da senha"
+                        maxlength="200" placeholder="Informe a confirmação da senha"
                         value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : '';?>"/>
                 </div>
 
@@ -67,13 +67,13 @@ require_once(__DIR__ . "/../include/menu.php");
                 <div class="form-group">
                     <label for="txtTelefone">Telefone:</label>
                     <input class="form-control" type="text" id="txtTelefone" name="telefone"
-                           maxlength="15" placeholder="Informe o telefone"
+                           maxlength="45" placeholder="Informe o telefone"
                            value="<?php echo isset($dados['telefone']) ? $dados['telefone'] : '';?>"/>
                 </div>
                 <div class="form-group">
                     <label for="txtEmail">Email:</label>
                     <input class="form-control" type="text" id="txtEmail" name="email"
-                           maxlength="15" placeholder="Informe o email"
+                           maxlength="100" placeholder="Informe o email"
                            value="<?php echo isset($dados['email']) ? $dados['email'] : '';?>"/>
                 </div>
 
