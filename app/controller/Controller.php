@@ -42,7 +42,7 @@ class Controller {
             require $caminho;
 
         } else {
-            echo "Erro ao carrega a view solicitada<br>";
+            echo "Erro ao carregar a view solicitada<br>";
             echo "Caminho: " . $caminho;
         }
     }
