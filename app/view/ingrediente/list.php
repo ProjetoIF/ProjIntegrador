@@ -6,13 +6,13 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<h3 class="text-center">Disciplinas</h3>
+<h3 class="text-center">Ingredientes</h3>
 
 <div class="container">
     <div class="row">
         <div class="col-3">
             <a class="btn btn-success"
-                href="<?= BASEURL ?>/controller/DisciplinaController.php?action=create">
+                href="<?= BASEURL ?>/controller/IngredienteController.php?action=create">
                 Inserir</a>
         </div>
 
@@ -23,29 +23,33 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 10px;">
         <div class="col-12">
-            <table id="tabDisciplinas" class='table table-striped table-bordered'>
+            <table id="tabIngredientes" class='table table-striped table-bordered'>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Carga horária</th>
+                        <th>Unidade de medida</th>
+                        <th>Descrição</th>
+                        <th>Imagem</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($dados['lista'] as $disci): ?>
+                    <?php foreach($dados['lista'] as $ingrediente): ?>
                         <tr>
-                            <td><?php echo $disci->getId(); ?></td>
-                            <td><?= $disci->getNome(); ?></td>
-                            <td><?= $disci->getCargaHoraria(); ?></td>
+                            <td><?php echo $ingrediente->getId(); ?></td>
+                            <td><?= $ingrediente->getNome(); ?></td>
+                            <td><?= $ingrediente->getUnidadeDeMedida(); ?></td>
+                            <td><?= $ingrediente->getDescricao(); ?></td>
+                            <td><?= $ingrediente->getCaminhoImagem(); ?></td>
                             <td><a class="btn btn-primary"
-                                href="<?= BASEURL ?>/controller/DisciplinaController.php?action=edit&id=<?= $disci->getId() ?>">
+                                href="<?= BASEURL ?>/controller/IngredienteController.php?action=edit&id=<?= $ingrediente->getId() ?>">
                                 Alterar</a>
                             </td>
                             <td><a class="btn btn-danger"
                                 onclick="return confirm('Confirma a exclusão do usuário?');"
-                                href="<?= BASEURL ?>/controller/DisciplinaController.php?action=delete&id=<?= $disci->getId() ?>">
+                                href="<?= BASEURL ?>/controller/IngredienteController.php?action=delete&id=<?= $ingrediente->getId() ?>">
                                 Excluir</a>
                             </td>
                         </tr>

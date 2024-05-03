@@ -86,7 +86,7 @@ class DisciplinaController extends Controller
             $this->list("", "Disciplina excluída com sucesso!");
         } else {
             //Mensagem q não encontrou o usuário
-            $this->list("Disciplina  não encontrada!");
+            $this->list("Disciplina não encontrada!");
 
         }
     }

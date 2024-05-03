@@ -16,7 +16,7 @@ require_once(__DIR__ . "/../include/menu.php");
         <div class="row" style="margin-top: 10px;">
 
             <div class="col-6">
-                <form id="frmUsuario" method="POST"
+                <form id="frmDisciplina" method="POST"
                       action="<?= BASEURL ?>/controller/DisciplinaController.php?action=save" >
                     <div class="form-group">
                         <label for="txtNome">Nome da disciplina:</label>
