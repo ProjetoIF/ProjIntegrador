@@ -7,6 +7,8 @@ class DisciplinaController extends Controller
 {
     private DisciplinaDAO $disciplinaDao;
 
+    private DisciplinaService $disciplinaService;
+
     public function __construct()
     {
         if (! $this->usuarioLogado())

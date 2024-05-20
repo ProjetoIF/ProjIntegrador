@@ -18,7 +18,7 @@ USE `projetoIntegrador` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`usuarios` (
                                                               `idUsuario` INT NOT NULL AUTO_INCREMENT,
-                                                              `tipoDeUsuario` ENUM('ADMINISTRADOR', 'PROFESSOR') NOT NULL,
+                                                              `papel` ENUM('ADMINISTRADOR', 'PROFESSOR') NOT NULL,
     `login` VARCHAR(45) NOT NULL,
     `nomeCompleto` VARCHAR(200) NOT NULL,
     `senha` VARCHAR(200) NOT NULL,
@@ -45,13 +45,13 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`disciplinas` (
 -- Table `projetoIntegrador`.`turmas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`turmas` (
-                                                            `idTurma` INT NOT NULL AUTO_INCREMENT,
+                                                           `idTurma` INT NOT NULL AUTO_INCREMENT,
                                                             `nome` VARCHAR(45) NOT NULL,
     `anoInicio` YEAR NOT NULL,
     `semestre` INT NOT NULL,
     `idDisciplina` INT NOT NULL,
     `idProfessor` INT NOT NULL,
-    PRIMARY KEY (`idTurma`),
+    PRIMARY KEY (`idTurma`), 
     INDEX `fk_turmas_disciplinas1_idx` (`idDisciplina` ASC),
     INDEX `fk_turmas_usuarios1_idx` (`idProfessor` ASC),
     CONSTRAINT `fk_turmas_disciplinas1`
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`turmas` (
 -- Table `projetoIntegrador`.`ingredientes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`ingredientes` (
-                                                                  `idIngredientes` INT NOT NULL AUTO_INCREMENT,
+                                                                  `idIngrediente` INT NOT NULL AUTO_INCREMENT,
                                                                   `nome` VARCHAR(45) NOT NULL,
     `unidadeDeMedida` VARCHAR(3) NOT NULL,
     `descricao` VARCHAR(200) NULL,
@@ -128,8 +128,5 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-INSERT INTO usuarios (tipoDeUsuario, login, nomeCompleto, senha, telefone, email, ativo)
-VALUES ('ADMINSTRADOR', 'admin', 'Sr. Administrador','$2y$10$PrnFrYArQJto/SlnMTFTpOSDKU9XS5PfeHHUvJlzMxeJH5KdnI/Sm', '1234','adm@email.com', 1);
-
-INSERT INTO projetoIntegrador.usuarios (tipoDeUsuario, login, nomeCompleto, senha, telefone, email, ativo)
+INSERT INTO projetoIntegrador.usuarios (papel, login, nomeCompleto, senha, telefone, email, ativo)
 VALUES ('ADMINISTRADOR', 'admin', 'Administrador do Sistema', '$2y$10$PrnFrYArQJto/SlnMTFTpOSDKU9XS5PfeHHUvJlzMxeJH5KdnI/Sm', '55555', 'admin@example.com', 1);
