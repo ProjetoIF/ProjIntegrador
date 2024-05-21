@@ -23,7 +23,7 @@ class TurmaDAO {
     public function findById(int $id) {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM turmas WHERE id = ?";
+        $sql = "SELECT * FROM turmas WHERE idTurma = ?";
         $stm = $conn->prepare($sql);    
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -43,13 +43,15 @@ class TurmaDAO {
     public function insert(Turma $turma) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO turmas (nome, data_inicio, semestre)" .
-               " VALUES (:nome, :dataInicio, :semestre)";
+        $sql = "INSERT INTO turmas (nome, anoInicio, semestre, idDisciplina, idProfessor)" .
+               " VALUES (:nome, :anoInicio, :semestre, :idDisciplina, :idProfessor)";
         
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nome", $turma->getNome());
-        $stm->bindValue("dataInicio", $turma->getAnoDeInicio());
-        $stm->bindValue("semestre", $turma->getSemestre());
+        $stm->bindValue(":nome", $turma->getNome());
+        $stm->bindValue(":anoInicio", $turma->getAnoDeInicio());
+        $stm->bindValue(":semestre", $turma->getSemestre());
+        $stm->bindValue(":idDisciplina", $turma->getIdDisciplina());
+        $stm->bindValue(":idProfessor", $turma->getIdProfessor());
         $stm->execute();
     }
 
@@ -57,14 +59,16 @@ class TurmaDAO {
     public function update(Turma $turma) {
         $conn = Connection::getConn();
 
-        $sql = "UPDATE turmas SET nome = :nome, data_inicio = :dataInicio," .
-               " semestre = :semestre WHERE id = :id";
+        $sql = "UPDATE turmas SET nome = :nome, anoInicio = :anoInicio," .
+               " semestre = :semestre, idDisciplina = :idDisciplina, idProfessor = :idProfessor WHERE idTurma = :id";
         
         $stm = $conn->prepare($sql);
-        $stm->bindValue("nome", $turma->getNome());
-        $stm->bindValue("dataInicio", $turma->getAnoDeInicio());
-        $stm->bindValue("semestre", $turma->getSemestre());
-        $stm->bindValue("id", $turma->getId());
+        $stm->bindValue(":nome", $turma->getNome());
+        $stm->bindValue(":anoInicio", $turma->getAnoDeInicio());
+        $stm->bindValue(":semestre", $turma->getSemestre());
+        $stm->bindValue(":idDisciplina", $turma->getIdDisciplina());
+        $stm->bindValue(":idProfessor", $turma->getIdProfessor());
+        $stm->bindValue(":id", $turma->getId());
         $stm->execute();
     }
 
@@ -72,10 +76,10 @@ class TurmaDAO {
     public function deleteById(int $id) {
         $conn = Connection::getConn();
 
-        $sql = "DELETE FROM turmas WHERE id = :id";
+        $sql = "DELETE FROM turmas WHERE idTurma = :id";
         
         $stm = $conn->prepare($sql);
-        $stm->bindValue("id", $id);
+        $stm->bindValue(":id", $id);
         $stm->execute();
     }
 
@@ -88,6 +92,8 @@ class TurmaDAO {
             $turma->setNome($reg['nome']);
             $turma->setAnoDeInicio($reg['anoInicio']);
             $turma->setSemestre($reg['semestre']);
+            $turma->setIdDisciplina($reg['idDisciplina']);
+            $turma->setIdProfessor($reg['idProfessor']);
             array_push($turmas, $turma);
         }
 

@@ -2,6 +2,8 @@
 #Classe controller para Turma
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/TurmaDAO.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
+require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
 require_once(__DIR__ . "/../service/TurmaService.php");
 require_once(__DIR__ . "/../model/Turma.php");
 
@@ -10,6 +12,9 @@ class TurmaController extends Controller {
     private TurmaDAO $turmaDao;
     private TurmaService $turmaService;
 
+    private DisciplinaDAO $disciplinaDAO;
+    private UsuarioDAO $usuarioDAO;
+
     //Método construtor do controller - será executado a cada requisição a esta classe
     public function __construct() {
         if(! $this->usuarioLogado())
@@ -17,6 +22,8 @@ class TurmaController extends Controller {
 
         $this->turmaDao = new TurmaDAO();
         $this->turmaService = new TurmaService();
+        $this->disciplinaDAO = new DisciplinaDAO();
+        $this->usuarioDAO = new UsuarioDAO();
 
         $this->handleAction();
     }
@@ -24,6 +31,9 @@ class TurmaController extends Controller {
     protected function list(string $msgErro = "", string $msgSucesso = "") {
         $turmas = $this->turmaDao->list();
         $dados["lista"] = $turmas;
+        #$dados["nomeDisciplina"] = $this->returnDisciplinaName();
+        #$dados["nomeProfessor"] = $this->returnProfessorName();
+
 
         $this->loadView("turma/list.php", $dados, $msgErro, $msgSucesso);
     }
@@ -32,14 +42,18 @@ class TurmaController extends Controller {
         //Captura os dados do formulário
         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
         $nome = trim($_POST['nome']) ? trim($_POST['nome']) : NULL;
-        $dataInicio = trim($_POST['data_inicio']) ? trim($_POST['data_inicio']) : NULL;
+        $anoInicio = trim($_POST['anoInicio']) ? trim($_POST['anoInicio']) : NULL;
         $semestre = trim($_POST['semestre']) ? trim($_POST['semestre']) : NULL;
+        $idDisciplina = trim($_POST['disciplina']) ? trim($_POST['disciplina']) : NULL;
+        $idProfessor = trim($_POST['professor']) ? trim($_POST['professor']) : NULL;
 
         //Cria objeto Turma
         $turma = new Turma();
         $turma->setNome($nome);
-        $turma->setAnoDeInicio($dataInicio);
+        $turma->setAnoDeInicio($anoInicio);
         $turma->setSemestre($semestre);
+        $turma->setIdDisciplina($idDisciplina);
+        $turma->setIdProfessor($idProfessor);
 
         //Validar os dados
         $erros = $this->turmaService->validarDados($turma);
@@ -58,12 +72,15 @@ class TurmaController extends Controller {
                 $this->list("", $msg);
                 exit;
             } catch (PDOException $e) {
+                print_r($e);
                 array_push($erros, "[Erro ao salvar a turma na base de dados.]");
             }
         }
 
         //Se há erros, volta para o formulário
         $dados["turma"] = $turma;
+        $dados["disciplinas"] = $this->disciplinaDAO->list();
+        $dados["professores"] = $this->usuarioDAO->list();
         $msgsErro = implode("<br>", $erros);
         $this->loadView("turma/form.php", $dados, $msgsErro);
     }
@@ -71,6 +88,8 @@ class TurmaController extends Controller {
     //Método create
     protected function create() {
         $dados["id"] = 0;
+        $dados["disciplinas"] = $this->disciplinaDAO->list();
+        $dados["professores"] = $this->usuarioDAO->list();
         $this->loadView("turma/form.php", $dados);
     }
 
@@ -82,6 +101,8 @@ class TurmaController extends Controller {
             //Setar os dados
             $dados["id"] = $turma->getId();
             $dados["turma"] = $turma;
+            $dados["disciplinas"] = $this->disciplinaDAO->list();
+            $dados["professores"] = $this->usuarioDAO->list();
 
             $this->loadView("turma/form.php", $dados);
         } else 
@@ -109,6 +130,17 @@ class TurmaController extends Controller {
 
         $turma = $this->turmaDao->findById($id);
         return $turma;
+    }
+
+    private function returnDisciplinaName($turmaId)
+    {
+        $turma = $this->turmaDao->findById($turmaId);
+        return $turma->getDisciplina()->getNome();
+    }
+
+    private function returnProfessorName($professorId){
+        $professor = $this->usuarioDAO->findById($professorId);
+        return $professor->getNome();
     }
 }
 

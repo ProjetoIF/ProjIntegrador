@@ -26,8 +26,10 @@ require_once(__DIR__ . "/../include/menu.php");
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Data de Início</th>
+                        <th>Ano de Início</th>
                         <th>Semestre</th>
+                        <th>Disciplina</th>
+                        <th>Professor</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
@@ -37,8 +39,10 @@ require_once(__DIR__ . "/../include/menu.php");
                         <tr>
                             <td><?php echo $turma->getId(); ?></td>
                             <td><?= $turma->getNome(); ?></td>
-                            <td><?= $turma->getDataInicio(); ?></td>
+                            <td><?= $turma->getAnoDeInicio(); ?></td>
                             <td><?= $turma->getSemestre(); ?></td>
+                            <td><?= $turma->getIdDisciplina() ?></td>
+                            <td><?= $turma->getIdProfessor() ?></td>
                             <td>
                                 <a class="btn btn-primary"
                                     href="<?= BASEURL ?>/controller/TurmaController.php?action=edit&id=<?= $turma->getId() ?>">

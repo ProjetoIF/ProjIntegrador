@@ -22,6 +22,7 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
                         href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Usuários</a>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/DisciplinaController.php?action=list' ?>">Disciplinas</a>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/IngredienteController.php?action=list' ?>">Ingredientes</a>
+                    <a class="dropdown-item" href="<?= BASEURL . '/controller/TurmaController.php?action=list' ?>">Turmas</a>
                 </div>
             </li>
 
