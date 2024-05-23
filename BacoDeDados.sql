@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`usuarios` (
     UNIQUE INDEX `NomeUsuario_UNIQUE` (`login`))
     ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `projetoIntegrador`.`disciplinas`
 -- -----------------------------------------------------
@@ -40,18 +39,17 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`disciplinas` (
     PRIMARY KEY (`idDisciplina`))
     ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `projetoIntegrador`.`turmas`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`turmas` (
-                                                           `idTurma` INT NOT NULL AUTO_INCREMENT,
+                                                            `idTurma` INT NOT NULL AUTO_INCREMENT,
                                                             `nome` VARCHAR(45) NOT NULL,
     `anoInicio` YEAR NOT NULL,
     `semestre` INT NOT NULL,
     `idDisciplina` INT NOT NULL,
     `idProfessor` INT NOT NULL,
-    PRIMARY KEY (`idTurma`), 
+    PRIMARY KEY (`idTurma`),
     INDEX `fk_turmas_disciplinas1_idx` (`idDisciplina` ASC),
     INDEX `fk_turmas_usuarios1_idx` (`idProfessor` ASC),
     CONSTRAINT `fk_turmas_disciplinas1`
@@ -66,7 +64,6 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`turmas` (
     ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `projetoIntegrador`.`ingredientes`
 -- -----------------------------------------------------
@@ -76,9 +73,8 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`ingredientes` (
     `unidadeDeMedida` VARCHAR(3) NOT NULL,
     `descricao` VARCHAR(200) NULL,
     `caminhoImagem` VARCHAR(200) NULL,
-    PRIMARY KEY (`idIngredientes`))
+    PRIMARY KEY (`idIngrediente`))
     ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `projetoIntegrador`.`requisicoes`
@@ -99,16 +95,15 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`requisicoes` (
     ON UPDATE NO ACTION)
     ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
--- Table `projetoIntegrador`.`requisicoesIngedientes`
+-- Table `projetoIntegrador`.`requisicoesIngredientes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`requisicoesIngedientes` (
-                                                                            `idRequisicaoIngrediente` INT NOT NULL AUTO_INCREMENT,
-                                                                            `idRequisicao` INT NOT NULL,
-                                                                            `idIngrediente` INT NOT NULL,
-                                                                            `quantidade` INT NOT NULL,
-                                                                            INDEX `fk_requisicoes_has_ingredientes_ingredientes1_idx` (`idIngrediente` ASC),
+CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`requisicoesIngredientes` (
+                                                                             `idRequisicaoIngrediente` INT NOT NULL AUTO_INCREMENT,
+                                                                             `idRequisicao` INT NOT NULL,
+                                                                             `idIngrediente` INT NOT NULL,
+                                                                             `quantidade` INT NOT NULL,
+                                                                             INDEX `fk_requisicoes_has_ingredientes_ingredientes1_idx` (`idIngrediente` ASC),
     INDEX `fk_requisicoes_has_ingredientes_requisicoes1_idx` (`idRequisicao` ASC),
     PRIMARY KEY (`idRequisicaoIngrediente`),
     CONSTRAINT `fk_requisicoes_has_ingredientes_requisicoes1`
@@ -118,15 +113,15 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`requisicoesIngedientes` (
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_requisicoes_has_ingredientes_ingredientes1`
     FOREIGN KEY (`idIngrediente`)
-    REFERENCES `projetoIntegrador`.`ingredientes` (`idIngredientes`)
+    REFERENCES `projetoIntegrador`.`ingredientes` (`idIngrediente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
     ENGINE = InnoDB;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+-- Inserir um usuário administrador inicial
 INSERT INTO projetoIntegrador.usuarios (papel, login, nomeCompleto, senha, telefone, email, ativo)
 VALUES ('ADMINISTRADOR', 'admin', 'Administrador do Sistema', '$2y$10$PrnFrYArQJto/SlnMTFTpOSDKU9XS5PfeHHUvJlzMxeJH5KdnI/Sm', '55555', 'admin@example.com', 1);
