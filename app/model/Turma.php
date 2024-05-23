@@ -8,6 +8,8 @@ private ?string $anoDeInicio;
 private ?int $semestre;
 private ?int $idProfessor;
 private ?int $idDisciplina;
+private ?string $nomeProfessor;
+private ?string $nomeDisciplina;
     public function getId(): ?int
     {
         return $this->id;
@@ -66,6 +68,25 @@ private ?int $idDisciplina;
     public function setIdDisciplina(?int $idDisciplina): void
     {
         $this->idDisciplina = $idDisciplina;
+    }
+    public function getNomeProfessor(): ?string
+    {
+        return $this->nomeProfessor;
+    }
+
+    public function setNomeProfessor(?string $nomeProfessor): void
+    {
+        $this->nomeProfessor = $nomeProfessor;
+    }
+
+    public function getNomeDisciplina(): ?string
+    {
+        return $this->nomeDisciplina;
+    }
+
+    public function setNomeDisciplina(?string $nomeDisciplina): void
+    {
+        $this->nomeDisciplina = $nomeDisciplina;
     }
 
 }
