@@ -1,8 +1,15 @@
 <?php
     
 require_once(__DIR__ . "/../model/Turma.php");
+require_once(__DIR__ . "/../dao/TurmaDAO.php");
+require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 
 class TurmaService {
+
+    private DisciplinaDAO $disciplinaDAO;
+    private UsuarioDAO $usuarioDAO;
+    private TurmaDAO $turmaDAO;
 
     /* Método para validar os dados da turma que vem do formulário */
     public function validarDados(Turma $turma) {
@@ -25,6 +32,23 @@ class TurmaService {
             array_push($erros, "O campo [Disciplina] é obrigatório.");
 
         return $erros;
+    }
+
+    public function listTurma() {
+
+        $this->disciplinaDAO = new DisciplinaDAO();
+        $this->usuarioDAO = new UsuarioDAO();
+        $this->turmaDAO = new TurmaDAO();
+
+        $turmas = $this->turmaDAO->list();
+
+        foreach ($turmas as $turma) {
+            $turma->setDisciplina($this->disciplinaDAO->findById($turma->getIdDisciplina()));
+            $turma->setProfessor($this->usuarioDAO->findById($turma->getIdProfessor()));
+        }
+
+
+        return $turmas;
     }
 
 }

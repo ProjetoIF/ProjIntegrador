@@ -29,13 +29,7 @@ class TurmaController extends Controller {
     }
 
     protected function list(string $msgErro = "", string $msgSucesso = "") {
-        $turmas = $this->turmaDao->list();
-
-        foreach ($turmas as $turma) {
-            $turma->setNomeDisciplina($this->returnDisciplinaName($turma->getIdDisciplina()));
-            $turma->setNomeProfessor($this->returnProfessorName($turma->getIdProfessor()));
-        }
-
+        $turmas = $this->turmaService->listTurma();
         $dados["lista"] = $turmas;
 
         $this->loadView("turma/list.php", $dados, $msgErro, $msgSucesso);
@@ -133,16 +127,6 @@ class TurmaController extends Controller {
 
         $turma = $this->turmaDao->findById($id);
         return $turma;
-    }
-
-    private function returnDisciplinaName($disciplinaId) {
-        $disciplina = $this->disciplinaDAO->findById($disciplinaId);
-        return $disciplina ? $disciplina->getNome() : 'N/A';
-    }
-
-    private function returnProfessorName($professorId) {
-        $professor = $this->usuarioDAO->findById($professorId);
-        return $professor ? $professor->getNome() : 'N/A';
     }
 }
 

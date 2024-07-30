@@ -10,6 +10,8 @@ private ?int $idProfessor;
 private ?int $idDisciplina;
 private ?string $nomeProfessor;
 private ?string $nomeDisciplina;
+private ?Disciplina $disciplina;
+private ?Usuario $professor;
     public function getId(): ?int
     {
         return $this->id;
@@ -69,24 +71,24 @@ private ?string $nomeDisciplina;
     {
         $this->idDisciplina = $idDisciplina;
     }
-    public function getNomeProfessor(): ?string
+    public function getDisciplina(): ?Disciplina
     {
-        return $this->nomeProfessor;
+        return $this->disciplina;
     }
 
-    public function setNomeProfessor(?string $nomeProfessor): void
+    public function setDisciplina(?Disciplina $disciplina): void
     {
-        $this->nomeProfessor = $nomeProfessor;
+        $this->disciplina = $disciplina;
     }
 
-    public function getNomeDisciplina(): ?string
+    public function getProfessor(): ?Usuario
     {
-        return $this->nomeDisciplina;
+        return $this->professor;
     }
 
-    public function setNomeDisciplina(?string $nomeDisciplina): void
+    public function setProfessor(?Usuario $professor): void
     {
-        $this->nomeDisciplina = $nomeDisciplina;
+        $this->professor = $professor;
     }
 
 }

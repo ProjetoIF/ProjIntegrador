@@ -41,8 +41,8 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $turma->getNome(); ?></td>
                             <td><?= $turma->getAnoDeInicio(); ?></td>
                             <td><?= $turma->getSemestre(); ?></td>
-                            <td><?= $turma->getNomeDisciplina(); ?></td>
-                            <td><?= $turma->getNomeProfessor(); ?></td>
+                            <td><?= $turma->getDisciplina()->getNome(); ?></td>
+                            <td><?= $turma->getProfessor()->getNome(); ?></td>
                             <td>
                                 <a class="btn btn-primary"
                                     href="<?= BASEURL ?>/controller/TurmaController.php?action=edit&id=<?= $turma->getId() ?>">
