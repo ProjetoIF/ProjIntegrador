@@ -5,36 +5,39 @@
 require_once(__DIR__ . "/../include/header.php");
 ?>
 
-<div class="container">
-    <div class="row" style="margin-top: 20px;">
-        <div class="col-6">
-            <div class="alert alert-info">
-                <h4>Informe os dados para logar:</h4>
+<div class="">
+    <div class="row">
+        <div class=" min-vh-100 col-7" style="background-color: #1A222F">
+
+        </div>
+        <div class="col-5 d-flex justify-content-center mt-5">
+            <div class="">
+                <h1 class="text-center font-weight-bold poppins-extrabold">Seja bem vindo!</h1>
+                <h4 class="text-center">Faça seu login</h4>
                 <br>
 
                 <!-- Formulário de login -->
                 <form id="frmLogin" action="./LoginController.php?action=logon" method="POST" >
                     <div class="form-group">
-                        <label for="txtLogin">Login:</label>
-                        <input type="text" class="form-control" name="login" id="txtLogin"
+                        <input type="text" class="form-control login-inputs mt-3" name="login" id="txtLogin"
                             maxlength="15" placeholder="Informe o login"
-                            value="<?php echo isset($dados['login']) ? $dados['login'] : '' ?>" />        
+                            value="<?php echo isset($dados['login']) ? $dados['login'] : '' ?>"/>
                     </div>
 
                     <div class="form-group">
-                        <label for="txtSenha">Senha:</label>
-                        <input type="password" class="form-control" name="senha" id="txtSenha"
+                        <input type="password" class="form-control login-inputs mt-3" name="senha" id="txtSenha"
                             maxlength="15" placeholder="Informe a senha"
-                            value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />        
+                            value="<?php echo isset($dados['senha']) ? $dados['senha'] : '' ?>" />
                     </div>
 
-                    <button type="submit" class="btn btn-success">Logar</button>
+                    <button type="submit" class="btn mt-3" id="btn-login">Logar</button>
                 </form>
-            </div>
-        </div>
+                <?php include_once(__DIR__ . "/../include/msg.php") ?>
 
-        <div class="col-6">
-            <?php include_once(__DIR__ . "/../include/msg.php") ?>
+                <div class="alert alert-primary">
+                    Teste
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ function usuarios() {
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", 
-                "http://localhost:8081/crud_pi_template/app/controller/UsuarioController.php?action=listJson");
+                "http://localhost/ProjIntegrador/app/controller/UsuarioController.php?action=listJson");
 
     xhttp.onload = function() {
         var json = xhttp.responseText;

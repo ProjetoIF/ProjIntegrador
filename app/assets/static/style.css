@@ -1,0 +1,40 @@
+.login-inputs{
+    /* Email */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 18px 26px;
+    gap: 10px;
+
+    width: 307px;
+    height: 57px;
+    left: 973px;
+    top: 381px;
+
+    border: 1px solid #1A222F;
+    border-radius: 30px;
+
+}
+#btn-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 26px;
+    gap: 10px;
+
+    width: 307px;
+    height: 57px;
+    left: 973px;
+    top: 533px;
+
+    background: #1A222F;
+    border-radius: 30px;
+    color : #FFFFFF;
+
+}
