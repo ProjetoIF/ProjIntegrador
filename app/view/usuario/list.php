@@ -6,19 +6,13 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-    <div class="container nav-pages">
-        <div class="col">
-            <div class="row">
-                <h3 class="font-weight-bold poppins-extrabold">Usuários</h3>
-                <div class="align-items-end">
-                    <button class="btn">Home</button>
-                </div>
-        </div>
-    </div>
+<div class="nav-pages">
+    <h3 class="font-weight-bold poppins-extrabold">Usuários</h3>
+    <a class="btn" href="#">Home</a> <!-- Ajuste o href conforme necessário -->
+</div>
 
-    </div>
 
-    <div class="container">
+<div class="container">
         <div class="row">
             <div class="col-3">
                 <a class="btn btn-success"

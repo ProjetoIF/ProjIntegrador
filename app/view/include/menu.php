@@ -11,7 +11,7 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
         <img src="caminho_para_imagem_do_usuario" alt="User Image" class="user-image">
         <div class="col">
             <div class="row">
-                <p class="text"><?= $nome ?></p>
+                <p class="text" id="userName"><?= $nome ?></p>
             </div>
         </div>
     </div>
