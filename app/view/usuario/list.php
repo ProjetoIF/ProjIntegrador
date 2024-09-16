@@ -8,16 +8,16 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <div class="nav-pages">
     <h3 class="font-weight-bold poppins-extrabold">Usuários</h3>
-    <a class="btn" href="#">Home</a> <!-- Ajuste o href conforme necessário -->
+    <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
 </div>
 
 
 <div class="container">
         <div class="row">
             <div class="col-3">
-                <a class="btn btn-success"
+                <a class="btn-padrao btn"
                     href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
-                    Inserir</a>
+                    <i class="fa-solid fa-plus"></i> Inserir</a>
             </div>
 
             <div class="col-9">

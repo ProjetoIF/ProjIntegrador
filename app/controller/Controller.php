@@ -23,8 +23,7 @@ class Controller {
             $this->$methodName();
         
         else {
-            echo "Ação não encontrada no controller.<br>";
-            echo "Verifique com o administrador do sistema.";
+            $this->loadView("errors/404.php", [], "", "");
         }
 
     }
@@ -58,6 +57,14 @@ class Controller {
         }
 
         return true;
+    }
+
+    protected function usuarioIsAdmin() {
+        if($_SESSION[SESSAO_USUARIO_PAPEL] == UsuarioPapel::ADMINISTRADOR) {
+            return false;
+        }
+        return true;
+
     }
 
 }

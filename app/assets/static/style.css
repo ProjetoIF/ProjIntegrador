@@ -202,4 +202,22 @@
         margin-left: 40vw; /* Ajusta a margem esquerda para dispositivos móveis */
     }
 }
+.btn-padrao{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 2.25em;
+    gap: 0.43em;
 
+    width: 8.68em;
+    height: 2.43em;
+
+    background: #1A222F;
+    border-radius: 1.87em;
+    color: #ffffff;
+}
+    .btn-padrao:hover{
+        background-color: #344663;
+        color: #FFFFFF;
+    }

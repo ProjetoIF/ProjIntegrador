@@ -6,12 +6,16 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<h3 class="text-center">Turmas</h3>
+<div class="nav-pages">
+    <h3 class="font-weight-bold poppins-extrabold">Turmas</h3>
+    <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
+</div>
 
 <div class="container">
     <div class="row">
         <div class="col-3">
-            <a class="btn btn-success" href="<?= BASEURL ?>/controller/TurmaController.php?action=create">Inserir</a>
+            <a class="btn-padrao btn" href="<?= BASEURL ?>/controller/TurmaController.php?action=create">
+                <i class="fa-solid fa-plus"></i> Inserir</a>
         </div>
 
         <div class="col-9">

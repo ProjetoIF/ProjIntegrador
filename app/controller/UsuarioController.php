@@ -16,6 +16,11 @@ class UsuarioController extends Controller {
         if(! $this->usuarioLogado())
             exit;
 
+        if ($this->usuarioIsAdmin()){
+            $this->loadView("errors/403.php", [], "", "");
+            exit;
+        }
+
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
 
