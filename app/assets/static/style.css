@@ -60,10 +60,10 @@
 
 /* Barra lateral */
 .sidebar {
-    width: 15vw; /* Usa viewport width para largura responsiva */
+    width: 15vw;
     background: #1A222F;
     color: #fff;
-    height: 100vh; /* Altura total da tela */
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -71,7 +71,38 @@
     flex-direction: column;
     padding: 1.5em;
     font-size: 1em;
-    transition: width 0.3s ease-in-out; /* Transição suave para mudanças de tamanho */
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%); /* Ou display: none */
+    transition: transform 0.3s ease-in-out;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+/* Botão "sanduíche" fora da sidebar */
+.open-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #1A222F;
+    cursor: pointer;
+    z-index: 2000;
+    display: none; /* Inicialmente escondido, só aparecerá em telas pequenas */
 }
 
 /* Informações do usuário na sidebar */
@@ -151,11 +182,12 @@
         visibility: hidden;
     }
     .sidebar {
-        width: 25vw; /* Sidebar ocupa menos espaço em telas pequenas */
+        width: 60vw; /* Sidebar mais estreita em telas pequenas */
+        transform: translateX(-100%); /* Escondida por padrão */
     }
 
     .main-content {
-        margin-left: 27vw; /* Ajuste do conteúdo principal */
+        margin-left: 0; /* Ajuste do conteúdo principal */
     }
 
     .login-inputs, #btn-login {
@@ -173,12 +205,21 @@
     .nav-pages {
         margin-left: 25vw; /* Ajusta a margem esquerda para telas menores */
     }
+    .open-btn {
+        display: block; /* Exibe o botão "sanduíche" em telas pequenas */
+    }
+    #close-btn{
+        visibility: hidden;
+    }
+    .close-btn {
+        display: block; /* Exibe o botão "X" em telas pequenas */
+    }
 }
 
 /* Media query para telas menores que 480px (dispositivos móveis) */
 @media (max-width: 480px) {
     .sidebar {
-        width: 40vw; /* Sidebar mais estreita em dispositivos móveis */
+        width: 70vw; /* Sidebar mais estreita em dispositivos móveis */
     }
 
     .main-content {
