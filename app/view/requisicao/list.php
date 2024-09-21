@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <div class="nav-pages">
-    <h3 class="font-weight-bold poppins-extrabold">Requisições</h3>
+    <h3 class="nav-pages-title font-weight-bold poppins-extrabold">Requisições</h3>
     <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
 </div>
 
@@ -26,8 +26,9 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 10px;">
         <div class="col-12">
-            <table id="tabUsuarios" class='table table-striped table-bordered'>
-                <thead>
+            <div class="table-responsive">
+                <table id="tabUsuarios" class='table table-striped table-bordered'>
+                    <thead>
                     <tr>
                         <th>ID</th>
                         <th>Descrição</th>
@@ -35,9 +36,11 @@ require_once(__DIR__ . "/../include/menu.php");
                         <th>Status da requisição</th>
                         <th>Turma</th>
                         <th>Motivo Devolução</th>
+                        <th>Alterar</th>
+                        <th>Excluir</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php foreach($dados['lista'] as $req): ?>
                         <tr>
                             <td><?= $req->getId(); ?></td>
@@ -47,18 +50,19 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $req->getIdTurma(); ?></td>
                             <td><?= $req->getMotivoDevolucao(); ?></td>
                             <td><a class="btn btn-primary"
-                                href="<?= BASEURL ?>/controller/RequisicaoController.php?action=edit&id=<?= $req->getId() ?>">
-                                Alterar</a> 
+                                   href="<?= BASEURL ?>/controller/RequisicaoController.php?action=edit&id=<?= $req->getId() ?>">
+                                    Alterar</a>
                             </td>
-                            <td><a class="btn btn-danger" 
-                                onclick="return confirm('Confirma a exclusão da requisição?');"
-                                href="<?= BASEURL ?>/controller/RequisicaoController.php?action=delete&id=<?= $req->getId() ?>">
-                                Excluir</a> 
+                            <td><a class="btn btn-danger"
+                                   onclick="return confirm('Confirma a exclusão da requisição?');"
+                                   href="<?= BASEURL ?>/controller/RequisicaoController.php?action=delete&id=<?= $req->getId() ?>">
+                                    Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

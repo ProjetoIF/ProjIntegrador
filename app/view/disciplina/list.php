@@ -7,7 +7,7 @@ require_once(__DIR__ . "/../include/menu.php");
 ?>
 
 <div class="nav-pages">
-    <h3 class="font-weight-bold poppins-extrabold">Disciplinas</h3>
+    <h3 class="nav-pages-title font-weight-bold poppins-extrabold">Disciplinas</h3>
     <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
 </div>
 
@@ -26,8 +26,10 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 10px;">
         <div class="col-12">
-            <table id="tabDisciplinas" class='table table-striped table-bordered'>
-                <thead>
+            <!-- Adiciona a classe table-responsive para tornar a tabela responsiva -->
+            <div class="table-responsive">
+                <table id="tabDisciplinas" class='table table-striped table-bordered'>
+                    <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
@@ -35,26 +37,27 @@ require_once(__DIR__ . "/../include/menu.php");
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php foreach($dados['lista'] as $disci): ?>
                         <tr>
                             <td><?php echo $disci->getId(); ?></td>
                             <td><?= $disci->getNome(); ?></td>
                             <td><?= $disci->getCargaHoraria(); ?></td>
                             <td><a class="btn btn-primary"
-                                href="<?= BASEURL ?>/controller/DisciplinaController.php?action=edit&id=<?= $disci->getId() ?>">
-                                Alterar</a>
+                                   href="<?= BASEURL ?>/controller/DisciplinaController.php?action=edit&id=<?= $disci->getId() ?>">
+                                    Alterar</a>
                             </td>
                             <td><a class="btn btn-danger"
-                                onclick="return confirm('Confirma a exclusão do usuário?');"
-                                href="<?= BASEURL ?>/controller/DisciplinaController.php?action=delete&id=<?= $disci->getId() ?>">
-                                Excluir</a>
+                                   onclick="return confirm('Confirma a exclusão do usuário?');"
+                                   href="<?= BASEURL ?>/controller/DisciplinaController.php?action=delete&id=<?= $disci->getId() ?>">
+                                    Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div> <!-- Fim da div table-responsive -->
         </div>
     </div>
 </div>

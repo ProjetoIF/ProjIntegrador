@@ -85,8 +85,8 @@
     right: 10px;
     background: none;
     border: none;
-    font-size: 2rem;
-    color: #fff;
+    font-size: 3rem;
+    color: #FFFFFF;
     cursor: pointer;
     display: none;
 }
@@ -203,7 +203,7 @@
         font-size: 1rem; /* Reduz tamanho da fonte no menu */
     }
     .nav-pages {
-        margin-left: 25vw; /* Ajusta a margem esquerda para telas menores */
+        margin-left: 0vw; /* Ajusta a margem esquerda para telas menores */
     }
     .open-btn {
         display: block; /* Exibe o botão "sanduíche" em telas pequenas */
@@ -213,6 +213,14 @@
     }
     .close-btn {
         display: block; /* Exibe o botão "X" em telas pequenas */
+    }
+    .nav-pages-title{
+        margin-left: 1.2em;
+    }
+    .user-info{
+        width: 50vw ;
+        margin-left: 0px;
+        height: 10vh;
     }
 }
 
@@ -240,7 +248,33 @@
         font-size: 0.9rem; /* Reduz o tamanho da fonte do menu */
     }
     .nav-pages {
-        margin-left: 40vw; /* Ajusta a margem esquerda para dispositivos móveis */
+        margin-left: 0vw; /* Ajusta a margem esquerda para dispositivos móveis */
+    }
+    .nav-pages-title{
+        margin-left: 1.2em;
+    }
+    .user-info{
+        width: 50vw ;
+        margin-left: 0px;
+        height: 10vh;
+    }
+    .lateral-content-login {
+        display: none; /* Esconder o conteúdo da esquerda em telas pequenas */
+        visibility: hidden;
+    }
+
+    .login-content {
+        width: 100%; /* Faz a área de login ocupar toda a largura */
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100vh; /* Para centralizar verticalmente */
+        margin-top: 0; /* Remove margem superior */
+    }
+
+    .row {
+        height: 100vh; /* Mantém a altura da linha para centralização */
+        margin: 0; /* Remove margens para evitar espaço extra */
     }
 }
 .btn-padrao{
