@@ -174,6 +174,53 @@
         font-size: 2em;
     }
 
+#form-login{
+    margin-top: 10rem;
+}
+.frm-centralize{
+    margin-left: 31.25rem;
+}
+#form-login-tittle{
+    display: none;
+    visibility: hidden;
+}
+.frm-style{
+    /* Formulário */
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 64px 80px;
+    gap: 24px;
+
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    border-radius: 50px;
+}
+.frm-input{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.1em 1.5em;
+    gap: 0.5em;
+
+    width: 26.45vw;
+    height: 8.17vh;
+
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 1em;
+
+    border: 1px solid #ccc; /* Pode ajustar a borda conforme necessário */
+    font-size: 1em; /* Tamanho de fonte ajustável */
+    box-sizing: border-box;
+    margin-top: 1em;
+}
+
 /* Responsividade */
 
 /* Media query para telas menores que 768px */
@@ -222,6 +269,38 @@
         margin-left: 0px;
         height: 10vh;
     }
+    .lateral-content-login {
+        display: none !important; /* Esconder o conteúdo da esquerda em telas pequenas */
+        visibility: hidden;
+    }
+
+    .login-content {
+        width: 100%; /* Faz a área de login ocupar toda a largura */
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100vh; /* Para centralizar verticalmente */
+        margin-top: 0; /* Remove margem superior */
+    }
+
+    .row {
+        margin: 0; /* Remove margens para evitar espaço extra */
+    }
+    #form-login{
+        margin-top: 0;
+    }
+    .frm-centralize{
+        margin-left: 0;
+    }
+    frm-input {
+        width: 100%; /* O input ocupa toda a largura da tela */
+        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
+        padding: 1em 1.25em; /* Menos espaçamento para telas menores */
+        font-size: 0.9em; /* Tamanho de fonte ligeiramente menor */
+    }
+    .btn-clear{
+        margin-right: 0;
+    }
 }
 
 /* Media query para telas menores que 480px (dispositivos móveis) */
@@ -259,7 +338,7 @@
         height: 10vh;
     }
     .lateral-content-login {
-        display: none; /* Esconder o conteúdo da esquerda em telas pequenas */
+        display: none !important; /* Esconder o conteúdo da esquerda em telas pequenas */
         visibility: hidden;
     }
 
@@ -273,8 +352,27 @@
     }
 
     .row {
-        height: 100vh; /* Mantém a altura da linha para centralização */
         margin: 0; /* Remove margens para evitar espaço extra */
+    }
+    #form-login{
+        margin-top: 0;
+    }
+    #form-login-tittle{
+        display: flex;
+        visibility: visible;
+    }
+    .frm-centralize{
+        margin-left: 0;
+    }
+    .frm-input {
+        width: 100%; /* O input ocupa toda a largura da tela */
+        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
+        padding: 0.75em 1em; /* Menor espaçamento para telas muito pequenas */
+        font-size: 0.8em; /* Reduz ainda mais o tamanho da fonte */
+        gap: 0.25em; /* Menor espaçamento entre os elementos */
+    }
+    .btn-clear{
+        margin-right: 0;
     }
 }
 .btn-padrao{
@@ -296,3 +394,24 @@
         background-color: #344663;
         color: #FFFFFF;
     }
+
+.btn-clear{
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em 2.25em;
+    gap: 0.43em;
+    margin-right: 2em;
+
+    width: 8.68em;
+    height: 2.43em;
+
+    background: #FFFFFF;
+    border-radius: 1.87em;
+    color: #1A222F;
+    border-color: #1A222F;
+}
+.btn-clear:hover{
+    background-color: #344663;
+    color: #FFFFFF;
+}

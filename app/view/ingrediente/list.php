@@ -50,12 +50,12 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><img src="<?= $ingrediente->getCaminhoImagem(); ?>" alt="<?= $ingrediente->getNome(); ?>" style="max-width: 100px;"></td>
                             <td><a class="btn btn-primary"
                                    href="<?= BASEURL ?>/controller/IngredienteController.php?action=edit&id=<?= $ingrediente->getId() ?>">
-                                    Alterar</a>
+                                    <i class="fa-regular fa-pen-to-square"></i> Alterar</a>
                             </td>
                             <td><a class="btn btn-danger"
                                    onclick="return confirm('Confirma a exclusão do usuário?');"
                                    href="<?= BASEURL ?>/controller/IngredienteController.php?action=delete&id=<?= $ingrediente->getId() ?>">
-                                    Excluir</a>
+                                    <i class="fa-solid fa-trash-can"></i> Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

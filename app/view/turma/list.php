@@ -52,14 +52,14 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td>
                                 <a class="btn btn-primary"
                                    href="<?= BASEURL ?>/controller/TurmaController.php?action=edit&id=<?= $turma->getId() ?>">
-                                    Alterar
+                                    <i class="fa-regular fa-pen-to-square"></i> Alterar
                                 </a>
                             </td>
                             <td>
                                 <a class="btn btn-danger"
                                    onclick="return confirm('Confirma a exclusão da turma?');"
                                    href="<?= BASEURL ?>/controller/TurmaController.php?action=delete&id=<?= $turma->getId() ?>">
-                                    Excluir
+                                    <i class="fa-solid fa-trash-can"></i> Excluir
                                 </a>
                             </td>
                         </tr>

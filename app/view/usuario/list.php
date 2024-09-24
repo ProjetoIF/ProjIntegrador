@@ -11,19 +11,18 @@ require_once(__DIR__ . "/../include/menu.php");
     <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
 </div>
 
-
 <div class="container">
-        <div class="row">
-            <div class="col-3">
-                <a class="btn-padrao btn"
-                    href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
-                    <i class="fa-solid fa-plus"></i> Inserir</a>
-            </div>
-
-            <div class="col-9">
-                <?php require_once(__DIR__ . "/../include/msg.php"); ?>
-            </div>
+    <div class="row">
+        <div class="col-3">
+            <a class="btn-padrao btn"
+                href="<?= BASEURL ?>/controller/UsuarioController.php?action=create">
+            <i class="fa-solid fa-plus"></i> Inserir</a>
         </div>
+
+        <div class="col-9">
+            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+        </div>
+    </div>
 
     <div class="row" style="margin-top: 10px;">
         <div class="col-12">
@@ -68,10 +67,10 @@ require_once(__DIR__ . "/../include/menu.php");
                 </table>
             </div> <!-- Fim da div table-responsive -->
         </div>
-    </div>
+    </div> <!-- ROW -->
 </div>
 
 
-<?php  
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>

@@ -11,7 +11,8 @@ require_once(__DIR__ . "/../include/header.php");
             <img class="img-fluid h-50" style="margin-top: 10rem;" src="<?=BASEURL. "/assets/img/logo-login.png"?>" alt="">
         </div>
         <div class="login-content col-5 d-flex justify-content-center mt-5">
-            <div style="margin-top: 10rem;">
+            <h3 id="form-login-tittle"></h3>
+            <div id="form-login">
                 <h1 class="text-center font-weight-bold poppins-extrabold">Seja bem vindo!</h1>
                 <h4 class="text-center">Faça seu login</h4>
                 <br>
