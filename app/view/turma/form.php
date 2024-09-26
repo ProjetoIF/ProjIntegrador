@@ -6,39 +6,44 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<h3 class="text-center">
-    <?php if($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?>
-    Turma
-</h3>
+<div class="nav-pages">
+    <h3 class="nav-pages-title font-weight-bold poppins-extrabold">
+        <?php if($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?>
+        Turma
+    </h3>
+    <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
+</div>
 
 <div class="container">
+
     <div class="row" style="margin-top: 10px;">
-        <div class="col-6">
-            <form id="frmTurma" method="POST" action="<?= BASEURL ?>/controller/TurmaController.php?action=save">
+
+        <div class="frm-centralize col">
+            <form class="frm-style" id="frmTurma" method="POST" action="<?= BASEURL ?>/controller/TurmaController.php?action=save">
                 <div class="form-group">
-                    <label for="txtNome">Nome:</label>
-                    <input class="form-control" type="text" id="txtNome" name="nome" maxlength="200"
-                           placeholder="Informe o nome da turma "
+                    <label for="txtNome"><i class="fa-solid fa-users"></i> Nome:</label>
+                    <input class="form-control frm-input" type="text" id="txtNome" name="nome" maxlength="200"
+                           placeholder="Informe o nome da turma"
                            value="<?php echo (isset($dados["turma"]) ? $dados["turma"]->getNome() : ''); ?>"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtAnoInicio">Ano de Início:</label>
-                    <input class="form-control" type="number" id="txtAnoInicio" name="anoInicio" min="1900" max="2100"
+                    <label for="txtAnoInicio"><i class="fa-solid fa-calendar-alt"></i> Ano de Início:</label>
+                    <input class="form-control frm-input" type="number" id="txtAnoInicio" name="anoInicio" min="1900" max="2100"
                            placeholder="Informe o ano de início"
                            value="<?php echo (isset($dados["turma"]) ? $dados["turma"]->getAnoDeInicio() : ''); ?>"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtSemestre">Semestre:</label>
-                    <input class="form-control" type="number" id="intSemestre" min="1" name="semestre"
+                    <label for="txtSemestre"><i class="fa-solid fa-calendar"></i> Semestre:</label>
+                    <input class="form-control frm-input" type="number" id="intSemestre" min="1" name="semestre"
                            placeholder="Informe o semestre"
                            value="<?php echo (isset($dados["turma"]) ? $dados["turma"]->getSemestre() : ''); ?>"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="idDisciplina">Disciplina:</label>
-                    <select class="form-control" id="selDisciplina" name="disciplina">
+                    <label for="idDisciplina"><i class="fa-solid fa-book"></i> Disciplina:</label>
+                    <select class="form-control frm-input" id="selDisciplina" name="disciplina">
                         <option value="">--Selecione a Disciplina--</option>
                         <?php foreach($dados["disciplinas"] as $disciplina): ?>
                             <option value="<?= $disciplina->getId() ?>"
@@ -51,8 +56,8 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
                 <div class="form-group">
-                    <label for="idProfessor">Professor:</label>
-                    <select class="form-control" name="professor" id="selProfessor">
+                    <label for="idProfessor"><i class="fa-solid fa-chalkboard-teacher"></i> Professor:</label>
+                    <select class="form-control frm-input" name="professor" id="selProfessor">
                         <option value="">--Selecione o professor--</option>
                         <?php foreach($dados["professores"] as $professor): ?>
                             <option value="<?= $professor->getId() ?>"
@@ -67,23 +72,28 @@ require_once(__DIR__ . "/../include/menu.php");
                 <input type="hidden" id="hddId" name="id"
                        value="<?= $dados['id']; ?>" />
 
-                <button type="submit" class="btn btn-success">Gravar</button>
-                <button type="reset" class="btn btn-danger">Limpar</button>
-            </form>            
+                <div style="flex-direction: row">
+                    <button type="reset" class="btn btn-clear">Limpar</button>
+                    <button type="submit" class="btn btn-padrao" style="display: inline-flex">Gravar</button>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="col-6">
+    <div class="row frm-centralize" style="margin-top: 2em;">
+        <div class="col-8">
             <?php require_once(__DIR__ . "/../include/msg.php"); ?>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 30px;">
+    <!--<div class="row" style="margin-top: 30px;">
         <div class="col-12">
-            <a class="btn btn-secondary" href="<?= BASEURL ?>/controller/TurmaController.php?action=list">Voltar</a>
+            <a class="btn btn-secondary" href="<?php /*= BASEURL */?>/controller/TurmaController.php?action=list">Voltar</a>
         </div>
-    </div>
+    </div>-->
+
 </div>
 
-<?php  
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
