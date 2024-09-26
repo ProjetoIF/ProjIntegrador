@@ -18,7 +18,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <div class="row" style="margin-top: 10px;">
 
-        <div class="frm-centralize col-6">
+        <div class="frm-centralize col">
             <form class="frm-style" method="POST"
                 action="<?= BASEURL ?>/controller/UsuarioController.php?action=save" >
                 <div class="form-group">
@@ -88,18 +88,21 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
             </form>
         </div>
-
-        <div class="col-6">
+    </div>
+    <div class="row frm-centralize" style="margin-top: 2em;">
+        <div class="col-8">
             <?php require_once(__DIR__ . "/../include/msg.php"); ?>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 30px;">
+    <!--<div class="row" style="margin-top: 30px;">
         <div class="col-12">
         <a class="btn btn-secondary"
-                href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+                href="<?php /*= BASEURL */?>/controller/UsuarioController.php?action=list">Voltar</a>
         </div>
-    </div>
+    </div>--> <!--Talvez esse botão volte-->
+
+
 </div>
 
 <?php  

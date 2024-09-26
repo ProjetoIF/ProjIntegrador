@@ -221,160 +221,6 @@
     margin-top: 1em;
 }
 
-/* Responsividade */
-
-/* Media query para telas menores que 768px */
-@media (max-width: 768px) {
-    #userName{
-        visibility: hidden;
-    }
-    .sidebar {
-        width: 60vw; /* Sidebar mais estreita em telas pequenas */
-        transform: translateX(-100%); /* Escondida por padrão */
-    }
-
-    .main-content {
-        margin-left: 0; /* Ajuste do conteúdo principal */
-    }
-
-    .login-inputs, #btn-login {
-        font-size: 0.9em; /* Tamanho da fonte menor em telas pequenas */
-    }
-
-    .user-image {
-        width: 4vw; /* Ajuste o tamanho da imagem do usuário */
-        height: 4vw;
-    }
-
-    .sidebar-menu li a {
-        font-size: 1rem; /* Reduz tamanho da fonte no menu */
-    }
-    .nav-pages {
-        margin-left: 0vw; /* Ajusta a margem esquerda para telas menores */
-    }
-    .open-btn {
-        display: block; /* Exibe o botão "sanduíche" em telas pequenas */
-    }
-    #close-btn{
-        visibility: hidden;
-    }
-    .close-btn {
-        display: block; /* Exibe o botão "X" em telas pequenas */
-    }
-    .nav-pages-title{
-        margin-left: 1.2em;
-    }
-    .user-info{
-        width: 50vw ;
-        margin-left: 0px;
-        height: 10vh;
-    }
-    .lateral-content-login {
-        display: none !important; /* Esconder o conteúdo da esquerda em telas pequenas */
-        visibility: hidden;
-    }
-
-    .login-content {
-        width: 100%; /* Faz a área de login ocupar toda a largura */
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        height: 100vh; /* Para centralizar verticalmente */
-        margin-top: 0; /* Remove margem superior */
-    }
-
-    .row {
-        margin: 0; /* Remove margens para evitar espaço extra */
-    }
-    #form-login{
-        margin-top: 0;
-    }
-    .frm-centralize{
-        margin-left: 0;
-    }
-    frm-input {
-        width: 100%; /* O input ocupa toda a largura da tela */
-        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
-        padding: 1em 1.25em; /* Menos espaçamento para telas menores */
-        font-size: 0.9em; /* Tamanho de fonte ligeiramente menor */
-    }
-    .btn-clear{
-        margin-right: 0;
-    }
-}
-
-/* Media query para telas menores que 480px (dispositivos móveis) */
-@media (max-width: 480px) {
-    .sidebar {
-        width: 70vw; /* Sidebar mais estreita em dispositivos móveis */
-    }
-
-    .main-content {
-        margin-left: 42vw; /* Ajuste da margem principal */
-        padding: 1em;
-    }
-
-    .login-inputs, #btn-login {
-        font-size: 0.8em; /* Tamanho de fonte menor em dispositivos móveis */
-    }
-
-    .user-image {
-        width: 10vw; /* Ajusta tamanho da imagem do usuário */
-        height: 10vw;
-    }
-
-    .sidebar-menu li a {
-        font-size: 0.9rem; /* Reduz o tamanho da fonte do menu */
-    }
-    .nav-pages {
-        margin-left: 0vw; /* Ajusta a margem esquerda para dispositivos móveis */
-    }
-    .nav-pages-title{
-        margin-left: 1.2em;
-    }
-    .user-info{
-        width: 50vw ;
-        margin-left: 0px;
-        height: 10vh;
-    }
-    .lateral-content-login {
-        display: none !important; /* Esconder o conteúdo da esquerda em telas pequenas */
-        visibility: hidden;
-    }
-
-    .login-content {
-        width: 100%; /* Faz a área de login ocupar toda a largura */
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        height: 100vh; /* Para centralizar verticalmente */
-        margin-top: 0; /* Remove margem superior */
-    }
-
-    .row {
-        margin: 0; /* Remove margens para evitar espaço extra */
-    }
-    #form-login{
-        margin-top: 0;
-    }
-    #form-login-tittle{
-        display: flex;
-        visibility: visible;
-    }
-    .frm-centralize{
-        margin-left: 0;
-    }
-    .frm-input {
-        width: 100%; /* O input ocupa toda a largura da tela */
-        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
-        padding: 0.75em 1em; /* Menor espaçamento para telas muito pequenas */
-        font-size: 0.8em; /* Reduz ainda mais o tamanho da fonte */
-        gap: 0.25em; /* Menor espaçamento entre os elementos */
-    }
-    .btn-clear{
-        margin-right: 0;
-    }
-}
 .btn-padrao{
     display: flex;
     flex-direction: row;
@@ -415,3 +261,221 @@
     background-color: #344663;
     color: #FFFFFF;
 }
+
+/* Responsividade */
+
+/* Media query para telas menores que 768px */
+@media (max-width: 768px) {
+    #userName {
+        visibility: hidden;
+    }
+    .sidebar {
+        width: 60vw; /* Sidebar mais estreita em telas pequenas */
+        transform: translateX(-100%); /* Escondida por padrão */
+    }
+    .main-content {
+        margin-left: 0; /* Ajuste do conteúdo principal */
+    }
+    .login-inputs, #btn-login {
+        font-size: 0.9em; /* Tamanho da fonte menor em telas pequenas */
+    }
+    .user-image {
+        width: 4vw; /* Ajuste o tamanho da imagem do usuário */
+        height: 4vw;
+    }
+    .sidebar-menu li a {
+        font-size: 1rem; /* Reduz tamanho da fonte no menu */
+    }
+    .nav-pages {
+        margin-left: 0vw; /* Ajusta a margem esquerda para telas menores */
+    }
+    .open-btn {
+        display: block; /* Exibe o botão "sanduíche" em telas pequenas */
+    }
+    #close-btn {
+        visibility: hidden;
+    }
+    .close-btn {
+        display: block; /* Exibe o botão "X" em telas pequenas */
+    }
+    .nav-pages-title {
+        margin-left: 1.2em;
+    }
+    .user-info {
+        width: 50vw;
+        margin-left: 0px;
+        height: 10vh;
+    }
+    .lateral-content-login {
+        display: none !important; /* Esconder o conteúdo da esquerda em telas pequenas */
+        visibility: hidden;
+    }
+    .login-content {
+        width: 100%; /* Faz a área de login ocupar toda a largura */
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100vh; /* Para centralizar verticalmente */
+        margin-top: 0; /* Remove margem superior */
+    }
+    .row {
+        margin: 0; /* Remove margens para evitar espaço extra */
+    }
+    #form-login {
+        margin-top: 0;
+    }
+    .frm-centralize {
+        margin-left: 0;
+    }
+    .frm-input {
+        width: 100%; /* O input ocupa toda a largura da tela */
+        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
+        padding: 1em 1.25em; /* Menos espaçamento para telas menores */
+        font-size: 0.9em; /* Tamanho de fonte ligeiramente menor */
+    }
+    .btn-clear {
+        margin-right: 0;
+    }
+}
+
+/* Media query para telas menores que 480px (dispositivos móveis) */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 70vw; /* Sidebar mais estreita em dispositivos móveis */
+    }
+    .main-content {
+        margin-left: 42vw; /* Ajuste da margem principal */
+        padding: 1em;
+    }
+    .login-inputs, #btn-login {
+        font-size: 0.8em; /* Tamanho de fonte menor em dispositivos móveis */
+    }
+    .user-image {
+        width: 10vw; /* Ajusta tamanho da imagem do usuário */
+        height: 10vw;
+    }
+    .sidebar-menu li a {
+        font-size: 0.9rem; /* Reduz o tamanho da fonte do menu */
+    }
+    .nav-pages {
+        margin-left: 0vw; /* Ajusta a margem esquerda para dispositivos móveis */
+    }
+    .nav-pages-title {
+        margin-left: 1.2em;
+    }
+    .user-info {
+        width: 50vw;
+        margin-left: 0px;
+        height: 10vh;
+    }
+    .lateral-content-login {
+        display: none !important; /* Esconder o conteúdo da esquerda em telas pequenas */
+        visibility: hidden;
+    }
+    .login-content {
+        width: 100%; /* Faz a área de login ocupar toda a largura */
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100vh; /* Para centralizar verticalmente */
+        margin-top: 0; /* Remove margem superior */
+    }
+    .row {
+        margin: 0; /* Remove margens para evitar espaço extra */
+    }
+    #form-login {
+        margin-top: 0;
+    }
+    #form-login-title {
+        display: flex;
+        visibility: visible;
+    }
+    .frm-centralize {
+        margin-left: 0;
+    }
+    .frm-input {
+        width: 100%; /* O input ocupa toda a largura da tela */
+        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
+        padding: 0.75em 1em; /* Menor espaçamento para telas muito pequenas */
+        font-size: 0.8em; /* Reduz ainda mais o tamanho da fonte */
+        gap: 0.25em; /* Menor espaçamento entre os elementos */
+    }
+    .btn-clear {
+        margin-right: 0;
+    }
+}
+
+/* Media query para telas entre 768px e 1850px */
+@media (min-width: 768px) and (max-width: 1850px) {
+    #userName {
+        visibility: hidden;
+    }
+    .sidebar {
+        width: 20vw; /* Sidebar mais estreita em telas médias */
+        transform: translateX(-100%); /* Escondida por padrão */
+    }
+    .main-content {
+        margin-left: 0; /* Ajuste do conteúdo principal */
+    }
+    .login-inputs, #btn-login {
+        font-size: 0.9em; /* Tamanho da fonte menor em telas médias */
+    }
+    .user-image {
+        width: 4vw; /* Ajuste o tamanho da imagem do usuário */
+        height: 4vw;
+    }
+    .sidebar-menu li a {
+        font-size: 1rem; /* Reduz tamanho da fonte no menu */
+    }
+    .nav-pages {
+        margin-left: 0vw; /* Ajusta a margem esquerda para telas médias */
+    }
+    .open-btn {
+        display: block; /* Exibe o botão "sanduíche" em telas médias */
+    }
+    #close-btn {
+        visibility: hidden;
+    }
+    .close-btn {
+        display: block; /* Exibe o botão "X" em telas médias */
+    }
+    .nav-pages-title {
+        margin-left: 1.2em;
+    }
+    .user-info {
+        width: 15vw;
+        margin-left: 0px;
+        height: 10vh;
+    }
+    .lateral-content-login {
+        display: none !important; /* Esconder o conteúdo da esquerda em telas médias */
+        visibility: hidden;
+    }
+    .login-content {
+        width: 100%; /* Faz a área de login ocupar toda a largura */
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100vh; /* Para centralizar verticalmente */
+        margin-top: 0; /* Remove margem superior */
+    }
+    .row {
+        margin: 0; /* Remove margens para evitar espaço extra */
+    }
+    #form-login {
+        margin-top: 0;
+    }
+    .frm-centralize {
+        margin-left: 0;
+    }
+    .frm-input {
+        width: 100%; /* O input ocupa toda a largura da tela */
+        height: auto; /* Altura ajustada automaticamente conforme o conteúdo */
+        padding: 1em 1.25em; /* Menos espaçamento para telas médias */
+        font-size: 0.9em; /* Tamanho de fonte ligeiramente menor */
+    }
+    .btn-clear {
+        margin-right: 0;
+    }
+}
+
