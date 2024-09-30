@@ -15,16 +15,8 @@ class RequisicoesService
             array_push($erros, "O campo [Data da aula] é obrigatório.");
         }
 
-        if (! $requisicao->getStatus()) {
-            array_push($erros, "O campo [Requisição] é obrigatório.");
-        }
-
         if (! $requisicao->getIdTurma()) {
             array_push($erros, "O campo [Turma] é obrigatório.");
-        }
-
-        if (! $requisicao->getMotivoDevolucao()) {
-            array_push($erros, "O campo [Motivo de devolução] é obrigatório.");
         }
 
         // Retornar array de erros, mesmo que vazio

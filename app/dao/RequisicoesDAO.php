@@ -2,6 +2,7 @@
 
 include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Requisicao.php");
+require_once (__DIR__ . "/../model/enum/RequisicaoStatus.php");
 
 class RequisicoesDAO
 {
@@ -35,13 +36,13 @@ class RequisicoesDAO
     public function insert(Requisicao $requisicao) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO requisicao (descricao, dataAula, status, idTurma)" .
+        $sql = "INSERT INTO requisicoes (descricao, dataAula, statusRequisicao, idTurma)" .
             " VALUES (:descricao, :dataAula, :status, :idTurma)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("descricao", $requisicao->getDescricao());
         $stm->bindValue("dataAula", $requisicao->getDataAula());
-        $stm->bindValue("status", $requisicao->getStatus());
+        $stm->bindValue("status", RequisicaoStatus::PREENCHIMENTO);
         $stm->bindValue("idTurma", $requisicao->getIdTurma());
         $stm->execute();
     }

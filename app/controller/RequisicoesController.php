@@ -4,17 +4,27 @@ require_once(__DIR__ . "/../model/enum/RequisicaoStatus.php");
 require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
 require_once(__DIR__ . "/../service/RequisicoesService.php");
 require_once(__DIR__ . "/../model/Requisicao.php");
+require_once(__DIR__ . "/../model/enum/UsuarioPapel.php");
+require_once(__DIR__ . "/../dao/TurmaDAO.php");
 
 
 class RequisicoesController extends Controller{
 
     private RequisicoesDAO $requisicoesDAO;
     private RequisicoesService $requisicoesService;
+    private TurmaDAO $turmaDao;
 
     public function __construct()
     {
         if (!$this->usuarioLogado())
             exit;
+
+        if ($this->usuarioIsAdmin()){
+            $this->loadView("errors/403.php", [], "", "");
+            exit;
+        }
+
+        $this->turmaDao = new TurmaDAO();
         $this->requisicoesService = new RequisicoesService();
         $this->requisicoesDAO = new RequisicoesDAO();
 
@@ -32,19 +42,15 @@ class RequisicoesController extends Controller{
         //Captura os dados do formulário  descricao, dataaula, status, 
         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
         $descricao = trim($_POST['descricao']) ? trim($_POST['descricao']) : NULL;
-        $dataAula = trim($_POST['dataAula']) ? trim($_POST['DataAula']) : NULL;
-        $status = trim($_POST['status']) ? trim($_POST['status']) : NULL;
+        $dataAula = trim($_POST['dataAula']) ? trim($_POST['dataAula']) : NULL;
         $idTurma = trim($_POST['turma']) ? trim($_POST['turma']) : NULL;
-        $motivoDevolucao = trim($_POST['motivoDevolucao']) ? trim($_POST['motivoDevolucao']) : NULL;
     
 
         //Cria objeto Usuario
         $requisicao = new Requisicao();
         $requisicao->setDescricao($descricao);
         $requisicao->setDataAula($dataAula);
-        $requisicao->setStatus($status);
         $requisicao->setIdTurma($idTurma);
-        $requisicao->setMotivoDevolucao($motivoDevolucao);
 
         //Validar os dados
         $erros = $this->requisicoesService->validarDados($requisicao);
@@ -60,15 +66,15 @@ class RequisicoesController extends Controller{
                 }
 
                 //TODO - Enviar mensagem de sucesso
-                $msg = "Ingrediente salvo com sucesso.";
+                $msg = "Requisição salva com sucesso.";
                 $this->list("", $msg);
                 exit;
             } catch (PDOException $e) {
-                array_push($erros, "[Erro ao salvar o ingrediente na base de dados.]");
+                array_push($erros, "Erro ao salvar a requisição na base de dados." . $e);
                 //$erros = "[Erro ao salvar o usuário na base de dados.]";
             }
         }
-
+        echo implode("<br>", $erros);
         //Se há erros, volta para o formulário
 
         //Carregar os valores recebidos por POST de volta para o formulário
@@ -76,9 +82,7 @@ class RequisicoesController extends Controller{
         $dados["requisicao"] = $requisicao;
         $dados["descricao"] = $requisicao->getDescricao();
         $dados["dataAula"] = $requisicao->getDataAula();
-        $dados["status"] = $requisicao->getStatus();
         $dados["idTurma"] = $requisicao->getidTurma();
-        $dados["motivoDevolucao"] = $requisicao->getMotivoDevolucao();
 
 
         $msgsErro = implode("<br>", $erros);
@@ -89,6 +93,9 @@ class RequisicoesController extends Controller{
         //echo "Chamou o método create!";
     
         $dados["id"] = 0;
+
+        $dados["turmas"] = $this->turmaDao->list();
+
         $this->loadView("requisicao/form.php", $dados);
     }
     
@@ -115,10 +122,10 @@ class RequisicoesController extends Controller{
         if($requisicao) {
             //Excluir
             $this->requisicoesDAO->deleteById($requisicao->getId());
-            $this->list("", "Requisicao excluído com sucesso!");
+            $this->list("", "Requisição excluída com sucesso!");
         } else {
             //Mensagem q não encontrou o usuário
-            $this->list("Requisicao não encontrado!");
+            $this->list("Requisição não encontrada!");
     
         }
     }
