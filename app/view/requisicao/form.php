@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <label for="dataAula"> <i class="fa-solid fa-calendar"></i> Data da aula:</label>
                         <input class="form-control frm-input" type="date" id="dataAula" name="dataAula"
                                maxlength="45" placeholder="Informe a data da aula"
-                               value="<?php echo (isset($dados["dataAula"]) ? $dados["dataAula"]->getDataAula() : ''); ?>"/>
+                               value="<?php echo (isset($dados["requisicao"]) ? $dados["requisicao"]->getDataAula() : ''); ?>"/>
                     </div>
 
                     <div class="form-group">
@@ -34,7 +34,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             <option value="">--Selecione a Turma--</option>
                             <?php foreach($dados["turmas"] as $turma): ?>
                                 <option value="<?= $turma->getId() ?>"
-                                    <?php if (isset($dados["turma"]) && $dados["turma"]->getIdTurma() == $turma->getId()) echo "selected"; ?>
+                                <?php if (isset($dados["requisicao"]) && $dados["requisicao"]->getIdTurma() == $turma->getId()) echo "selected"; ?>
                                 >
                                     <?= $turma->getNome() ?>
                                 </option>
@@ -44,7 +44,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
                     <div class="form-group">
                         <label for="areaDesc"><i class="fa-solid fa-file-alt"></i> Descrição:</label>
-                        <textarea class="form-control frm-input" name="descricao" id="areaDesc" cols="30" rows="10" placeholder="Insira a descrição da requisição"><?php echo (isset($dados["descricao"]) ? $dados["descricao"]->getDescricao() : ''); ?></textarea>
+                        <textarea class="form-control frm-input" name="descricao" id="areaDesc" cols="30" rows="10" placeholder="Insira a descrição da requisição"><?php echo (isset($dados["requisicao"]) ? $dados["requisicao"]->getDescricao() : ''); ?></textarea>
                     </div>
 
                     <input type="hidden" id="hddId" name="id"

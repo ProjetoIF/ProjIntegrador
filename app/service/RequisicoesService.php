@@ -1,8 +1,14 @@
 <?php
 
 require_once(__DIR__ . "/../model/Requisicao.php");
+require_once(__DIR__. "/../dao/TurmaDAO.php");
+require_once(__DIR__. "/../dao/RequisicoesDAO.php");
+
 class RequisicoesService
 {
+    private TurmaDAO $turmaDAO;
+    private RequisicoesDAO $requisicaoDao;
+
     public function validarDados(Requisicao $requisicao) {
         $erros = array();
 
@@ -21,5 +27,20 @@ class RequisicoesService
 
         // Retornar array de erros, mesmo que vazio
         return $erros;
+    }
+
+    public function listRequisicoes() {
+
+        $this->requisicaoDao = new RequisicoesDAO();
+        $this->turmaDAO = new TurmaDAO();
+
+        $requisicoes = $this->requisicaoDao->list();
+
+        foreach ($requisicoes as $req) {
+            $req->setTurma($this->turmaDAO->findById($req->getIdTurma()));
+        }
+
+
+        return $requisicoes;
     }
 }

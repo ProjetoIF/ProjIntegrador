@@ -100,4 +100,15 @@ class TurmaDAO {
         return $turmas;
     }
 
+    public function listByUser($userID){
+        $conn = Connection::getConn();
+
+        $sql = "SELECT * FROM turmas WHERE idProfessor = ? ORDER BY nome";
+        $stm = $conn->prepare($sql);    
+        $stm->execute([$userID]);
+        $result = $stm->fetchAll();
+        
+        return $this->mapTurmas($result);
+    }
+
 }

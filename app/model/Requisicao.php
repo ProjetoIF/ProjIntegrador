@@ -8,6 +8,7 @@ class Requisicao
     private ?string $status;
     private ?int $idTurma;
     private ?string $motivoDevolucao;
+    private ?Turma $Turma;
 
     public function getId(): ?int
     {
@@ -67,5 +68,17 @@ class Requisicao
     public function setMotivoDevolucao(?string $motivoDevolucao): void
     {
         $this->motivoDevolucao = $motivoDevolucao;
+    }
+
+    public function getTurma(): ?Turma
+    {
+        return $this->Turma;
+    }
+
+    public function setTurma(?Turma $Turma): self
+    {
+        $this->Turma = $Turma;
+
+        return $this;
     }
 }

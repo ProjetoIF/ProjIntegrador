@@ -32,7 +32,9 @@ class RequisicoesController extends Controller{
     }
 
     protected function list(string $msgErro = "", string $msgSucesso = "") {
-        $requisicoes = $this->requisicoesDAO->list();
+        $requisicoes = $this->requisicoesService->listRequisicoes();
+        // print_r($requisicoes);
+        // exit;
         $dados["lista"] = $requisicoes;
 
         $this->loadView("requisicao/list.php", $dados, $msgErro, $msgSucesso);
@@ -94,23 +96,19 @@ class RequisicoesController extends Controller{
     
         $dados["id"] = 0;
 
-        $dados["turmas"] = $this->turmaDao->list();
+        $dados["turmas"] = $this->turmaDao->listByUser($_SESSION[SESSAO_USUARIO_ID]);
 
         $this->loadView("requisicao/form.php", $dados);
     }
     
     protected function edit() {
         $requisicao = $this->findRequisicaoById();
-
+        
         if($requisicao) {
-
-            //Setar os dados
+            
             $dados["id"] = $requisicao->getId();
-            $dados["ingrediente"] = $requisicao;
-            $dados["nome"] = $requisicao->getNome();
-            $dados["unidadeDeMedida"] = $requisicao->getUnidadeDeMedida();
-            $dados["descricao"] = $requisicao->getDescricao();
-            $dados["caminhoImagem"] = $requisicao->getCaminhoImagem();
+            $dados["requisicao"] = $requisicao;
+            $dados["turmas"] = $this->turmaDao->listByUser($_SESSION[SESSAO_USUARIO_ID]);
     
             $this->loadView("requisicao/form.php", $dados);
         } else

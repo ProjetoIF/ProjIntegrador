@@ -47,16 +47,16 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $req->getDescricao(); ?></td>
                             <td><?= $req->getDataAula(); ?></td>
                             <td><?= $req->getStatus(); ?></td>
-                            <td><?= $req->getIdTurma(); ?></td>
+                            <td><?= $req->getTurma()->getNome(); ?></td>
                             <td><?= $req->getMotivoDevolucao(); ?></td>
                             <td><a class="btn btn-primary"
-                                   href="<?= BASEURL ?>/controller/RequisicaoController.php?action=edit&id=<?= $req->getId() ?>">
-                                    Alterar</a>
+                                   href="<?= BASEURL ?>/controller/RequisicoesController.php?action=edit&id=<?= $req->getId() ?>">
+                                   <i class="fa-regular fa-pen-to-square"></i> Alterar</a>
                             </td>
                             <td><a class="btn btn-danger"
                                    onclick="return confirm('Confirma a exclusão da requisição?');"
-                                   href="<?= BASEURL ?>/controller/RequisicaoController.php?action=delete&id=<?= $req->getId() ?>">
-                                    Excluir</a>
+                                   href="<?= BASEURL ?>/controller/RequisicoesController.php?action=delete&id=<?= $req->getId() ?>">
+                                   <i class="fa-solid fa-trash-can"></i> Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
