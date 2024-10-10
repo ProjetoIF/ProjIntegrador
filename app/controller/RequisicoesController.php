@@ -136,6 +136,17 @@ class RequisicoesController extends Controller{
         $requisicao = $this->requisicoesDAO->findById($id);
         return $requisicao;
     }
+
+    protected function informIngredientes() {
+        $requisicao = $this->findRequisicaoById();
+        if (!$requisicao) {
+            $this->list("Requisição não encontrada!");
+            return;
+        }
+        $dados["requisicao"] = $requisicao;
+        $this->loadView("requisicao/informIngredientes.php", $dados);
+    }
+
 }
 
 new RequisicoesController();
