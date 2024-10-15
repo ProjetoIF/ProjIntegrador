@@ -1,0 +1,8 @@
+# Ignorar todos os arquivos dentro de uploads
+app/uploads/*
+
+# Mas não ignorar o próprio diretório
+!app/uploads/
+
+# Ignorar arquivos ocultos (como .DS_Store no macOS)
+app/uploads/.*

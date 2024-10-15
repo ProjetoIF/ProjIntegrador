@@ -8,7 +8,8 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <div class="nav-pages">
     <h3 class="nav-pages-title font-weight-bold poppins-extrabold">
-        <?php if($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?>
+        <?php if ($dados['id'] == 0) echo "Inserir";
+        else echo "Alterar"; ?>
         Ingrediente
     </h3>
     <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
@@ -20,12 +21,13 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <div class="frm-centralize col">
             <form class="frm-style" id="frmIngrediente" method="POST"
-                  action="<?= BASEURL ?>/controller/IngredienteController.php?action=save">
+                action="<?= BASEURL ?>/controller/IngredienteController.php?action=save"
+                enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="txtNome"><i class="fa-solid fa-utensils"></i> Nome do ingrediente:</label>
                     <input class="form-control frm-input" type="text" id="txtNome" name="nome"
-                           maxlength="45" placeholder="Informe o nome do ingrediente"
-                           value="<?php echo (isset($dados["ingrediente"]) ? $dados["ingrediente"]->getNome() : ''); ?>" />
+                        maxlength="45" placeholder="Informe o nome do ingrediente"
+                        value="<?php echo (isset($dados["ingrediente"]) ? $dados["ingrediente"]->getNome() : ''); ?>" />
                 </div>
 
                 <div class="form-group">
@@ -45,11 +47,19 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
                 <div class="form-group">
-                    <label for="txtImg"><i class="fa-solid fa-image"></i> Caminho da imagem:</label>
-                    <input class="form-control frm-input" type="text" id="txtImgCaminho" name="caminhoImagem"
-                           maxlength="45" placeholder="Informe o caminho da imagem"
-                           value="<?php echo (isset($dados["ingrediente"]) ? $dados["ingrediente"]->getCaminhoImagem() : ''); ?>" />
+                    <label for="ImgIngrediente"><i class="fa-solid fa-image"></i> Imagem:</label>
+
+                    <!-- Exibir imagem existente, se houver -->
+                    <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getCaminhoImagem()) : ?>
+                        <div class="current-image">
+                            <img src="<?= BASEURL . $dados["ingrediente"]->getCaminhoImagem(); ?>" alt="Imagem Atual do Ingrediente" style="max-width: 200px; margin-bottom: 10px;">
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Campo de upload para nova imagem -->
+                    <input class="form-control frm-input" type="file" id="ImgIngrediente" name="imagem" accept="image/*" />
                 </div>
+
 
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
 
@@ -69,7 +79,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <!--<div class="row" style="margin-top: 30px;">
         <div class="col-12">
-            <a class="btn btn-secondary" href="<?php /*= BASEURL */?>/controller/IngredienteController.php?action=list">Voltar</a>
+            <a class="btn btn-secondary" href="<?php /*= BASEURL */ ?>/controller/IngredienteController.php?action=list">Voltar</a>
         </div>
     </div>-->
 

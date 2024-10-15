@@ -5,38 +5,35 @@
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 
-// Suponho que os dados da requisição já estejam no array $dados.
 ?>
+<div class="nav-pages">
+    <h3 class="nav-pages-title font-weight-bold poppins-extrabold">Informe os ingredientes</h3>
+    <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
+</div>
 
-<div class="container">
-    <div class="nav-pages">
-        <h3 class="nav-pages-title font-weight-bold poppins-extrabold">Informe os ingredientes</h3>
-        <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
-    </div>
-
+<div class="container-fluid">
     <div class="row">
-        <!-- Coluna de ingredientes, ajustada para dispositivos móveis -->
-        <div class="col-lg-9 col-md-8 col-sm-12 mb-3 listIngredients">
-            <div class="row">
-                <!-- Exemplo de cards de ingredientes -->
-                <div class="col-md-4 col-sm-6 mb-3">
-                    <div class="card">
-                        <img src="..." class="card-img-top img-fluid" alt="Imagem do ingrediente">
-                        <div class="card-body">
-                            <h5 class="card-title">Vinagre</h5>
-                            <p class="card-text">Body text.</p>
+        <div class="col-lg-7 col-md-8 col-sm-12 offset-lg-2 mb-3 listIngredients">
+            <div class="d-flex flex-wrap justify-content-start">
+                <?php foreach($dados['ingredientes'] as $ingrediente): ?>
+                    <button class="ingrediente-btn m-2" style="border: none; background: transparent;">
+                        <div class="card p-2" style="width: 200px;">
+                            <img src="<?= $ingrediente->getCaminhoImagem(); ?>" class="card-img-top img-fluid" alt="Imagem do ingrediente">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $ingrediente->getNome();?></h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Uni. Medida: <?= $ingrediente->getUnidadeDeMedida(); ?></h6>
+                                <p class="card-text"><?= $ingrediente->getDescricao(); ?></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Repetir os cards conforme necessário -->
+                    </button>
+                <?php endforeach; ?>
             </div>
         </div>
-
-        <!-- Barra lateral direita com os detalhes da requisição -->
+        
         <div class="col-lg-3 col-md-4 col-sm-12 reqDetails">
             <h4>Sua requisição está sendo feita!</h4>
             <div class="info-block">
-                <p><strong>Turma selecionada:</strong><br><?= $dados['requisicao']->getIdTurma() ?></p>
+                <p><strong>Turma selecionada:</strong><br><?= $dados['turma']->getNome() ?></p>
             </div>
             <div class="info-block">
                 <p><strong>Disciplina selecionada:</strong><br><?= $dados['requisicao']->getDescricao() ?></p>
@@ -48,7 +45,6 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="ingredients">
                 <h4>Ingredientes selecionados:</h4>
                 <ul class="ingredients-list">
-                    <!-- Exemplo estático dos ingredientes, substitua pelo seu array dinâmico de ingredientes -->
                     <li><span>Batata</span><span>1Kg</span></li>
                     <li><span>Tomate</span><span>500g</span></li>
                     <li><span>Macarrão</span><span>1Kg</span></li>
@@ -56,7 +52,6 @@ require_once(__DIR__ . "/../include/menu.php");
                 </ul>
             </div>
 
-            <!-- Botões de ação -->
             <div class="buttons">
                 <button class="btn btn-secondary mb-2">Editar</button>
                 <button class="btn btn-success">Finalizar</button>
@@ -65,6 +60,8 @@ require_once(__DIR__ . "/../include/menu.php");
     </div>
 </div>
 
-<?php  
+
+
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>

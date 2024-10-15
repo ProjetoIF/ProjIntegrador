@@ -6,6 +6,7 @@ require_once(__DIR__ . "/../service/RequisicoesService.php");
 require_once(__DIR__ . "/../model/Requisicao.php");
 require_once(__DIR__ . "/../model/enum/UsuarioPapel.php");
 require_once(__DIR__ . "/../dao/TurmaDAO.php");
+require_once(__DIR__ . "/../dao/IngredienteDAO.php");
 
 
 class RequisicoesController extends Controller{
@@ -13,6 +14,7 @@ class RequisicoesController extends Controller{
     private RequisicoesDAO $requisicoesDAO;
     private RequisicoesService $requisicoesService;
     private TurmaDAO $turmaDao;
+    private IngredientesDAO $ingredientesDAO;
 
     public function __construct()
     {
@@ -27,6 +29,8 @@ class RequisicoesController extends Controller{
         $this->turmaDao = new TurmaDAO();
         $this->requisicoesService = new RequisicoesService();
         $this->requisicoesDAO = new RequisicoesDAO();
+        $this->ingredientesDAO = new IngredientesDAO();
+
 
         $this->handleAction();
     }
@@ -144,6 +148,8 @@ class RequisicoesController extends Controller{
             return;
         }
         $dados["requisicao"] = $requisicao;
+        $dados["turma"] = $this->turmaDao->findById($requisicao->getidTurma());
+        $dados["ingredientes"] = $this->ingredientesDAO->list();
         $this->loadView("requisicao/informIngredientes.php", $dados);
     }
 
