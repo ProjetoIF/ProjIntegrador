@@ -13,6 +13,9 @@ define('DB_PASSWORD', '');
 //Caminho para adionar imagens, scripts e chamar páginas no sistema
 //Deve ter o nome da pasta do projeto no servidor APACHE
 define('BASEURL', '/ProjIntegrador/app');
+define('BASEURL_UPLOADS', '/ProjIntegrador/uploads/');
+
+define('BASEURL_ING_IMG', '/ProjIntegrador/uploads/ingredientes/');
 
 //Nome do sistema
 define('APP_NAME', 'Projeto Integrador');

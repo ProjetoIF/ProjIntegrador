@@ -47,7 +47,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $ingrediente->getNome(); ?></td>
                             <td><?= $ingrediente->getUnidadeDeMedida(); ?></td>
                             <td><?= $ingrediente->getDescricao(); ?></td>
-                            <td><img src="<?= $ingrediente->getCaminhoImagem(); ?>" alt="<?= $ingrediente->getNome(); ?>" style="max-width: 100px;"></td>
+                            <td><img src="<?= BASEURL_ING_IMG. $ingrediente->getCaminhoImagem(); ?>" alt="<?= $ingrediente->getNome(); ?>" style="max-width: 100px;"></td>
                             <td><a class="btn btn-primary"
                                    href="<?= BASEURL ?>/controller/IngredienteController.php?action=edit&id=<?= $ingrediente->getId() ?>">
                                     <i class="fa-regular fa-pen-to-square"></i> Alterar</a>

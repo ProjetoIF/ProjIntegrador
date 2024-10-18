@@ -8,7 +8,13 @@ class Requisicao
     private ?string $status;
     private ?int $idTurma;
     private ?string $motivoDevolucao;
-    private ?Turma $Turma;
+    private ?Turma $turma;
+    
+    private ?array $requisicaoIngredinetes;
+
+    public function __construct() {
+       $this->requisicaoIngredinetes = array();
+    }
 
     public function getId(): ?int
     {
@@ -72,12 +78,12 @@ class Requisicao
 
     public function getTurma(): ?Turma
     {
-        return $this->Turma;
+        return $this->turma;
     }
 
-    public function setTurma(?Turma $Turma): self
+    public function setTurma(?Turma $turma): self
     {
-        $this->Turma = $Turma;
+        $this->turma = $turma;
 
         return $this;
     }

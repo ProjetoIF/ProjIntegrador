@@ -52,3 +52,27 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease-in-out;
 }
+/* Define os estilos para os botões dos ingredientes */
+.ingrediente-btn {
+    width: 100%; /* Largura flexível e responsiva */
+    max-width: 15rem; /* Define um limite máximo para a largura dos cards */
+}
+
+/* Estilos para o card */
+.card {
+    overflow: hidden; /* Esconde conteúdo que ultrapasse o card */
+}
+
+/* Estilos para a imagem dentro do card */
+.card-img-top {
+    height: 10rem; /* Altura fixa em unidades responsivas */
+    object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem distorcer */
+    width: 100%; /* Largura total do card */
+}
+
+/* Estilos para o corpo do card */
+.card-body {
+    display: flex;
+    flex-direction: column; /* Empilha o conteúdo verticalmente */
+    flex-grow: 1; /* Permite que o conteúdo cresça para preencher o espaço */
+}

@@ -52,7 +52,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <!-- Exibir imagem existente, se houver -->
                     <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getCaminhoImagem()) : ?>
                         <div class="current-image">
-                            <img src="<?= BASEURL . $dados["ingrediente"]->getCaminhoImagem(); ?>" alt="Imagem Atual do Ingrediente" style="max-width: 200px; margin-bottom: 10px;">
+                            <img src="<?= BASEURL_ING_IMG . $dados["ingrediente"]->getCaminhoImagem(); ?>" alt="Imagem Atual do Ingrediente" style="max-width: 200px; margin-bottom: 10px;">
                         </div>
                     <?php endif; ?>
 

@@ -18,7 +18,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 <?php foreach($dados['ingredientes'] as $ingrediente): ?>
                     <button class="ingrediente-btn m-2" style="border: none; background: transparent;">
                         <div class="card p-2" style="width: 200px;">
-                            <img src="<?= $ingrediente->getCaminhoImagem(); ?>" class="card-img-top img-fluid" alt="Imagem do ingrediente">
+                            <img src="<?= BASEURL_ING_IMG. $ingrediente->getCaminhoImagem(); ?>" class="card-img-top img-fluid" alt="Imagem do ingrediente">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $ingrediente->getNome();?></h5>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">Uni. Medida: <?= $ingrediente->getUnidadeDeMedida(); ?></h6>
