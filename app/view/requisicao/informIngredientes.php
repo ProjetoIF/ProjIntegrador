@@ -15,12 +15,19 @@ require_once(__DIR__ . "/../include/menu.php");
     <div class="row">
         <div class="col-lg-7 col-md-8 col-sm-12 offset-lg-2 mb-3 listIngredients">
             <div class="d-flex flex-wrap justify-content-start">
-                <?php foreach($dados['ingredientes'] as $ingrediente): ?>
-                    <button class="ingrediente-btn m-2" style="border: none; background: transparent;">
+                <?php foreach ($dados['ingredientes'] as $ingrediente): ?>
+                    <button class="ingrediente-btn m-2" style="border: none; background: transparent;"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        data-nome="<?= $ingrediente->getNome(); ?>"
+                        data-unidade="<?= $ingrediente->getUnidadeDeMedida(); ?>"
+                        data-descricao="<?= $ingrediente->getDescricao(); ?>"
+                        data-imagem="<?= BASEURL_ING_IMG . $ingrediente->getCaminhoImagem(); ?>"
+                        data-id-requisicao="<?= $dados['requisicao']->getId() ?>"
+                        data-id-ingrediente="<?= $ingrediente->getId(); ?>">
                         <div class="card p-2" style="width: 200px;">
-                            <img src="<?= BASEURL_ING_IMG. $ingrediente->getCaminhoImagem(); ?>" class="card-img-top img-fluid" alt="Imagem do ingrediente">
+                            <img src="<?= BASEURL_ING_IMG . $ingrediente->getCaminhoImagem(); ?>" class="card-img-top img-fluid" alt="Imagem do ingrediente">
                             <div class="card-body">
-                                <h5 class="card-title"><?= $ingrediente->getNome();?></h5>
+                                <h5 class="card-title"><?= $ingrediente->getNome(); ?></h5>
                                 <h6 class="card-subtitle mb-2 text-body-secondary">Uni. Medida: <?= $ingrediente->getUnidadeDeMedida(); ?></h6>
                                 <p class="card-text"><?= $ingrediente->getDescricao(); ?></p>
                             </div>
@@ -29,7 +36,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 <?php endforeach; ?>
             </div>
         </div>
-        
+
         <div class="col-lg-3 col-md-4 col-sm-12 reqDetails">
             <h4>Sua requisição está sendo feita!</h4>
             <div class="info-block">
@@ -45,12 +52,15 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="ingredients">
                 <h4>Ingredientes selecionados:</h4>
                 <ul class="ingredients-list">
-                    <li><span>Batata</span><span>1Kg</span></li>
-                    <li><span>Tomate</span><span>500g</span></li>
-                    <li><span>Macarrão</span><span>1Kg</span></li>
-                    <li><span>Arroz</span><span>2Kg</span></li>
+                    <?php foreach ($dados['ingredientesSelecionados'] as $requisicaoIngrediente): ?>
+                        <li>
+                            <span><?= $requisicaoIngrediente->getIngrediente()->getNome(); ?></span>
+                            <span><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida(); ?></span>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </div>
+
 
             <div class="buttons">
                 <button class="btn btn-secondary mb-2">Editar</button>
@@ -58,9 +68,27 @@ require_once(__DIR__ . "/../include/menu.php");
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="submit">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
+<script src="<?= BASEURL ?>/view/requisicao/requisicao.js"></script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

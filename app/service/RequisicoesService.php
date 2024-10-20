@@ -1,15 +1,19 @@
 <?php
 
 require_once(__DIR__ . "/../model/Requisicao.php");
-require_once(__DIR__. "/../dao/TurmaDAO.php");
-require_once(__DIR__. "/../dao/RequisicoesDAO.php");
+require_once(__DIR__ . "/../dao/TurmaDAO.php");
+require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
+require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
 
 class RequisicoesService
 {
     private TurmaDAO $turmaDAO;
     private RequisicoesDAO $requisicaoDao;
+    private Requisicao $requisicao;
+    private DisciplinaDAO $disciplinaDAO;
 
-    public function validarDados(Requisicao $requisicao) {
+    public function validarDados(Requisicao $requisicao)
+    {
         $erros = array();
 
         //Validar campos vazios
@@ -29,7 +33,8 @@ class RequisicoesService
         return $erros;
     }
 
-    public function listRequisicoes() {
+    public function listRequisicoes()
+    {
 
         $this->requisicaoDao = new RequisicoesDAO();
         $this->turmaDAO = new TurmaDAO();
@@ -42,5 +47,27 @@ class RequisicoesService
 
 
         return $requisicoes;
+    }
+
+    public function requisicaoDetails($id)
+    {
+        $this->turmaDAO = new TurmaDAO();
+        $this->requisicaoDao = new RequisicoesDAO();
+        $this->requisicao = new Requisicao();
+
+        $requisicao = $this->requisicaoDao->findById($id);
+
+        // Busca a turma associada à requisição
+        $turma = $this->turmaDAO->findById($requisicao->getIdTurma());
+
+        // Busca a disciplina associada à turma
+        $disciplina = $this->disciplinaDAO->findById($turma->getIdDisciplina());
+
+        // Retorna um array com os objetos
+        return [
+            'requisicao' => $requisicao,
+            'turma' => $turma,
+            'disciplina' => $disciplina
+        ];
     }
 }

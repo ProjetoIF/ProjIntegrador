@@ -7,6 +7,8 @@ require_once(__DIR__ . "/../model/Requisicao.php");
 require_once(__DIR__ . "/../model/enum/UsuarioPapel.php");
 require_once(__DIR__ . "/../dao/TurmaDAO.php");
 require_once(__DIR__ . "/../dao/IngredienteDAO.php");
+require_once(__DIR__. "/../model/RequisicaoIngrediente.php");
+require_once(__DIR__. "/../dao/RequisicaoIngredienteDAO.php");
 
 
 class RequisicoesController extends Controller{
@@ -15,6 +17,8 @@ class RequisicoesController extends Controller{
     private RequisicoesService $requisicoesService;
     private TurmaDAO $turmaDao;
     private IngredientesDAO $ingredientesDAO;
+    private RequisicaoIngrediente $requisicaoIngrediente;
+    private RequisicaoIngredienteDAO $requisicaoIngredienteDAO;
 
     public function __construct()
     {
@@ -30,7 +34,8 @@ class RequisicoesController extends Controller{
         $this->requisicoesService = new RequisicoesService();
         $this->requisicoesDAO = new RequisicoesDAO();
         $this->ingredientesDAO = new IngredientesDAO();
-
+        $this->requisicaoIngrediente = new RequisicaoIngrediente();
+        $this->requisicaoIngredienteDAO = new RequisicaoIngredienteDAO();
 
         $this->handleAction();
     }
@@ -149,9 +154,34 @@ class RequisicoesController extends Controller{
         }
         $dados["requisicao"] = $requisicao;
         $dados["turma"] = $this->turmaDao->findById($requisicao->getidTurma());
+        print_r($dados["turma"]);
         $dados["ingredientes"] = $this->ingredientesDAO->list();
+        $dados["ingredientesSelecionados"] = $this->requisicaoIngredienteDAO->findByRequisicaoId($requisicao->getId());
+        //print_r($dados["ingredientesSelecionados"]);
         $this->loadView("requisicao/informIngredientes.php", $dados);
     }
+
+    protected function saveIngredientes()
+    {
+        if (isset($_POST['idRequisicao'], $_POST['idIngrediente'], $_POST['quantidade'])) {
+            // Instanciar o objeto Ingrediente
+            $ingrediente = $this->ingredientesDAO->findById($_POST['idIngrediente']);
+            
+            // Verificar se o ingrediente foi encontrado
+            if ($ingrediente === null) {
+                throw new Exception("Ingrediente não encontrado.");
+            }
+
+            // Configurar os valores no objeto RequisicaoIngrediente
+            $this->requisicaoIngrediente->setIdRequisicao($_POST['idRequisicao']);
+            $this->requisicaoIngrediente->setIngrediente($ingrediente); // Agora passa o objeto Ingrediente
+            $this->requisicaoIngrediente->setQuantidade($_POST['quantidade']);
+            // Salvar o objeto através do DAO
+            return $this->requisicaoIngredienteDAO->insert($this->requisicaoIngrediente);
+        } else {
+            throw new Exception("Valores insuficientes para salvar o ingrediente.");
+        }
+    } 
 
 }
 
