@@ -9,6 +9,7 @@ require_once(__DIR__ . "/../dao/TurmaDAO.php");
 require_once(__DIR__ . "/../dao/IngredienteDAO.php");
 require_once(__DIR__. "/../model/RequisicaoIngrediente.php");
 require_once(__DIR__. "/../dao/RequisicaoIngredienteDAO.php");
+require_once(__DIR__. "/../dao/DisciplinaDAO.php");
 
 
 class RequisicoesController extends Controller{
@@ -19,6 +20,7 @@ class RequisicoesController extends Controller{
     private IngredientesDAO $ingredientesDAO;
     private RequisicaoIngrediente $requisicaoIngrediente;
     private RequisicaoIngredienteDAO $requisicaoIngredienteDAO;
+    private DisciplinaDAO $disciplinaDAO;
 
     public function __construct()
     {
@@ -36,6 +38,7 @@ class RequisicoesController extends Controller{
         $this->ingredientesDAO = new IngredientesDAO();
         $this->requisicaoIngrediente = new RequisicaoIngrediente();
         $this->requisicaoIngredienteDAO = new RequisicaoIngredienteDAO();
+        $this->disciplinaDAO = new DisciplinaDAO();
 
         $this->handleAction();
     }
@@ -154,7 +157,9 @@ class RequisicoesController extends Controller{
         }
         $dados["requisicao"] = $requisicao;
         $dados["turma"] = $this->turmaDao->findById($requisicao->getidTurma());
-        print_r($dados["turma"]);
+        //print_r($dados["turma"]->getIdDisciplina());
+        $dados["disciplina"] = $this->disciplinaDAO->findById($dados["turma"]->getIdDisciplina());
+        //print_r($dados["disciplina"]);
         $dados["ingredientes"] = $this->ingredientesDAO->list();
         $dados["ingredientesSelecionados"] = $this->requisicaoIngredienteDAO->findByRequisicaoId($requisicao->getId());
         //print_r($dados["ingredientesSelecionados"]);

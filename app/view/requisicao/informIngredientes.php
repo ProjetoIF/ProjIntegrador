@@ -43,7 +43,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 <p><strong>Turma selecionada:</strong><br><?= $dados['turma']->getNome() ?></p>
             </div>
             <div class="info-block">
-                <p><strong>Disciplina selecionada:</strong><br><?= $dados['requisicao']->getDescricao() ?></p>
+                <p><strong>Disciplina selecionada:</strong><br><?= $dados['disciplina']->getNome() ?></p>
             </div>
             <div class="info-block">
                 <p><strong>Data escolhida:</strong><br><?= date("d/m/Y", strtotime($dados['requisicao']->getDataAula())) ?></p>

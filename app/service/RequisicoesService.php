@@ -48,26 +48,4 @@ class RequisicoesService
 
         return $requisicoes;
     }
-
-    public function requisicaoDetails($id)
-    {
-        $this->turmaDAO = new TurmaDAO();
-        $this->requisicaoDao = new RequisicoesDAO();
-        $this->requisicao = new Requisicao();
-
-        $requisicao = $this->requisicaoDao->findById($id);
-
-        // Busca a turma associada à requisição
-        $turma = $this->turmaDAO->findById($requisicao->getIdTurma());
-
-        // Busca a disciplina associada à turma
-        $disciplina = $this->disciplinaDAO->findById($turma->getIdDisciplina());
-
-        // Retorna um array com os objetos
-        return [
-            'requisicao' => $requisicao,
-            'turma' => $turma,
-            'disciplina' => $disciplina
-        ];
-    }
 }
