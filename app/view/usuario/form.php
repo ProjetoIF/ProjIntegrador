@@ -80,6 +80,20 @@ require_once(__DIR__ . "/../include/menu.php");
                            value="<?php echo isset($dados['email']) ? $dados['email'] : '';?>"/>
                 </div>
 
+                <div class="form-group">
+                    <label for="ImgUsuario"><i class="fa-solid fa-image"></i> Imagem:</label>
+
+                    <!-- Exibir imagem existente, se houver -->
+                    <?php if (isset($dados["usuario"]) && $dados["usuario"]->getCaminhoImagem()) : ?>
+                        <div class="current-image">
+                            <img src="<?= BASEURL_USER_IMG . $dados["usuario"]->getCaminhoImagem(); ?>" alt="Imagem Atual do Usuario" style="max-width: 200px; margin-bottom: 10px;">
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Campo de upload para nova imagem -->
+                    <input class="form-control frm-input" type="file" id="ImgUsuario" name="imagem" accept="image/*" />
+                </div>
+
                 <input type="hidden" id="hddId" name="id"
                     value="<?= $dados['id']; ?>" />
                 <div style="flex-direction: row">

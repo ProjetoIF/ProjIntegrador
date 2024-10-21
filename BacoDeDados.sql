@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`usuarios` (
     `telefone` VARCHAR(45) NOT NULL,
     `email` VARCHAR(100) NOT NULL,
     `ativo` TINYINT NOT NULL,
+    `caminhoImagem` VARCHAR(250) NOT NULL,
     PRIMARY KEY (`idUsuario`),
     UNIQUE INDEX `NomeUsuario_UNIQUE` (`login`))
     ENGINE = InnoDB;
@@ -71,8 +72,8 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`ingredientes` (
                                                                   `idIngrediente` INT NOT NULL AUTO_INCREMENT,
                                                                   `nome` VARCHAR(45) NOT NULL,
     `unidadeDeMedida` VARCHAR(3) NOT NULL,
-    `descricao` VARCHAR(200) NULL,
-    `caminhoImagem` VARCHAR(200) NULL,
+    `descricao` VARCHAR(200) NOT NULL,
+    `caminhoImagem` VARCHAR(200) NOT NULL,
     PRIMARY KEY (`idIngrediente`))
     ENGINE = InnoDB;
 

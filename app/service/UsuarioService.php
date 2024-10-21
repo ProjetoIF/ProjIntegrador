@@ -24,6 +24,10 @@ class UsuarioService {
         if(! $usuario->getPapel()) 
             array_push($erros, "O campo [Papel] é obrigatório");
 
+        if (! $usuario->getCaminhoImagem()) {
+            array_push($erros, "O campo [Caminho da imagem] é obrigatório.");
+        }
+
 
         //Validar se a senha é igual a contra senha
         if($usuario->getSenha() && $confSenha && $usuario->getSenha() != $confSenha)

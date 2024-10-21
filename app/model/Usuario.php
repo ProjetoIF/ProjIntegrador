@@ -14,6 +14,7 @@ class Usuario implements JsonSerializable {
     private ?string $telefone;
     private ?string $email;
     private ?int $ativo;
+    private ?string $imagem;
 
 
     public function jsonSerialize(): array {
@@ -121,5 +122,15 @@ class Usuario implements JsonSerializable {
         }else{
             echo "Inativo";
         }
+    }
+
+    public function getCaminhoImagem(): ?string
+    {
+        return $this->caminhoImagem;
+    }
+
+    public function setCaminhoImagem(?string $caminhoImagem): void
+    {
+        $this->caminhoImagem = $caminhoImagem;
     }
 }

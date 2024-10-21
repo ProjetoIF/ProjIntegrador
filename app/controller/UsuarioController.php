@@ -5,11 +5,13 @@ require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
 require_once(__DIR__ . "/../model/enum/UsuarioPapel.php");
+require_once(__DIR__ . "/../service/SalvarImagemService.php");
 
 class UsuarioController extends Controller {
 
     private UsuarioDAO $usuarioDao;
     private UsuarioService $usuarioService;
+    private SalvarImagemService $salvarImagemService;
 
     //Método construtor do controller - será executado a cada requisição a está classe
     public function __construct() {
@@ -23,6 +25,7 @@ class UsuarioController extends Controller {
 
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
+        $this->salvarImagemService = new SalvarImagemService();
 
         $this->handleAction();
     }
@@ -46,6 +49,19 @@ class UsuarioController extends Controller {
         $telefone = trim($_POST['telefone']) ? trim($_POST['telefone']) : NULL;
         $email = trim($_POST['email']) ? trim($_POST['email']) : NULL;
 
+        // Recuperar o caminho da imagem atual (se existir)
+        $caminhoImagem = (isset($dados["usuario"]) && is_object($dados["usuario"])) ? $dados["usuario"]->getCaminhoImagem() : NULL;
+
+        // Processar o upload da nova imagem (se houver)
+        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+            $nomeArquivo = $this->salvarImagemService->salvarImagem($_FILES['imagem'], 'usuario');
+            if ($nomeArquivo) {
+                $caminhoImagem = $nomeArquivo;
+            } else {
+                echo "Erro ao salvar a imagem.";
+            }
+        }
+
 
         //Cria objeto Usuario
         $usuario = new Usuario();
@@ -55,6 +71,7 @@ class UsuarioController extends Controller {
         $usuario->setPapel($papel);
         $usuario->setTelefone($telefone);
         $usuario->setEmail($email);
+        $usuario->setCaminhoImagem($caminhoImagem);
 
         //Validar os dados
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
@@ -87,6 +104,7 @@ class UsuarioController extends Controller {
         $dados["papeis"] = UsuarioPapel::getAllAsArray();
         $dados["telefone"] = $usuario->getTelefone();
         $dados["email"] = $usuario->getEmail();
+        $dados["caminhoImagem"] = $usuario->getCaminhoImagem();
 
         $msgsErro = implode("<br>", $erros);
         $this->loadView("usuario/form.php", $dados, $msgsErro);
@@ -114,6 +132,7 @@ class UsuarioController extends Controller {
             $dados["papeis"] = UsuarioPapel::getAllAsArray();
             $dados["telefone"] = $usuario->getTelefone();
             $dados["email"] = $usuario->getEmail();
+            $dados["caminhoImagem"] = $usuario->getCaminhoImagem();
 
             $this->loadView("usuario/form.php", $dados);
         } else 
