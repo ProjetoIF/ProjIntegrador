@@ -55,16 +55,18 @@ require_once(__DIR__ . "/../include/menu.php");
                     <?php foreach ($dados['ingredientesSelecionados'] as $requisicaoIngrediente): ?>
                         <li>
                             <span><?= $requisicaoIngrediente->getIngrediente()->getNome(); ?></span>
-                            <span><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida(); ?></span>
+                            <div>
+                                <span><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida(); ?></span>
+                                <span><a class="btn btn-primary" href=""><i class="fa-solid fa-trash-can"></i></a></span>
+                            </div>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
 
 
-            <div class="buttons">
-                <button class="btn btn-secondary mb-2">Editar</button>
-                <button class="btn btn-success">Finalizar</button>
+            <div class="buttons mt-3">
+                <button class="btn btn-success">Enviar à coordenação</button>
             </div>
         </div>
     </div>

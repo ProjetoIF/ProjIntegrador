@@ -188,6 +188,18 @@ class RequisicoesController extends Controller{
         }
     } 
 
+    protected function listJsonSelectedIngredientes()
+    {   
+        $requisicao = $this->findRequisicaoById();
+
+        if (!$requisicao) {
+            $this->list("Requisição não encontrada!");
+            return;
+        }
+        $listaDeIngredientes = $this->requisicaoIngredienteDAO->findByRequisicaoId($requisicao->getId());
+        $json = json_encode($listaDeIngredientes);
+        echo $json;
+    }
 }
 
 new RequisicoesController();

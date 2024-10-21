@@ -1,9 +1,17 @@
 <?php
-class RequisicaoIngrediente{
+class RequisicaoIngrediente implements JsonSerializable{
     private ?int $idRequisicaoIngrediente;
     private ?int $idRequisicao;
     private ?Ingrediente $ingrediente;
     private ?int $quantidade;
+
+    public function jsonSerialize(): array {
+        return array("id" => $this->idRequisicaoIngrediente,
+                     "idRequsicao" => $this->idRequisicao,
+                     "NomeIngrediente" => $this->ingrediente->getNome(),
+                     "UnidadeIngrediente" => $this->ingrediente->getUnidadeDeMedida(),
+                     "quantidade" => $this->quantidade);
+    }
 
     /**
      * Get the value of idRequisicaoIngrediente

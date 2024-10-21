@@ -40,11 +40,34 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                alert("Ingrediente salvo com sucesso!");
+                //alert("Ingrediente salvo com sucesso!");
                 exampleModal.querySelector('.btn-close').click();
+                recuperarIngredientes(requisicaoId); // Atualizar lista de ingredientes após salvar
             }
         };
 
         xhr.send("idRequisicao=" + requisicaoId + "&idIngrediente=" + ingredienteId + "&quantidade=" + quantidade);
     });
 });
+
+function recuperarIngredientes(requisicaoId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=" + requisicaoId, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var ingredientes = JSON.parse(xhr.responseText);
+            var ingredientsList = document.querySelector('.ingredients-list');
+            
+            // Limpar a lista atual
+            ingredientsList.innerHTML = "";
+
+            // Adicionar ingredientes atualizados
+            ingredientes.forEach(function (ingrediente) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = `<span>${ingrediente.NomeIngrediente}</span> <span>${ingrediente.quantidade} ${ingrediente.UnidadeIngrediente}</span>`;
+                ingredientsList.appendChild(listItem);
+            });
+        }
+    };
+    xhr.send();
+}
