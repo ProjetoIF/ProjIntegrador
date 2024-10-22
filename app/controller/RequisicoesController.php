@@ -200,6 +200,22 @@ class RequisicoesController extends Controller{
         $json = json_encode($listaDeIngredientes);
         echo $json;
     }
+
+    protected function deleteIngDaReq() {
+        $id = 0;
+        if(isset($_GET['id']))
+            $id = $_GET['id'];
+    
+        $ingrediente = $this->requisicaoIngredienteDAO->findById($id);
+        if($ingrediente) {
+            //Excluir
+            $this->requisicaoIngredienteDAO->deleteById($ingrediente->getIdRequisicaoIngrediente());
+            $this->list("", "Ingrediente excluído da requisicao com sucesso!");
+        } else {
+            $this->list("Ingrediente não encontrado na requisicao!");
+    
+        }
+    }
 }
 
 new RequisicoesController();

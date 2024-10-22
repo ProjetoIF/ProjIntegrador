@@ -56,8 +56,12 @@ require_once(__DIR__ . "/../include/menu.php");
                         <li>
                             <span><?= $requisicaoIngrediente->getIngrediente()->getNome(); ?></span>
                             <div>
-                                <span><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida(); ?></span>
-                                <span><a class="btn btn-primary" href=""><i class="fa-solid fa-trash-can"></i></a></span>
+                                <span style="margin-right: 0.8em;"><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida(); ?></span>
+                                <span>
+                                    <button class="btn btn-primary delete-ingredient" data-id="<?= $requisicaoIngrediente->getIdRequisicaoIngrediente(); ?>" data-id-requisicao="<?= $dados['requisicao']->getId() ?>">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </span>
                             </div>
                         </li>
                     <?php endforeach; ?>

@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                //alert("Ingrediente salvo com sucesso!");
                 exampleModal.querySelector('.btn-close').click();
                 recuperarIngredientes(requisicaoId); // Atualizar lista de ingredientes após salvar
             }
@@ -48,26 +47,62 @@ document.addEventListener('DOMContentLoaded', function () {
 
         xhr.send("idRequisicao=" + requisicaoId + "&idIngrediente=" + ingredienteId + "&quantidade=" + quantidade);
     });
-});
 
-function recuperarIngredientes(requisicaoId) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=" + requisicaoId, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var ingredientes = JSON.parse(xhr.responseText);
-            var ingredientsList = document.querySelector('.ingredients-list');
-            
-            // Limpar a lista atual
-            ingredientsList.innerHTML = "";
+    // Função para configurar eventos de exclusão de ingredientes
+    function setupDeleteButtons() {
+        document.querySelectorAll('.delete-ingredient').forEach(function (deleteButton) {
+            deleteButton.addEventListener('click', function () {
+                var idRequisicaoIngrediente = this.getAttribute('data-id');
+                var requisicaoId = this.getAttribute('data-id-requisicao'); // Certifique-se de que o ID da requisição está correto
 
-            // Adicionar ingredientes atualizados
-            ingredientes.forEach(function (ingrediente) {
-                var listItem = document.createElement('li');
-                listItem.innerHTML = `<span>${ingrediente.NomeIngrediente}</span> <span>${ingrediente.quantidade} ${ingrediente.UnidadeIngrediente}</span>`;
-                ingredientsList.appendChild(listItem);
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=deleteIngDaReq&id=${idRequisicaoIngrediente}`, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Atualizar lista de ingredientes após exclusão
+                        recuperarIngredientes(requisicaoId);
+                    }
+                };
+                xhr.send();
             });
-        }
-    };
-    xhr.send();
-}
+        });
+    }
+
+    // Função para recuperar ingredientes e configurar botões de exclusão
+    function recuperarIngredientes(requisicaoId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=" + requisicaoId, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var ingredientes = JSON.parse(xhr.responseText);
+                var ingredientsList = document.querySelector('.ingredients-list');
+                
+                // Limpar a lista atual
+                ingredientsList.innerHTML = "";
+
+                // Adicionar ingredientes atualizados
+                ingredientes.forEach(function (ingrediente) {
+                    var listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <span>${ingrediente.NomeIngrediente}</span>
+                        <div>
+                            <span style="margin-right: 0.8em;">${ingrediente.quantidade} ${ingrediente.UnidadeIngrediente}</span>
+                            <span>
+                                <button class="btn btn-primary delete-ingredient" data-id="${ingrediente.id}" data-id-requisicao="${ingrediente.idRequsicao}">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </span>                                
+                        </div>`;
+                    ingredientsList.appendChild(listItem);
+                });
+
+                // Configurar eventos nos novos botões
+                setupDeleteButtons();
+            }
+        };
+        xhr.send();
+    }
+
+    // Configurar eventos iniciais nos botões
+    setupDeleteButtons();
+});
