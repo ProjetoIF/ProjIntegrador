@@ -111,4 +111,19 @@ class RequisicaoIngredienteDAO {
 
         return $requisicoesIngredientes;
     }
+
+    public function verifyIngOnReq(int $idIngrediente, int $idRequisicao) {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT * FROM requisicoesIngredientes WHERE idRequisicao = ? AND idIngrediente = ?";
+        $stm = $conn->prepare($sql);
+        
+        $stm->execute([$idIngrediente, $idRequisicao]);
+        $result = $stm->fetchAll();
+    
+        echo("Resultado:". print_r($result));
+        return !empty($result); // Retorna true se existir, false caso contrário
+    }
+    
+    
 }
