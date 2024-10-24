@@ -228,6 +228,20 @@ class RequisicoesController extends Controller
             $this->list("Ingrediente não encontrado na requisicao!");
         }
     }
+    protected function verifyIng()
+    {
+        if (isset($_GET['idReq']) && isset($_GET['idIng'])){
+            $idReq = $_GET['idReq'];
+            $idIng = $_GET['idIng'];
+        }
+        $resultado = $this->requisicaoIngredienteDAO->verifyIngOnReq($idReq, $idIng);
+        if ($resultado) {
+            echo json_encode(['message' => 'Esse ingrediente já foi cadastrado!']);
+        }
+        else{
+            echo json_encode(['message' => '']);
+        }   
+    }
 }
 
 new RequisicoesController();

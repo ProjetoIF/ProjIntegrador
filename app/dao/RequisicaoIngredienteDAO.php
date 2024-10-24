@@ -121,7 +121,7 @@ class RequisicaoIngredienteDAO {
         $stm->execute([$idIngrediente, $idRequisicao]);
         $result = $stm->fetchAll();
     
-        echo("Resultado:". print_r($result));
+        #echo("Resultado:". print_r($result));
         return !empty($result); // Retorna true se existir, false caso contrário
     }
     
