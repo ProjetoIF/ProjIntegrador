@@ -251,17 +251,10 @@ class RequisicoesController extends Controller
 
     protected function minhasRequisicoes()
     {   
-        $turmas = $this->turmaDao->listByUser($_SESSION[SESSAO_USUARIO_ID]);
         
-        foreach ($turmas as $turma) {
-            $requisicoes = $this->reqsuisicaoDAO->returnReqByTurma($turma->getId());            
-        }
-        // echo "<pre>";
-        // print_r($requisicoes);
-        // echo "<pre/>";
+        $requisicoes = $this->reqsuisicaoDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
         
         $dados["requisicoes"] = $requisicoes;
-        $dados["turmas"] = $turmas;
         
         $dados["status"] = $this->requisicaoStatus->getAllAsArray();
 
