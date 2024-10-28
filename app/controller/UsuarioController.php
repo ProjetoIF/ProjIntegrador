@@ -54,6 +54,7 @@ class UsuarioController extends Controller {
 
         // Processar o upload da nova imagem (se houver)
         if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
+            echo "Entrou";
             $nomeArquivo = $this->salvarImagemService->salvarImagem($_FILES['imagem'], 'usuario');
             if ($nomeArquivo) {
                 $caminhoImagem = $nomeArquivo;
@@ -72,6 +73,9 @@ class UsuarioController extends Controller {
         $usuario->setTelefone($telefone);
         $usuario->setEmail($email);
         $usuario->setCaminhoImagem($caminhoImagem);
+
+        // print_r($usuario);
+        // exit;
 
         //Validar os dados
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);

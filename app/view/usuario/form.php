@@ -19,7 +19,7 @@ require_once(__DIR__ . "/../include/menu.php");
     <div class="row" style="margin-top: 10px;">
 
         <div class="frm-centralize col">
-            <form class="frm-style" method="POST"
+            <form class="frm-style" method="POST" enctype="multipart/form-data"
                 action="<?= BASEURL ?>/controller/UsuarioController.php?action=save" >
                 <div class="form-group">
                     <label for="txtNome"> <i class="fa-solid fa-user"></i> Nome comlpeto:</label>
