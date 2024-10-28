@@ -94,24 +94,4 @@ class RequisicoesDAO
         $stm->bindValue("id", $requisicao->getId());
         $stm->execute();
     }
-
-    public function returnReqByTurma(int $turmaId){
-        $conn = Connection::getConn();
-
-        $sql = "SELECT * FROM requisicoes WHERE idTurma = :id";
-
-        $stm = $conn->prepare($sql);
-
-        $stm->bindValue("id", $turmaId);
-
-        $stm->execute();
-
-        $result = $stm->fetchAll();
-
-        $requisicoes = $this->mapRequisicoes($result);
-
-        return $requisicoes;
-
-    }
-
 }
