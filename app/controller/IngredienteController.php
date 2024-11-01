@@ -5,14 +5,12 @@ require_once(__DIR__ . "/../dao/IngredienteDAO.php");
 require_once(__DIR__ . "/../service/IngredienteService.php");
 require_once(__DIR__ . "/../model/Ingrediente.php");
 require_once(__DIR__ . "/../service/SalvarImagemService.php");
-require_once(__DIR__ . "/../dao/UnidadeDeMedidaDAO.php");
 
 class IngredienteController extends Controller
 {
     private IngredienteService $ingredienteService;
     private IngredientesDAO $ingredientesDAO;
     private SalvarImagemService $salvarImagemService;
-    private UnidadeDeMedidaDAO $unidadeDeMedidaDAO;
 
     public function __construct()
     {
@@ -21,7 +19,6 @@ class IngredienteController extends Controller
         $this->ingredienteService = new IngredienteService();
         $this->ingredientesDAO = new IngredientesDAO();
         $this->salvarImagemService = new SalvarImagemService();
-        $this->unidadeDeMedidaDAO = new UnidadeDeMedidaDAO();
 
         $this->handleAction();
     }
@@ -94,7 +91,6 @@ class IngredienteController extends Controller
         //echo "Chamou o método create!";
 
         $dados["id"] = 0;
-        $dados["unidades"] = $this->unidadeDeMedidaDAO->list();
         $this->loadView("ingrediente/form.php", $dados);
     }
 

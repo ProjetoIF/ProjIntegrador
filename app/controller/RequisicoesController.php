@@ -10,6 +10,7 @@ require_once(__DIR__ . "/../dao/IngredienteDAO.php");
 require_once(__DIR__ . "/../model/RequisicaoIngrediente.php");
 require_once(__DIR__ . "/../dao/RequisicaoIngredienteDAO.php");
 require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
+require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
 
 
 class RequisicoesController extends Controller
@@ -22,6 +23,8 @@ class RequisicoesController extends Controller
     private RequisicaoIngrediente $requisicaoIngrediente;
     private RequisicaoIngredienteDAO $requisicaoIngredienteDAO;
     private DisciplinaDAO $disciplinaDAO;
+    private RequisicoesDAO $reqsuisicaoDAO;
+    private RequisicaoStatus $requisicaoStatus;
 
     public function __construct()
     {
@@ -40,6 +43,9 @@ class RequisicoesController extends Controller
         $this->requisicaoIngrediente = new RequisicaoIngrediente();
         $this->requisicaoIngredienteDAO = new RequisicaoIngredienteDAO();
         $this->disciplinaDAO = new DisciplinaDAO();
+        $this->reqsuisicaoDAO = new RequisicoesDAO();
+        $this->requisicaoStatus = new RequisicaoStatus();
+        
 
         $this->handleAction();
     }
@@ -242,6 +248,19 @@ class RequisicoesController extends Controller
             echo json_encode(['message' => '']);
         }   
     }
+
+    protected function minhasRequisicoes()
+    {   
+        
+        $requisicoes = $this->reqsuisicaoDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
+        
+        $dados["requisicoes"] = $requisicoes;
+        
+        $dados["status"] = $this->requisicaoStatus->getAllAsArray();
+
+        $this->loadView("requisicao/minhasReq.php",$dados);
+    }
+
 }
 
 new RequisicoesController();
