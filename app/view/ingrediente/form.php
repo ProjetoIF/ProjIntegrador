@@ -16,7 +16,7 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <div class="container">
-
+    <?= print_r($dados["unidades"])?>
     <div class="row" style="margin-top: 10px;">
 
         <div class="frm-centralize col">
