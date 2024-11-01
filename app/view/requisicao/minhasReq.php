@@ -16,20 +16,17 @@ require_once(__DIR__ . "/../include/menu.php");
         <h3>Você ainda não fez nenhuma requisição</h3>
     <?php else : ?>
         <div class="row">
-            <h3>Minhas requiquisições não concluídas</h3>
+            <h3>Minhas requisições não concluídas</h3>
             <?php foreach ($dados["requisicoes"] as $req) :
-                if ($req->getStatus() === $dados["status"][0]) :
-                    // Pegando a turma correspondente pelo ID
-                    $turma = isset($dados["turmas"][$req->getIdTurma()]) ? $dados["turmas"][$req->getIdTurma()] : null;
-            ?>
+                if ($req->getStatus() === "PREENCHIMENTO") : ?>
                     <div class="card m-3" style="max-width: 27.5em;">
                         <div class="row g-0">
                             <div class="col-md-7">
                                 <div class="card-body">
-                                    <h5 class="card-title">Disciplina</h5>
+                                    <h5 class="card-title"><?= $req->getTurma()->getDisciplina()->getNome(); ?></h5>
                                     <p class="card-text">
                                         <small class="text-body-secondary">
-                                            <?= $turma ? $turma->getNome() : "Turma não encontrada"; ?>
+                                            <?= $req->getTurma()->getNome(); ?>
                                         </small>
                                     </p>
                                     <p class="card-text"><?= $req->getDescricao() ?></p>
@@ -47,30 +44,35 @@ require_once(__DIR__ . "/../include/menu.php");
             endforeach; ?>
         </div>
 
-
         <div class="row mt-5">
-            <h3>Minhas requiquisições recusadas</h3>
+            <h3>Minhas requisições recusadas</h3>
             <?php foreach ($dados["requisicoes"] as $req) :
                 if ($req->getStatus() === "REJEITADO") : ?>
-                    <p><?= print_r($req, true); ?></p>
+                    <div class="card m-3">
+                        <p><?= $req->getDescricao(); ?></p>
+                    </div>
             <?php endif;
             endforeach; ?>
         </div>
 
         <div class="row mt-5">
-            <h3>Minhas requiquisições em análise</h3>
+            <h3>Minhas requisições em análise</h3>
             <?php foreach ($dados["requisicoes"] as $req) :
                 if (in_array($req->getStatus(), ["ENVIADO", "CORRECAO"])) : ?>
-                    <p><?= print_r($req, true); ?></p>
+                    <div class="card m-3">
+                        <p><?= $req->getDescricao(); ?></p>
+                    </div>
             <?php endif;
             endforeach; ?>
         </div>
 
         <div class="row mt-5">
-            <h3>Minhas requiquisições concluídas</h3>
+            <h3>Minhas requisições concluídas</h3>
             <?php foreach ($dados["requisicoes"] as $req) :
                 if ($req->getStatus() === "APROVADO") : ?>
-                    <p><?= print_r($req, true); ?></p>
+                    <div class="card m-3">
+                        <p><?= $req->getDescricao(); ?></p>
+                    </div>
             <?php endif;
             endforeach; ?>
         </div>
