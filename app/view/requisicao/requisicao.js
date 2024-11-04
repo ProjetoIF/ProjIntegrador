@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         xhr.send("idRequisicao=" + requisicaoId + "&idIngrediente=" + ingredienteId + "&quantidade=" + quantidade);
     });
-
+    
     // Função para verificar se o ingrediente já está cadastrado na requisição
     function verificarIngrediente(idReq, idIng, callback) {
         var xhr = new XMLHttpRequest();
@@ -129,3 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     setupDeleteButtons();
 });
+
+function confirmSubmission() {
+    return confirm("Depois de enviar não será possível alterar os ingredientes, você aindar quer enviar?");
+}

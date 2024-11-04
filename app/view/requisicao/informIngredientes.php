@@ -68,10 +68,13 @@ require_once(__DIR__ . "/../include/menu.php");
                 </ul>
             </div>
 
-            <form action="" method="post">
+            <form action="<?= BASEURL ?>/controller/RequisicoesController.php?action=updateReqStatus" method="post"
+            onsubmit="return confirmSubmission();">
                 <div class="buttons mt-3">
-                    <button class="btn btn-success">Enviar à coordenação</button>
+                    <button id="send" class="btn btn-success">Enviar à coordenação</button>
                 </div>
+                <input type="hidden" name="id" value="<?= $dados['requisicao']->getId()?>">
+                <input type="hidden" name="status" value="ENVIADO">
             </form>
         </div>
     </div>

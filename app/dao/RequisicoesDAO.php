@@ -149,5 +149,18 @@ class RequisicoesDAO
         return $requisicoes;
 
     }
+    
+    public function updateReqStatus(int $idReq, string $status)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE requisicoes SET statusRequisicao = :statusReq WHERE idRequisicao = :id ";
+
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("statusReq", $status);
+        $stm->bindValue("id", $idReq);
+        $stm->execute();
+    }
 
 }

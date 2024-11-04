@@ -12,6 +12,9 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <div class="container">
+    <div class="col-9">
+            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+    </div>
     <?php if (empty($dados["requisicoes"])) : ?>
         <h3>Você ainda não fez nenhuma requisição</h3>
     <?php else : ?>

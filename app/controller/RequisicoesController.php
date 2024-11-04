@@ -248,7 +248,7 @@ class RequisicoesController extends Controller
         }   
     }
 
-    protected function minhasRequisicoes()
+    protected function minhasRequisicoes(string $msgErro = "", string $msgSucesso = "")
     {   
         
         $requisicoes = $this->requisicoesDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
@@ -257,9 +257,22 @@ class RequisicoesController extends Controller
         
         $dados["status"] = $this->requisicaoStatus->getAllAsArray();
 
-        $this->loadView("requisicao/minhasReq.php",$dados);
+        $this->loadView("requisicao/minhasReq.php",$dados,$msgErro,$msgSucesso);
     }
 
+    protected function updateReqStatus()
+    {
+        if (isset($_POST["id"]) && $_POST["status"]){
+            $requisicaoID = $_POST["id"];
+            $status = $_POST["status"];
+            
+            $this->requisicoesDAO->updateReqStatus($requisicaoID,$status);
+            $this->minhasRequisicoes("","Requisição enviada com sucesso!");
+
+        }else{
+            $this->minhasRequisicoes("Algum dado está incorreto!");
+        }
+    }
 }
 
 new RequisicoesController();
