@@ -96,16 +96,14 @@ class RequisicoesDAO
         $conn = Connection::getConn();
 
         $sql = "UPDATE requisicoes SET descricao = :descricao, dataAula = :dataAula, ".
-            "statusRequisicao = :status, idTurma = :idTurma, motivoDevolucao = :motivoDevolucao ".
+            "idTurma = :idTurma ".
             "WHERE idRequisicao = :id";
 
 
         $stm = $conn->prepare($sql);
         $stm->bindValue("descricao", $requisicao->getDescricao());
         $stm->bindValue("dataAula", $requisicao->getDataAula());
-        $stm->bindValue("status", $requisicao->getStatus());
         $stm->bindValue("idTurma", $requisicao->getIdTurma());
-        $stm->bindValue("motivoDevolucao", $requisicao->getMotivoDevolucao());
         $stm->bindValue("id", $requisicao->getId());
         $stm->execute();
     }

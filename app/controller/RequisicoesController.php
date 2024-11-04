@@ -23,7 +23,6 @@ class RequisicoesController extends Controller
     private RequisicaoIngrediente $requisicaoIngrediente;
     private RequisicaoIngredienteDAO $requisicaoIngredienteDAO;
     private DisciplinaDAO $disciplinaDAO;
-    private RequisicoesDAO $reqsuisicaoDAO;
     private RequisicaoStatus $requisicaoStatus;
 
     public function __construct()
@@ -31,10 +30,10 @@ class RequisicoesController extends Controller
         if (!$this->usuarioLogado())
             exit;
 
-        if ($this->usuarioIsAdmin()) {
-            $this->loadView("errors/403.php", [], "", "");
-            exit;
-        }
+        // if ($this->usuarioIsAdmin()) {
+        //     $this->loadView("errors/403.php", [], "", "");
+        //     exit;
+        // }
 
         $this->turmaDao = new TurmaDAO();
         $this->requisicoesService = new RequisicoesService();
@@ -43,7 +42,6 @@ class RequisicoesController extends Controller
         $this->requisicaoIngrediente = new RequisicaoIngrediente();
         $this->requisicaoIngredienteDAO = new RequisicaoIngredienteDAO();
         $this->disciplinaDAO = new DisciplinaDAO();
-        $this->reqsuisicaoDAO = new RequisicoesDAO();
         $this->requisicaoStatus = new RequisicaoStatus();
         
 
@@ -97,7 +95,7 @@ class RequisicoesController extends Controller
                 //$erros = "[Erro ao salvar o usuário na base de dados.]";
             }
         }
-        echo implode("<br>", $erros);
+        //echo implode("<br>", $erros);
         //Se há erros, volta para o formulário
 
         //Carregar os valores recebidos por POST de volta para o formulário
@@ -106,6 +104,7 @@ class RequisicoesController extends Controller
         $dados["descricao"] = $requisicao->getDescricao();
         $dados["dataAula"] = $requisicao->getDataAula();
         $dados["idTurma"] = $requisicao->getidTurma();
+        $dados["turmas"] = $this->turmaDao->listByUser($_SESSION[SESSAO_USUARIO_ID]);
 
 
         $msgsErro = implode("<br>", $erros);
@@ -252,7 +251,7 @@ class RequisicoesController extends Controller
     protected function minhasRequisicoes()
     {   
         
-        $requisicoes = $this->reqsuisicaoDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
+        $requisicoes = $this->requisicoesDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
         
         $dados["requisicoes"] = $requisicoes;
         

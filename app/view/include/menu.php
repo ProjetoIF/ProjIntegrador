@@ -22,7 +22,7 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
     <ul class="sidebar-menu">
         <li><a href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>"><i class="fa-solid fa-users"></i>Usuários</a></li>
         <li><a href="<?= BASEURL . '/controller/RequisicoesController.php?action=list' ?>"><i class="fa-solid fa-clipboard-list"></i>Requisições</a></li>
-        <li><a href="<?= BASEURL . '/controller/RequisicoesController.php?action=minhasRequisicoes' ?>"><i class="fa-solid fa-clipboard-list"></i>Minhas Requisições</a></li>
+        <li><a href="<?= BASEURL . '/controller/RequisicoesController.php?action=minhasRequisicoes' ?>"><i class="fa-solid fa-clipboard-check"></i>Minhas Requisições</a></li>
         <li><a href="<?= BASEURL . '/controller/DisciplinaController.php?action=list' ?>"><i class="fa-solid fa-book"></i>Disciplinas</a></li>
         <li><a href="<?= BASEURL . '/controller/TurmaController.php?action=list' ?>"><i class="fa-solid fa-graduation-cap"></i>Turmas</a></li>
         <li><a href="<?= BASEURL . '/controller/IngredienteController.php?action=list' ?>"><i class="fa-solid fa-utensils"></i>Ingredientes</a></li>

@@ -68,10 +68,11 @@ require_once(__DIR__ . "/../include/menu.php");
                 </ul>
             </div>
 
-
-            <div class="buttons mt-3">
-                <button class="btn btn-success">Enviar à coordenação</button>
-            </div>
+            <form action="" method="post">
+                <div class="buttons mt-3">
+                    <button class="btn btn-success">Enviar à coordenação</button>
+                </div>
+            </form>
         </div>
     </div>
     <!-- Modal -->
