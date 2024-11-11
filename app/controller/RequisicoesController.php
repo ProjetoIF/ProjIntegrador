@@ -273,6 +273,15 @@ class RequisicoesController extends Controller
             $this->minhasRequisicoes("Algum dado está incorreto!");
         }
     }
+
+    protected function gerenciar(string $msgErro = "", string $msgSucesso = "")
+    {   
+        $requisicoes = $this->requisicoesDAO->findByStatus("ENVIADO");
+        $dados["requsicoes"] = $requisicoes;
+        
+
+        $this->loadView("requisicao/gerenciar.php",$dados,$msgErro,$msgSucesso);
+    }
 }
 
 new RequisicoesController();

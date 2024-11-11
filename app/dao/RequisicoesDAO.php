@@ -163,4 +163,22 @@ class RequisicoesDAO
         $stm->execute();
     }
 
+    public function findByStatus(string $status)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT * FROM requisicoes WHERE statusRequisicao = :statusReq ";
+
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("statusReq", $status);
+        $stm->execute();
+
+        $result = $stm->fetchAll();
+
+        $requisicoes = $this->mapRequisicoes($result);
+
+        return $requisicoes;
+    }
+
 }
