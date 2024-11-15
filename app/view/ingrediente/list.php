@@ -45,7 +45,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <tr>
                             <td><?php echo $ingrediente->getId(); ?></td>
                             <td><?= $ingrediente->getNome(); ?></td>
-                            <td><?= $ingrediente->getUnidadeDeMedida(); ?></td>
+                            <td><?= $ingrediente->getUnidadeDeMedida()->getNome() ." (". $ingrediente->getUnidadeDeMedida()->getSigla() .")" ?></td>
                             <td><?= $ingrediente->getDescricao(); ?></td>
                             <td><img src="<?= BASEURL_ING_IMG. $ingrediente->getCaminhoImagem(); ?>" alt="<?= $ingrediente->getNome(); ?>" style="max-width: 100px;"></td>
                             <td><a class="btn btn-primary"

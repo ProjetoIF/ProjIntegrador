@@ -54,10 +54,7 @@ class UnidadeDeMedidaController extends Controller
                 $this->list("", $msg);
                 exit;
             } catch (PDOException $e) {
-<<<<<<< HEAD
                 print_r($e);
-=======
->>>>>>> b53cf48 (envio-dados-unidade-de-medidas)
                 array_push($erros, "Erro ao salvar a unidade de medida na base de dados.");
             }
         }
@@ -107,8 +104,4 @@ class UnidadeDeMedidaController extends Controller
     }
 }
 
-<<<<<<< HEAD
 new UnidadeDeMedidaController();
-=======
-new UnidadeDeMedidaController();
->>>>>>> b53cf48 (envio-dados-unidade-de-medidas)

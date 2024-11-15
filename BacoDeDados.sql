@@ -68,13 +68,16 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`turmas` (
 -- Table `projetoIntegrador`.`ingredientes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`ingredientes` (
-                                                                  `idIngrediente` INT NOT NULL AUTO_INCREMENT,
-                                                                  `nome` VARCHAR(45) NOT NULL,
-    `unidadeDeMedida` VARCHAR(3) NOT NULL,
+    `idIngrediente` INT NOT NULL AUTO_INCREMENT,
+    `nome` VARCHAR(45) NOT NULL,
+    `unidadeDeMedidaId` INT NOT NULL,  -- Alteração: Renomeado para unidadeDeMedidaId e tipo alterado para INT
     `descricao` VARCHAR(200) NULL,
     `caminhoImagem` VARCHAR(200) NULL,
-    PRIMARY KEY (`idIngrediente`))
-    ENGINE = InnoDB;
+    PRIMARY KEY (`idIngrediente`),
+    -- Adicione uma chave estrangeira se a tabela 'unidadesDeMedida' existir
+    CONSTRAINT fk_unidadeDeMedidaId FOREIGN KEY (`unidadeDeMedidaId`) REFERENCES `UnidadesDeMedida`(`id`)
+) ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `projetoIntegrador`.`requisicoes`
@@ -121,6 +124,13 @@ CREATE TABLE IF NOT EXISTS `projetoIntegrador`.`requisicoesIngredientes` (
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`UnidadeDeMedida` (
+  `id` INT NOT NULL,
+  `nome` VARCHAR(255) NOT NULL,
+  `sigla` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
 
 -- Inserir um usuário administrador inicial
 INSERT INTO projetoIntegrador.usuarios (papel, login, nomeCompleto, senha, telefone, email, ativo)

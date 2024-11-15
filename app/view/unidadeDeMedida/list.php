@@ -49,11 +49,7 @@ require_once(__DIR__ . "/../include/menu.php");
                                     <i class="fa-regular fa-pen-to-square"></i> Alterar</a>
                             </td>
                             <td><a class="btn btn-danger"
-<<<<<<< HEAD
                                    onclick="return confirm('Confirma a exclusão do ingediente?');"
-=======
-                                   onclick="return confirm('Confirma a exclusão do usuário?');"
->>>>>>> b53cf48 (envio-dados-unidade-de-medidas)
                                    href="<?= BASEURL ?>/controller/UnidadeDeMedidaController.php?action=delete&id=<?= $unidadeDeMedida->getId() ?>">
                                     <i class="fa-solid fa-trash-can"></i> Excluir</a>
                             </td>
@@ -68,8 +64,4 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");
-<<<<<<< HEAD
 ?>
-=======
-?>
->>>>>>> b53cf48 (envio-dados-unidade-de-medidas)

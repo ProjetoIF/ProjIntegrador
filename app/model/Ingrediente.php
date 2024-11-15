@@ -4,9 +4,10 @@ class Ingrediente
 {
     private ?int $id;
     private ?string $nome;
-    private ?string $unidadeDeMedida;
+    // private ?string $unidadeDeMedida;
     private ?string $descricao;
     private ?string $caminhoImagem;
+    private ?UnidadeDeMedida $unidadeDeMedida;
 
     public function getId(): ?int
     {
@@ -28,12 +29,12 @@ class Ingrediente
         $this->nome = $nome;
     }
 
-    public function getUnidadeDeMedida(): ?string
+    public function getUnidadeDeMedida(): ?UnidadeDeMedida
     {
         return $this->unidadeDeMedida;
     }
 
-    public function setUnidadeDeMedida(?string $unidadeDeMedida): void
+    public function setUnidadeDeMedida(?UnidadeDeMedida $unidadeDeMedida): void
     {
         $this->unidadeDeMedida = $unidadeDeMedida;
     }

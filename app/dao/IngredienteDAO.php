@@ -4,9 +4,11 @@
 
 include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Ingrediente.php");
+require_once( __DIR__.'/UnidadeDeMedidaDAO.php');
 
 class IngredientesDAO {
 
+    
     //Método para listar os ingredientes a partir da base de dados
     public function list() {
         $conn = Connection::getConn();
@@ -42,12 +44,12 @@ class IngredientesDAO {
     public function insert(Ingrediente $ingrediente) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO ingredientes (nome, unidadeDeMedida, descricao, caminhoImagem)" .
+        $sql = "INSERT INTO ingredientes (nome, unidadeDeMedidaId, descricao, caminhoImagem)" .
             " VALUES (:nome, :unidadeDeMedida, :descricao, :caminhoImagem)";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue(":nome", $ingrediente->getNome());
-        $stm->bindValue(":unidadeDeMedida", $ingrediente->getUnidadeDeMedida());
+        $stm->bindValue(":unidadeDeMedida", $ingrediente->getUnidadeDeMedida()->getId());
         $stm->bindValue(":descricao", $ingrediente->getDescricao());
         $stm->bindValue(":caminhoImagem", $ingrediente->getCaminhoImagem());
         $stm->execute();
@@ -57,12 +59,12 @@ class IngredientesDAO {
     public function update(Ingrediente $ingrediente) {
         $conn = Connection::getConn();
 
-        $sql = "UPDATE ingredientes SET nome = :nome, unidadeDeMedida = :unidadeDeMedida," .
+        $sql = "UPDATE ingredientes SET nome = :nome, unidadeDeMedidaId = :unidadeDeMedida," .
             " descricao = :descricao, caminhoImagem = :caminhoImagem WHERE idIngrediente = :id";
 
         $stm = $conn->prepare($sql);
         $stm->bindValue(":nome", $ingrediente->getNome());
-        $stm->bindValue(":unidadeDeMedida", $ingrediente->getUnidadeDeMedida());
+        $stm->bindValue(":unidadeDeMedida", $ingrediente->getUnidadeDeMedida()->getId());
         $stm->bindValue(":descricao", $ingrediente->getDescricao());
         $stm->bindValue(":caminhoImagem", $ingrediente->getCaminhoImagem());
         $stm->bindValue(":id", $ingrediente->getId());
@@ -96,10 +98,11 @@ class IngredientesDAO {
     private function mapIngredientes($result) {
         $ingredientes = array();
         foreach ($result as $reg) {
+            $unidadeDeMedidaDAO = new UnidadeDeMedidaDAO();
             $ingrediente = new Ingrediente();
             $ingrediente->setId($reg['idIngrediente']);
             $ingrediente->setNome($reg['nome']);
-            $ingrediente->setUnidadeDeMedida($reg['unidadeDeMedida']);
+            $ingrediente->setUnidadeDeMedida($unidadeDeMedidaDAO->findById($reg['unidadeDeMedidaId']));
             $ingrediente->setDescricao($reg['descricao']);
             $ingrediente->setCaminhoImagem($reg['caminhoImagem']);
             array_push($ingredientes, $ingrediente);
