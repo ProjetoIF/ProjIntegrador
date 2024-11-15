@@ -26,6 +26,7 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
         <li><a href="<?= BASEURL . '/controller/DisciplinaController.php?action=list' ?>"><i class="fa-solid fa-book"></i>Disciplinas</a></li>
         <li><a href="<?= BASEURL . '/controller/TurmaController.php?action=list' ?>"><i class="fa-solid fa-graduation-cap"></i>Turmas</a></li>
         <li><a href="<?= BASEURL . '/controller/IngredienteController.php?action=list' ?>"><i class="fa-solid fa-utensils"></i>Ingredientes</a></li>
+        <li><a href="<?= BASEURL . '/controller/UnidadeDeMedidaController.php?action=list' ?>"><i class="fa-solid fa-scale-unbalanced-flip"></i>Unidades de Medidas</a></li>
         <li><a href="#"><i class="fa-solid fa-chart-simple"></i>Relatórios</a></li>
         <li><a href="<?= BASEURL ?>/controller/UsuarioController.php?action=create"><i class="fa-solid fa-user-plus"></i>Adicionar usuários</a></li>
         <li><a href="<?= LOGOUT_PAGE ?>"><i class="fa-solid fa-right-from-bracket"></i>Sair</a></li>

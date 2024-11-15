@@ -9,7 +9,7 @@ class RequisicaoIngrediente implements JsonSerializable{
         return array("id" => $this->idRequisicaoIngrediente,
                      "idRequsicao" => $this->idRequisicao,
                      "NomeIngrediente" => $this->ingrediente->getNome(),
-                     "UnidadeIngrediente" => $this->ingrediente->getUnidadeDeMedida(),
+                     "UnidadeIngrediente" => $this->ingrediente->getUnidadeDeMedida()->getNome()." (".$this->ingrediente->getUnidadeDeMedida()->getSigla().")",
                      "quantidade" => $this->quantidade);
     }
 

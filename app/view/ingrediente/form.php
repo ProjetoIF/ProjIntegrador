@@ -16,7 +16,6 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <div class="container">
-
     <div class="row" style="margin-top: 10px;">
 
         <div class="frm-centralize col">
@@ -32,12 +31,15 @@ require_once(__DIR__ . "/../include/menu.php");
 
                 <div class="form-group">
                     <label for="txtUnidade"><i class="fa-solid fa-balance-scale"></i> Unidade de medida:</label>
-                    <select name="unidadeDeMedida" id="selUnidade" class="form-control frm-input">
-                        <option value="">--Insira uma unidade de medida--</option>
-                        <option value="ml" <?php echo (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida() === 'ml' ? 'selected' : ''); ?>>Mililitros (ml)</option>
-                        <option value="lt" <?php echo (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida() === 'lt' ? 'selected' : ''); ?>>Litros (lt)</option>
-                        <option value="kg" <?php echo (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida() === 'kg' ? 'selected' : ''); ?>>Quilogramas (kg)</option>
-                        <option value="gr" <?php echo (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida() === 'gr' ? 'selected' : ''); ?>>Gramas (gr)</option>
+                    <select class="form-control frm-input" name="unidadeDeMedidaId" id="selUnidade">
+                        <option value="">--Selecione Unidade de medida--</option>
+                        <?php foreach($dados["unidades"] as $unidade): ?>
+                            <option value="<?= $unidade->getId() ?>"
+                                <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida()->getId() == $unidade->getId()) echo "selected"; ?>
+                            >
+                                <?= $unidade->getNome() ." (".$unidade->getSigla().")" ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 

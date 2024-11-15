@@ -19,7 +19,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <button class="ingrediente-btn m-2" style="border: none; background: transparent;"
                         data-bs-toggle="modal" data-bs-target="#exampleModal"
                         data-nome="<?= $ingrediente->getNome(); ?>"
-                        data-unidade="<?= $ingrediente->getUnidadeDeMedida(); ?>"
+                        data-unidade="<?= $ingrediente->getUnidadeDeMedida()->getNome(); ?>"
                         data-descricao="<?= $ingrediente->getDescricao(); ?>"
                         data-imagem="<?= BASEURL_ING_IMG . $ingrediente->getCaminhoImagem(); ?>"
                         data-id-requisicao="<?= $dados['requisicao']->getId() ?>"
@@ -28,7 +28,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             <img src="<?= BASEURL_ING_IMG . $ingrediente->getCaminhoImagem(); ?>" class="card-img-top img-fluid" alt="Imagem do ingrediente">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $ingrediente->getNome(); ?></h5>
-                                <h6 class="card-subtitle mb-2 text-body-secondary">Uni. Medida: <?= $ingrediente->getUnidadeDeMedida(); ?></h6>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Uni. Medida: <?= $ingrediente->getUnidadeDeMedida()->getNome(); ?></h6>
                                 <p class="card-text"><?= $ingrediente->getDescricao(); ?></p>
                             </div>
                         </div>
@@ -56,7 +56,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <li>
                             <span><?= $requisicaoIngrediente->getIngrediente()->getNome(); ?></span>
                             <div>
-                                <span style="margin-right: 0.8em;"><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida(); ?></span>
+                                <span style="margin-right: 0.8em;"><?= $requisicaoIngrediente->getQuantidade() . ' ' . $requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida()->getNome(). " (".$requisicaoIngrediente->getIngrediente()->getUnidadeDeMedida()->getSigla().")"; ?></span>
                                 <span>
                                     <button class="btn btn-primary delete-ingredient" data-id="<?= $requisicaoIngrediente->getIdRequisicaoIngrediente(); ?>" data-id-requisicao="<?= $dados['requisicao']->getId() ?>">
                                         <i class="fa-solid fa-trash-can"></i>
