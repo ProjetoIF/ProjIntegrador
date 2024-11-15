@@ -10,7 +10,6 @@ require_once(__DIR__ . "/../dao/IngredienteDAO.php");
 require_once(__DIR__ . "/../model/RequisicaoIngrediente.php");
 require_once(__DIR__ . "/../dao/RequisicaoIngredienteDAO.php");
 require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
-require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
 
 
 class RequisicoesController extends Controller
@@ -23,6 +22,7 @@ class RequisicoesController extends Controller
     private RequisicaoIngrediente $requisicaoIngrediente;
     private RequisicaoIngredienteDAO $requisicaoIngredienteDAO;
     private DisciplinaDAO $disciplinaDAO;
+    private RequisicoesDAO $reqsuisicaoDAO;
     private RequisicaoStatus $requisicaoStatus;
 
     public function __construct()
@@ -42,6 +42,7 @@ class RequisicoesController extends Controller
         $this->requisicaoIngrediente = new RequisicaoIngrediente();
         $this->requisicaoIngredienteDAO = new RequisicaoIngredienteDAO();
         $this->disciplinaDAO = new DisciplinaDAO();
+        $this->reqsuisicaoDAO = new RequisicoesDAO();
         $this->requisicaoStatus = new RequisicaoStatus();
         
 
@@ -248,40 +249,18 @@ class RequisicoesController extends Controller
         }   
     }
 
-    protected function minhasRequisicoes(string $msgErro = "", string $msgSucesso = "")
+    protected function minhasRequisicoes()
     {   
         
-        $requisicoes = $this->requisicoesDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
+        $requisicoes = $this->reqsuisicaoDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
         
         $dados["requisicoes"] = $requisicoes;
         
         $dados["status"] = $this->requisicaoStatus->getAllAsArray();
 
-        $this->loadView("requisicao/minhasReq.php",$dados,$msgErro,$msgSucesso);
+        $this->loadView("requisicao/minhasReq.php",$dados);
     }
 
-    protected function updateReqStatus()
-    {
-        if (isset($_POST["id"]) && $_POST["status"]){
-            $requisicaoID = $_POST["id"];
-            $status = $_POST["status"];
-            
-            $this->requisicoesDAO->updateReqStatus($requisicaoID,$status);
-            $this->minhasRequisicoes("","Requisição enviada com sucesso!");
-
-        }else{
-            $this->minhasRequisicoes("Algum dado está incorreto!");
-        }
-    }
-
-    protected function gerenciar(string $msgErro = "", string $msgSucesso = "")
-    {   
-        $requisicoes = $this->requisicoesDAO->findByStatus("ENVIADO");
-        $dados["requsicoes"] = $requisicoes;
-        
-
-        $this->loadView("requisicao/gerenciar.php",$dados,$msgErro,$msgSucesso);
-    }
 }
 
 new RequisicoesController();
