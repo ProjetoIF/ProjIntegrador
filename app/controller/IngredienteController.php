@@ -40,8 +40,11 @@ class IngredienteController extends Controller
         $descricao = !empty(trim($_POST['descricao'])) ? trim($_POST['descricao']) : NULL;
 
         // Recuperar o caminho da imagem atual (se existir)
-        if(isset($_POST['imgPath']))
+        if(isset($_POST['imgPath'])){
             $caminhoImagem = $_POST['imgPath'];
+        }else{
+            $caminhoImagem = null;
+        }
 
         // Processar o upload da nova imagem (se houver)
         if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
@@ -56,7 +59,11 @@ class IngredienteController extends Controller
         // Criar objeto Ingrediente
         $ingrediente = new Ingrediente();
         $ingrediente->setNome($nome);
-        $ingrediente->setUnidadeDeMedida($this->unidadeDeMedidaDAO->findById($unidadeDeMedidaId));
+        if (! $unidadeDeMedidaId) {
+            $ingrediente->setUnidadeDeMedida(null);
+        }else{
+            $ingrediente->setUnidadeDeMedida($this->unidadeDeMedidaDAO->findById($unidadeDeMedidaId));
+        }
         $ingrediente->setDescricao($descricao);
         $ingrediente->setCaminhoImagem($caminhoImagem);
 

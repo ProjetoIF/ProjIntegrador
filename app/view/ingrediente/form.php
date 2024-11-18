@@ -35,7 +35,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <option value="">--Selecione Unidade de medida--</option>
                         <?php foreach ($dados["unidades"] as $unidade): ?>
                             <option value="<?= $unidade->getId() ?>"
-                                <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida()->getId() == $unidade->getId()) echo "selected"; ?>>
+                                <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida() && $dados["ingrediente"]->getUnidadeDeMedida()->getId() == $unidade->getId()) echo "selected"; ?>>
                                 <?= $unidade->getNome() . " (" . $unidade->getSigla() . ")" ?>
                             </option>
                         <?php endforeach; ?>
