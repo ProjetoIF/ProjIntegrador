@@ -33,11 +33,10 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label for="txtUnidade"><i class="fa-solid fa-balance-scale"></i> Unidade de medida:</label>
                     <select class="form-control frm-input" name="unidadeDeMedidaId" id="selUnidade">
                         <option value="">--Selecione Unidade de medida--</option>
-                        <?php foreach($dados["unidades"] as $unidade): ?>
+                        <?php foreach ($dados["unidades"] as $unidade): ?>
                             <option value="<?= $unidade->getId() ?>"
-                                <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida()->getId() == $unidade->getId()) echo "selected"; ?>
-                            >
-                                <?= $unidade->getNome() ." (".$unidade->getSigla().")" ?>
+                                <?php if (isset($dados["ingrediente"]) && $dados["ingrediente"]->getUnidadeDeMedida()->getId() == $unidade->getId()) echo "selected"; ?>>
+                                <?= $unidade->getNome() . " (" . $unidade->getSigla() . ")" ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -64,6 +63,12 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
                 <input type="hidden" id="hddId" name="id" value="<?= $dados['id']; ?>" />
+                <?php
+                if ($dados['id'] != 0) {
+                    echo '<input type="hidden" id="hddImg" name="imgPath" value="' . $dados['ingrediente']->getCaminhoImagem() . '" />';
+                }
+                ?>
+
 
                 <div style="flex-direction: row">
                     <button type="reset" class="btn btn-clear">Limpar</button>
