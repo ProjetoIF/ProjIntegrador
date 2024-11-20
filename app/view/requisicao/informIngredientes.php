@@ -91,7 +91,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" id="submit">Enviar</button>
+                    <button type="button" class="btn btn-primary" id="submit">Adicionar</button>
                 </div>
             </div>
         </div>

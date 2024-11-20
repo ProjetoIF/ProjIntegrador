@@ -261,6 +261,31 @@ class RequisicoesController extends Controller
         $this->loadView("requisicao/minhasReq.php",$dados);
     }
 
+    protected function gerenciar()
+    {   
+        
+        $requisicoes = $this->reqsuisicaoDAO->listByStatus("ENVIADO");
+        
+        $dados["requisicoes"] = $requisicoes;
+        
+        $dados["status"] = $this->requisicaoStatus->getAllAsArray();
+
+        $this->loadView("requisicao/gerenciar.php",$dados);
+    }
+
+    protected function updateReqStatus()
+    {
+        if (isset($_POST["id"]) && $_POST["status"]){
+            $requisicaoID = $_POST["id"];
+            $status = $_POST["status"];
+            
+            $this->requisicoesDAO->updateReqStatus($requisicaoID,$status);
+            $this->minhasRequisicoes("","Requisição enviada com sucesso!");
+        }else{
+            $this->minhasRequisicoes("Algum dado está incorreto!");
+        }
+    }
+
 }
 
 new RequisicoesController();

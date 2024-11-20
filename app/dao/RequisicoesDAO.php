@@ -5,6 +5,7 @@ include_once(__DIR__ . "/../model/Requisicao.php");
 require_once (__DIR__ . "/../model/enum/RequisicaoStatus.php");
 include_once(__DIR__ . "/../model/Turma.php");
 require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 
 class RequisicoesDAO
 {
@@ -24,10 +25,12 @@ class RequisicoesDAO
                 $turma = new Turma();
 
                 $disciplinaDAO = new DisciplinaDAO();
+                $usuarioDAO = new UsuarioDAO();
                 
                 $turma->setId($reg['idTurma']);
                 $turma->setNome($reg['nome']);
                 $turma->setDisciplina($disciplinaDAO->findById($reg['idDisciplina']));
+                $turma->setProfessor($usuarioDAO->findById($reg['idProfessor']));
 
                 $requisicao->setTurma($turma);
             }
@@ -179,6 +182,28 @@ class RequisicoesDAO
         $requisicoes = $this->mapRequisicoes($result);
 
         return $requisicoes;
+    }
+    public function listByStatus(string $status) {
+
+        $conn = Connection::getConn();
+
+        $sql = "SELECT r.*, t.* ".
+                "FROM requisicoes r ".
+                "JOIN turmas t ON (t.idTurma = r.idTurma) ".
+                "WHERE r.statusRequisicao = :status";
+        
+        $stm = $conn->prepare($sql);
+
+        $stm->bindValue("status", $status);
+
+        $stm->execute();
+
+        $result = $stm->fetchAll();
+
+        $requisicoes = $this->mapRequisicoes($result);
+
+        return $requisicoes;
+
     }
 
 }
