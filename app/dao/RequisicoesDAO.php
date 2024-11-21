@@ -205,5 +205,16 @@ class RequisicoesDAO
         return $requisicoes;
 
     }
+    public function updateMotivoDevolucao(int $idReq, string $motivo)
+    {
+        $conn = Connection::getConn();
 
+        $sql = "UPDATE requisicoes SET motivoDevolucao = :motivo WHERE idRequisicao = :id ";
+
+
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("motivo", $motivo);
+        $stm->bindValue("id", $idReq);
+        $stm->execute();
+    }
 }

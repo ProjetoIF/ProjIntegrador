@@ -79,12 +79,18 @@ require_once(__DIR__ . "/../include/menu.php");
                         </tbody>
                     </table>
                     <div>
-                        <form action="<?= BASEURL ?>/controller/RequisicoesController.php?action=aproveReq" method="post">
+                        <form action="<?= BASEURL ?>/controller/RequisicoesController.php?action=gerenciarStatus" method="post">
                             <button type="submit" class="btn btn-success">Aprovar</button>
                             <input type="hidden" name="id" id="idReq" value="">
                             <input type="hidden" name="status" value="APROVADO">
                         </form>
-                        <button type="button" class="btn btn-danger">Rejeitar</button>
+                        <form action="<?= BASEURL ?>/controller/RequisicoesController.php?action=gerenciarStatus" method="post">
+                            <textarea class="form-control mt-2 d-none" id="motivoRejeicao" name="motivo" placeholder="Informe o motivo da rejeição" required></textarea>
+                            <button type="submit" class="btn btn-danger mt-2 d-none" id="btnSubmitRejeitar">Confirmar Rejeição</button>
+                            <input type="hidden" name="id" id="idReqReject" value="">
+                            <input type="hidden" name="status" value="REJEITADO">
+                        </form>
+                        <button type="button" class="btn btn-danger" id="btnRejeitar">Rejeitar</button>
                     </div>
                 </div>
             </div>

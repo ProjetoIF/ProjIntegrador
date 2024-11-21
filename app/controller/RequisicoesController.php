@@ -44,7 +44,7 @@ class RequisicoesController extends Controller
         $this->disciplinaDAO = new DisciplinaDAO();
         $this->reqsuisicaoDAO = new RequisicoesDAO();
         $this->requisicaoStatus = new RequisicaoStatus();
-        
+
 
         $this->handleAction();
     }
@@ -236,68 +236,89 @@ class RequisicoesController extends Controller
     }
     protected function verifyIng()
     {
-        if (isset($_GET['idReq']) && isset($_GET['idIng'])){
+        if (isset($_GET['idReq']) && isset($_GET['idIng'])) {
             $idReq = $_GET['idReq'];
             $idIng = $_GET['idIng'];
         }
         $resultado = $this->requisicaoIngredienteDAO->verifyIngOnReq($idReq, $idIng);
         if ($resultado) {
             echo json_encode(['message' => 'Esse ingrediente já foi cadastrado!']);
-        }
-        else{
+        } else {
             echo json_encode(['message' => '']);
-        }   
+        }
     }
 
     protected function minhasRequisicoes()
-    {   
-        
+    {
+
         $requisicoes = $this->reqsuisicaoDAO->listByUsuario($_SESSION[SESSAO_USUARIO_ID]);
-        
+
         $dados["requisicoes"] = $requisicoes;
-        
+
         $dados["status"] = $this->requisicaoStatus->getAllAsArray();
 
-        $this->loadView("requisicao/minhasReq.php",$dados);
+        $this->loadView("requisicao/minhasReq.php", $dados);
     }
 
     protected function gerenciar()
-    {   
-        
+    {
+
         $requisicoes = $this->reqsuisicaoDAO->listByStatus("ENVIADO");
-        
+
         $dados["requisicoes"] = $requisicoes;
-        
+
         $dados["status"] = $this->requisicaoStatus->getAllAsArray();
 
-        $this->loadView("requisicao/gerenciar.php",$dados);
+        $this->loadView("requisicao/gerenciar.php", $dados);
     }
 
     protected function updateReqStatus()
     {
-        if (isset($_POST["id"]) && $_POST["status"]){
+        if (isset($_POST["id"]) && $_POST["status"]) {
             $requisicaoID = $_POST["id"];
             $status = $_POST["status"];
-            
-            $this->requisicoesDAO->updateReqStatus($requisicaoID,$status);
-            $this->minhasRequisicoes("","Requisição enviada com sucesso!");
-        }else{
+
+            $this->requisicoesDAO->updateReqStatus($requisicaoID, $status);
+            $this->minhasRequisicoes("", "Requisição enviada com sucesso!");
+        } else {
             $this->minhasRequisicoes("Algum dado está incorreto!");
         }
     }
-    protected function aproveReq()
+    protected function gerenciarStatus()
     {
-        if (isset($_POST["id"]) && $_POST["status"]){
+        if (isset($_POST["id"], $_POST["status"])) {
             $requisicaoID = $_POST["id"];
             $status = $_POST["status"];
-            
-            $this->requisicoesDAO->updateReqStatus($requisicaoID,$status);
-            $this->gerenciar("","Requisição aprovada com sucesso!");
-        }else{
+            $motivo = $_POST["motivo"] ?? null; // Captura o motivo, se fornecido
+
+            // Verifica se é uma rejeição e o motivo é obrigatório
+            if ($status === "REJEITADO" && empty($motivo)) {
+                $this->gerenciar("Motivo da rejeição é obrigatório!");
+                return;
+            }
+
+            // Substitui quebras de linha no motivo por '\n'
+            if ($status === "REJEITADO" && !empty($motivo)) {
+                $motivo = preg_replace('/\r\n|\r|\n/', '\n', $motivo);
+            }
+
+            // Atualiza o status da requisição
+            $this->requisicoesDAO->updateReqStatus($requisicaoID, $status);
+
+            // Se for uma rejeição, atualiza o motivo da devolução
+            if ($status === "REJEITADO") {
+                $this->requisicoesDAO->updateMotivoDevolucao($requisicaoID, $motivo);
+            }
+
+            // Mensagem de sucesso personalizada
+            $mensagem = ($status === "APROVADO")
+                ? "Requisição aprovada com sucesso!"
+                : "Requisição rejeitada com sucesso!";
+            $this->gerenciar("", $mensagem);
+        } else {
             $this->gerenciar("Algum dado está incorreto!");
         }
     }
-
 }
 
 new RequisicoesController();

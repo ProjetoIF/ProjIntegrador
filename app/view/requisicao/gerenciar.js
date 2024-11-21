@@ -92,3 +92,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona o botão de rejeitar e o campo de motivo
+    const btnRejeitar = document.getElementById('btnRejeitar');
+    const motivoRejeicao = document.getElementById('motivoRejeicao');
+    const btnSubmitRejeitar = document.getElementById('btnSubmitRejeitar');
+    const idReqReject = document.getElementById('idReqReject');
+
+    // Mostra o campo de motivo e o botão de confirmação ao clicar em "Rejeitar"
+    btnRejeitar.addEventListener('click', function() {
+        motivoRejeicao.classList.remove('d-none');
+        btnSubmitRejeitar.classList.remove('d-none');
+        btnRejeitar.classList.add('d-none');
+
+        // Preenche o ID da requisição no formulário de rejeição
+        const requisicaoId = document.getElementById('idReq').value;
+        idReqReject.value = requisicaoId;
+    });
+});
+
