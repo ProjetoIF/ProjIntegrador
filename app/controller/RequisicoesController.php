@@ -299,7 +299,7 @@ class RequisicoesController extends Controller
 
             // Substitui quebras de linha no motivo por '\n'
             if ($status === "REJEITADO" && !empty($motivo)) {
-                $motivo = preg_replace('/\r\n|\r|\n/', '\n', $motivo);
+                $motivo = preg_replace('/\r\n|\r|\n/', ' ', $motivo);
             }
 
             // Atualiza o status da requisição

@@ -13,7 +13,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <div class="container">
     <div class="col-9">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+        <?php require_once(__DIR__ . "/../include/msg.php"); ?>
     </div>
     <?php if (empty($dados["requisicoes"])) : ?>
         <h3>Você ainda não fez nenhuma requisição</h3>
@@ -58,7 +58,10 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="row mt-5">
                 <h3>Minhas requisições recusadas</h3>
                 <?php foreach ($recusadas as $req) : ?>
-                    <div class="card m-3 cardReq" style="max-width: 27.5em;">
+                    <div class="card m-3 cardReq" style="max-width: 27.5em;"
+                        data-id="<?= $req->getId(); ?>"
+                        data-status="<?= $req->getStatus(); ?>"
+                        data-motivo="<?= $req->getMotivoDevolucao(); ?>">
                         <div class="row g-0">
                             <div class="col-md-7">
                                 <div class="card-body">
@@ -83,7 +86,10 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="row mt-5">
                 <h3>Minhas requisições em análise</h3>
                 <?php foreach ($emAnalise as $req) : ?>
-                    <div class="card m-3 cardReq" style="max-width: 27.5em;">
+                    <div class="card m-3 cardReq" style="max-width: 27.5em;"
+                        data-id="<?= $req->getId(); ?>"
+                        data-status="<?= $req->getStatus(); ?>"
+                        data-motivo="<?= $req->getMotivoDevolucao(); ?>">
                         <div class="row g-0">
                             <div class="col-md-7">
                                 <div class="card-body">
@@ -130,9 +136,28 @@ require_once(__DIR__ . "/../include/menu.php");
         <?php endif; ?>
 
     <?php endif; ?>
+
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Conteúdo dinâmico será carregado aqui -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
-
+<script src="<?= BASEURL ?>/view/requisicao/minhasReq.js"></script>
 <?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
