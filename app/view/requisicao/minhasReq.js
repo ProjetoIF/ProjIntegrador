@@ -31,14 +31,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     let modalContent = ingredientesHtml;
 
-                    // Adiciona o motivo da devolução se for rejeitado
+                    // Adiciona o motivo da devolução e o formulário se for rejeitado
                     if (status === "REJEITADO") {
                         const motivoHtml = `
                             <h5 class="text-danger">Motivo da Rejeição:</h5>
                             <p class="alert alert-danger">
                                 ${motivoDevolucao || "Motivo não informado."}
                             </p>`;
-                        modalContent = motivoHtml + modalContent;
+
+                        const formHtml = `
+                            <form action="http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=updateReqStatus" method="post"
+                                onsubmit="return confirm('Tem certeza de que deseja alterar o status para preenchimento?');">
+                                <div class="buttons mt-3">
+                                    <button id="send" class="btn btn-warning">Alterar para Preenchimento</button>
+                                </div>
+                                <input type="hidden" name="id" value="${requisicaoId}">
+                                <input type="hidden" name="status" value="PREENCHIMENTO">
+                            </form>`;
+
+                        modalContent = motivoHtml + ingredientesHtml + formHtml;
                     }
 
                     // Exibe o conteúdo no modal
