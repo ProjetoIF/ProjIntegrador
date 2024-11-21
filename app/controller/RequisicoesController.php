@@ -285,6 +285,18 @@ class RequisicoesController extends Controller
             $this->minhasRequisicoes("Algum dado está incorreto!");
         }
     }
+    protected function aproveReq()
+    {
+        if (isset($_POST["id"]) && $_POST["status"]){
+            $requisicaoID = $_POST["id"];
+            $status = $_POST["status"];
+            
+            $this->requisicoesDAO->updateReqStatus($requisicaoID,$status);
+            $this->gerenciar("","Requisição aprovada com sucesso!");
+        }else{
+            $this->gerenciar("Algum dado está incorreto!");
+        }
+    }
 
 }
 

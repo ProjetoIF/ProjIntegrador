@@ -28,7 +28,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 <h3>Requisições submetidas para análise</h3>
                 <?php foreach ($emAnalise as $req) : ?>
                     <div class="card m-3 cardReq" style="max-width: 27.5em;" data-id="<?= $req->getId() ?>" data-disciplina="<?= $req->getTurma()->getDisciplina()->getNome(); ?>" data-turma="<?= $req->getTurma()->getNome(); ?>"
-                    data-req="<?= (new DateTime($req->getDataAula()))->format('d/m/Y'); ?>" data-prof="<?= $req->getTurma()->getProfessor()->getNome(); ?>" data-desc="<?= $req->getDescricao(); ?>">
+                        data-req="<?= (new DateTime($req->getDataAula()))->format('d/m/Y'); ?>" data-prof="<?= $req->getTurma()->getProfessor()->getNome(); ?>" data-desc="<?= $req->getDescricao(); ?>">
                         <div class="row g-0">
                             <div class="col-md-7">
                                 <div class="card-body">
@@ -79,7 +79,11 @@ require_once(__DIR__ . "/../include/menu.php");
                         </tbody>
                     </table>
                     <div>
-                        <button type="button" class="btn btn-success">Aprovar</button>
+                        <form action="<?= BASEURL ?>/controller/RequisicoesController.php?action=aproveReq" method="post">
+                            <button type="submit" class="btn btn-success">Aprovar</button>
+                            <input type="hidden" name="id" id="idReq" value="">
+                            <input type="hidden" name="status" value="APROVADO">
+                        </form>
                         <button type="button" class="btn btn-danger">Rejeitar</button>
                     </div>
                 </div>

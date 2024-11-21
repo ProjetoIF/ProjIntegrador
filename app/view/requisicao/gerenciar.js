@@ -28,8 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     const nomeDisciplinaElement = document.getElementById('nomeDisciplinaElement');
                     const nomeProfessor = document.getElementById('nomeProfessorId');
                     const txtDescricao = document.getElementById('descricaoId');
+                    const idReq = document.getElementById('idReq');
 
-                    if (!ingredientesTableBody || !dataRequisicao || !nomeTurma || !nomeDisciplinaElement || !nomeProfessor || !txtDescricao) {
+                    if (!ingredientesTableBody || !dataRequisicao || !nomeTurma || !nomeDisciplinaElement ||
+                         !nomeProfessor || !txtDescricao || !idReq) {
                         console.error('Elemento(s) não encontrado');
                         return;
                     }
@@ -42,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     nomeDisciplinaElement.textContent = NomeDisciplina;  // Nome da disciplina
                     nomeProfessor.textContent = NomeProfessor;
                     txtDescricao.textContent = ContDesc;
+                    idReq.value = requisicaoId;
 
                     if (data.length > 0) {
                         // Preenche o modal com os ingredientes
