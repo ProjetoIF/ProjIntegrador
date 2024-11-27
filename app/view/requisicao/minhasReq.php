@@ -114,7 +114,10 @@ require_once(__DIR__ . "/../include/menu.php");
             <div class="row mt-5">
                 <h3>Minhas requisições concluídas</h3>
                 <?php foreach ($concluidas as $req) : ?>
-                    <div class="card m-3 cardReq" style="max-width: 27.5em;">
+                    <div class="card m-3 cardReq" style="max-width: 27.5em;"
+                        data-id="<?= $req->getId(); ?>"
+                        data-status="<?= $req->getStatus(); ?>"
+                        data-motivo="<?= $req->getMotivoDevolucao(); ?>">
                         <div class="row g-0">
                             <div class="col-md-7">
                                 <div class="card-body">
