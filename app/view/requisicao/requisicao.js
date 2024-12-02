@@ -1,3 +1,4 @@
+const baseURL = document.getElementById("baseurl").value
 document.addEventListener('DOMContentLoaded', function () {
     var exampleModal = document.getElementById('exampleModal');
     var submitButton = document.getElementById('submit');
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <img src="${imagem}" class="img-fluid mb-3" alt="${nome}">
                     <h5>Unidade de Medida: ${unidade}</h5>
                     <p>${descricao}</p>
-                    <input type="number" id="quantidade-input" placeholder="${unidade}">
+                    <input min="1" type="number" id="quantidade-input" placeholder="${unidade}">
                     <input type="hidden" id="ingrediente-id" value="${ingredienteId}">
                     <input type="hidden" id="requisicao-id" value="${requisicaoId}">
                 `;
@@ -45,13 +46,13 @@ document.addEventListener('DOMContentLoaded', function () {
         var ingredienteId = document.getElementById('ingrediente-id').value;
         var requisicaoId = document.getElementById('requisicao-id').value;
 
-        if (quantidade === "") {
-            alert("Por favor, insira uma quantidade.");
+        if (quantidade === "" || quantidade <= 0) {
+            alert("Por favor, insira uma quantidade válida.");
             return;
         }
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=saveIngredientes", true);
+        xhr.open("POST", baseURL+"/controller/RequisicoesController.php?action=saveIngredientes", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Função para verificar se o ingrediente já está cadastrado na requisição
     function verificarIngrediente(idReq, idIng, callback) {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=verifyIng&idReq=${idReq}&idIng=${idIng}`, true);
+        xhr.open("GET", baseURL+`/controller/RequisicoesController.php?action=verifyIng&idReq=${idReq}&idIng=${idIng}`, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
@@ -84,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var requisicaoId = this.getAttribute('data-id-requisicao');
 
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=deleteIngDaReq&id=${idRequisicaoIngrediente}`, true);
+                xhr.open("GET", baseURL+`/controller/RequisicoesController.php?action=deleteIngDaReq&id=${idRequisicaoIngrediente}`, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         recuperarIngredientes(requisicaoId);
@@ -98,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Função para recuperar ingredientes e configurar botões de exclusão
     function recuperarIngredientes(requisicaoId) {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=" + requisicaoId, true);
+        xhr.open("GET", baseURL+"/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=" + requisicaoId, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var ingredientes = JSON.parse(xhr.responseText);

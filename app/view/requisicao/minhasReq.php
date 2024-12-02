@@ -159,7 +159,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 
 </div>
-
+<input type="hidden" id="baseurl" value="<?= BASEURL ?>">
 <script src="<?= BASEURL ?>/view/requisicao/minhasReq.js"></script>
 <?php
 require_once(__DIR__ . "/../include/footer.php");

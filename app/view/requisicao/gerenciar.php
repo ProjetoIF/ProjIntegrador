@@ -100,6 +100,8 @@ require_once(__DIR__ . "/../include/menu.php");
 
 </div>
 
+<input type="hidden" id="baseurl" value="<?= BASEURL ?>">
+
 <script src="<?= BASEURL ?>/view/requisicao/gerenciar.js"></script>
 
 <?php

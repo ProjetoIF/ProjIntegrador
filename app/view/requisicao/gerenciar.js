@@ -1,3 +1,5 @@
+const baseURL = document.getElementById("baseurl").value
+
 document.addEventListener('DOMContentLoaded', function() {
     // Seleciona todos os cards de requisição
     const cards = document.querySelectorAll('.cardReq');
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const ContDesc= card.getAttribute('data-desc');
             
             // Faz uma requisição AJAX para pegar os ingredientes dessa requisição
-            fetch(`http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=${requisicaoId}`)
+            fetch(baseURL+`/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=${requisicaoId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Erro na requisição');

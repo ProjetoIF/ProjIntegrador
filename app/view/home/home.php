@@ -27,7 +27,7 @@ require_once(__DIR__ . "/../include/menu.php");
     </div>
 
 </div>
-
+<input type="hidden" id="baseurl" value="<?= BASEURL ?>">
 <script src="<?= BASEURL ?>/view/home/home.js"></script>
 
 <?php
