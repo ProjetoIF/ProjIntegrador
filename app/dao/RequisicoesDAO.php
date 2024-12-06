@@ -2,7 +2,7 @@
 
 include_once(__DIR__ . "/../connection/Connection.php");
 include_once(__DIR__ . "/../model/Requisicao.php");
-require_once (__DIR__ . "/../model/enum/RequisicaoStatus.php");
+require_once(__DIR__ . "/../model/enum/RequisicaoStatus.php");
 include_once(__DIR__ . "/../model/Turma.php");
 require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
@@ -10,7 +10,8 @@ require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 class RequisicoesDAO
 {
 
-    private function mapRequisicoes($result) {
+    private function mapRequisicoes($result)
+    {
         $requisicoes = array();
         foreach ($result as $reg) {
             $requisicao = new Requisicao();
@@ -21,12 +22,12 @@ class RequisicoesDAO
             $requisicao->setIdTurma($reg['idTurma']);
             $requisicao->setMotivoDevolucao($reg['motivoDevolucao']);
 
-            if(isset($reg['nome'])) { //Mapeia os dados da turma
+            if (isset($reg['nome'])) { //Mapeia os dados da turma
                 $turma = new Turma();
 
                 $disciplinaDAO = new DisciplinaDAO();
                 $usuarioDAO = new UsuarioDAO();
-                
+
                 $turma->setId($reg['idTurma']);
                 $turma->setNome($reg['nome']);
                 $turma->setDisciplina($disciplinaDAO->findById($reg['idDisciplina']));
@@ -40,7 +41,8 @@ class RequisicoesDAO
         return $requisicoes;
     }
 
-    public function list() {
+    public function list()
+    {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM requisicoes r ORDER BY r.dataAula";
@@ -51,7 +53,8 @@ class RequisicoesDAO
         return $this->mapRequisicoes($result);
     }
 
-    public function insert(Requisicao $requisicao) {
+    public function insert(Requisicao $requisicao)
+    {
         $conn = Connection::getConn();
 
         $sql = "INSERT INTO requisicoes (descricao, dataAula, statusRequisicao, idTurma)" .
@@ -65,7 +68,8 @@ class RequisicoesDAO
         $stm->execute();
     }
 
-    public function deleteById(int $id) {
+    public function deleteById(int $id)
+    {
         $conn = Connection::getConn();
 
         $sql = "DELETE FROM requisicoes WHERE idRequisicao = :id";
@@ -75,7 +79,8 @@ class RequisicoesDAO
         $stm->execute();
     }
 
-    public function findById(int $id) {
+    public function findById(int $id)
+    {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM requisicoes r" .
@@ -86,20 +91,21 @@ class RequisicoesDAO
 
         $requisicoes = $this->mapRequisicoes($result);
 
-        if(count($requisicoes) == 1)
+        if (count($requisicoes) == 1)
             return $requisicoes[0];
-        elseif(count($requisicoes) == 0)
+        elseif (count($requisicoes) == 0)
             return null;
 
         die("RequisicoesDAO.findById()" .
             " - Erro: mais de uma requisicao encontrado.");
     }
 
-    public function update(Requisicao $requisicao) {
+    public function update(Requisicao $requisicao)
+    {
         $conn = Connection::getConn();
 
-        $sql = "UPDATE requisicoes SET descricao = :descricao, dataAula = :dataAula, ".
-            "idTurma = :idTurma ".
+        $sql = "UPDATE requisicoes SET descricao = :descricao, dataAula = :dataAula, " .
+            "idTurma = :idTurma " .
             "WHERE idRequisicao = :id";
 
 
@@ -111,7 +117,8 @@ class RequisicoesDAO
         $stm->execute();
     }
 
-    public function returnReqByTurma(int $turmaId){
+    public function returnReqByTurma(int $turmaId)
+    {
         $conn = Connection::getConn();
 
         $sql = "SELECT * FROM requisicoes WHERE idTurma = :id";
@@ -127,18 +134,18 @@ class RequisicoesDAO
         $requisicoes = $this->mapRequisicoes($result);
 
         return $requisicoes;
-
     }
 
-    public function listByUsuario(int $idUsuario) {
+    public function listByUsuario(int $idUsuario)
+    {
 
         $conn = Connection::getConn();
 
-        $sql = "SELECT r.*, t.* ".
-                "FROM requisicoes r ".
-                "JOIN turmas t ON (t.idTurma = r.idTurma) ".
-                "WHERE t.idProfessor = :id";
-        
+        $sql = "SELECT r.*, t.* " .
+            "FROM requisicoes r " .
+            "JOIN turmas t ON (t.idTurma = r.idTurma) " .
+            "WHERE t.idProfessor = :id";
+
         $stm = $conn->prepare($sql);
 
         $stm->bindValue("id", $idUsuario);
@@ -150,9 +157,8 @@ class RequisicoesDAO
         $requisicoes = $this->mapRequisicoes($result);
 
         return $requisicoes;
-
     }
-    
+
     public function updateReqStatus(int $idReq, string $status)
     {
         $conn = Connection::getConn();
@@ -183,15 +189,16 @@ class RequisicoesDAO
 
         return $requisicoes;
     }
-    public function listByStatus(string $status) {
+    public function listByStatus(string $status)
+    {
 
         $conn = Connection::getConn();
 
-        $sql = "SELECT r.*, t.* ".
-                "FROM requisicoes r ".
-                "JOIN turmas t ON (t.idTurma = r.idTurma) ".
-                "WHERE r.statusRequisicao = :status";
-        
+        $sql = "SELECT r.*, t.* " .
+            "FROM requisicoes r " .
+            "JOIN turmas t ON (t.idTurma = r.idTurma) " .
+            "WHERE r.statusRequisicao = :status";
+
         $stm = $conn->prepare($sql);
 
         $stm->bindValue("status", $status);
@@ -203,7 +210,6 @@ class RequisicoesDAO
         $requisicoes = $this->mapRequisicoes($result);
 
         return $requisicoes;
-
     }
     public function updateMotivoDevolucao(int $idReq, string $motivo)
     {
@@ -216,5 +222,50 @@ class RequisicoesDAO
         $stm->bindValue("motivo", $motivo);
         $stm->bindValue("id", $idReq);
         $stm->execute();
+    }
+
+    public function findByDateRange(string $startDate, string $endDate, string $status)
+    {
+        $conn = Connection::getConn();
+
+        // SQL com filtro de datas e status
+        $sql = "SELECT * FROM requisicoes 
+            WHERE dataAula BETWEEN :startDate AND :endDate 
+            AND statusRequisicao = :statusReq";
+
+        // Preparar e executar a consulta
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("startDate", $startDate);
+        $stm->bindValue("endDate", $endDate);
+        $stm->bindValue("statusReq", $status);
+        $stm->execute();
+
+        // Buscar resultados
+        $result = $stm->fetchAll();
+
+        // Mapear os resultados para objetos ou array
+        $requisicoes = $this->mapRequisicoes($result);
+
+        return $requisicoes;
+    }
+
+    public function countByDateRange(string $startDate, string $endDate, string $status)
+    {
+        $conn = Connection::getConn();
+
+        // SQL com filtro de datas e status
+        $sql = "SELECT COUNT(*) FROM requisicoes 
+            WHERE dataAula BETWEEN :startDate AND :endDate 
+            AND statusRequisicao = :statusReq";
+
+        // Preparar e executar a consulta
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("startDate", $startDate);
+        $stm->bindValue("endDate", $endDate);
+        $stm->bindValue("statusReq", $status);
+        $stm->execute();
+
+        // Retornar o valor da contagem
+        return $stm->fetchColumn(); // Captura a contagem diretamente
     }
 }
