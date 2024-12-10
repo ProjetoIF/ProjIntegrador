@@ -25,7 +25,7 @@ require_once(__DIR__ . "/../include/menu.php");
         </div>
     </form>
     <div class="row">
-        <div class="col-12 d-flex justify-content-between align-items-center">
+        <div class="col-12 d-flex justify-content-between align-items-center mb-4">
             <?php if (isset($dados["count"])) : ?>
                 <?php if ($dados["count"] > 0) : ?>
                     <h4 class="mt-5 mb-0">Total de requisições: <?= $dados["count"] ?> </h4>
@@ -36,27 +36,15 @@ require_once(__DIR__ . "/../include/menu.php");
             <?php endif; ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <?php if (isset($dados["count"])) : ?>
-                <?php
-                //print_r($dados["requisicoes"]); 
-                ?>
-            <?php endif ?>
-        </div>
-    </div>
-    <?php if (isset($dados["reqIn"])): ?>
+    <?php if (!empty($dados["requisicoes"])): ?>
         <div class="row">
             <div class="col">
-                <?php
-                // Array para armazenar a soma dos ingredientes
-                $somaIngredientes = [];
-
-                foreach ($dados["reqIn"] as $reqIn): ?>
+                <?php foreach ($dados["requisicoes"] as $requisicao): ?>
                     <table class="table table-striped" border="1">
                         <thead>
                             <tr>
-                                <th colspan="4">Requisição ID: <?php echo $reqIn[0]->getIdRequisicao(); ?></th>
+                                <th colspan="4">Data da requisição: <?= (new DateTime($requisicao->getDataAula()))->format('d/m/Y') . "<br>"; ?> Turma: <?= $requisicao->getTurma()->getNome() . 
+                                "<br>". "Professor: ". $requisicao->getTurma()->getProfessor()->getNome() ?></th>
                             </tr>
                             <tr>
                                 <th>ID Ingrediente</th>
@@ -65,29 +53,11 @@ require_once(__DIR__ . "/../include/menu.php");
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($reqIn as $req):
-                                $ingrediente = $req->getIngrediente();
-                                $quantidade = $req->getQuantidade();
-                                $unidade = $ingrediente->getUnidadeDeMedida();
-
-                                // Identificador único para o ingrediente (ID + Unidade)
-                                $key = $ingrediente->getId() . "_" . $unidade->getId();
-
-                                // Soma dos ingredientes
-                                if (!isset($somaIngredientes[$key])) {
-                                    $somaIngredientes[$key] = [
-                                        'id' => $ingrediente->getId(),
-                                        'nome' => $ingrediente->getNome(),
-                                        'quantidade' => 0,
-                                        'unidade' => $unidade->getNome() . " (" . $unidade->getSigla() . ")",
-                                    ];
-                                }
-                                $somaIngredientes[$key]['quantidade'] += $quantidade;
-                            ?>
+                            <?php foreach ($requisicao->getRequisicaoIngredinetes() as $req): ?>
                                 <tr>
-                                    <td><?php echo $ingrediente->getId(); ?></td>
-                                    <td><?php echo $ingrediente->getNome(); ?></td>
-                                    <td><?php echo $quantidade . " " . $unidade->getNome() . " (" . $unidade->getSigla() . ")"; ?></td>
+                                    <td><?= $req->getIngrediente()->getId(); ?></td>
+                                    <td><?= $req->getIngrediente()->getNome(); ?></td>
+                                    <td><?= $req->getQuantidade() . " " . $req->getIngrediente()->getUnidadeDeMedida()->getNome() . " (" . $req->getIngrediente()->getUnidadeDeMedida()->getSigla() . ")"; ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -95,8 +65,9 @@ require_once(__DIR__ . "/../include/menu.php");
                 <?php endforeach; ?>
             </div>
         </div>
+    <?php endif ?>
 
-        <!-- Tabela com a soma dos ingredientes -->
+    <?php if (!empty($dados["somaIngredientes"])): ?>
         <div class="row">
             <div class="col">
                 <h3>Requisição geral</h3>
@@ -109,11 +80,11 @@ require_once(__DIR__ . "/../include/menu.php");
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($somaIngredientes as $ingrediente): ?>
+                        <?php foreach ($dados["somaIngredientes"] as $ingrediente): ?>
                             <tr>
-                                <td><?php echo $ingrediente['id']; ?></td>
-                                <td><?php echo $ingrediente['nome']; ?></td>
-                                <td><?php echo $ingrediente['quantidade'] . " " . $ingrediente['unidade']; ?></td>
+                                <td><?= $ingrediente['id']; ?></td>
+                                <td><?= $ingrediente['nome']; ?></td>
+                                <td><?= $ingrediente['quantidade'] . " " . $ingrediente['unidade']; ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

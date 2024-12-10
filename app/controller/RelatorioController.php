@@ -3,11 +3,17 @@
 require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
 require_once(__DIR__ . "/../dao/RequisicaoIngredienteDAO.php");
+require_once(__DIR__ . "/../dao/TurmaDAO.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
+require_once(__DIR__ . "/../service/RelatorioService.php");
 
 class RelatorioController extends Controller
 {
     private RequisicoesDAO $reqsuisicaoDAO;
     private RequisicaoIngredienteDAO $requisicaoIngredienteDAO;
+    private TurmaDAO $turmaDAO;
+    private UsuarioDAO $usuarioDAO;
+    private RelatorioService $relatorioService;
 
     public function __construct()
     {
@@ -17,6 +23,9 @@ class RelatorioController extends Controller
 
         $this->reqsuisicaoDAO = new RequisicoesDAO();
         $this->requisicaoIngredienteDAO = new RequisicaoIngredienteDAO();
+        $this->turmaDAO = new TurmaDAO();
+        $this->usuarioDAO = new UsuarioDAO();
+        $this->relatorioService = new RelatorioService();
 
         $this->handleAction();
     }
@@ -35,18 +44,24 @@ class RelatorioController extends Controller
             // Busca as requisições no intervalo de datas
             $dados["requisicoes"] = $this->reqsuisicaoDAO->findByDateRange($dataDeIncio, $dataDeFim, "APROVADO");
             $dados["count"] = $this->reqsuisicaoDAO->countByDateRange($dataDeIncio, $dataDeFim, "APROVADO");
-
-            $dados["reqIn"] = [];
+    
             foreach ($dados["requisicoes"] as $req) {
-                $dados["reqIn"][] = $this->requisicaoIngredienteDAO->findByRequisicaoId($req->getId());
+                $req->setRequisicaoIngredinetes($this->requisicaoIngredienteDAO->findByRequisicaoId($req->getId()));
+                $req->setTurma($this->turmaDAO->findById($req->getidTurma()));
+                $req->getTurma()->setProfessor($this->usuarioDAO->findById($req->getTurma()->getIdProfessor()));
             }
-            
+    
+            // Calcula a soma dos ingredientes utilizando o service
+            $dados["somaIngredientes"] = $this->relatorioService->calcularRequisicaoGeral($dados["requisicoes"]);
+    
         } else {
-            $dados["requisicoes"] = []; // Apenas necessário se a função puder retornar `null` ou outra estrutura
+            $dados["requisicoes"] = [];
+            $dados["somaIngredientes"] = [];
         }
     
         $this->loadView("relatorio/reqGeral.php", $dados);
     }
+    
     
 }
 new RelatorioController();

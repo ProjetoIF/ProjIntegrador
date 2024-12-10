@@ -87,4 +87,16 @@ class Requisicao
 
         return $this;
     }
+
+    public function getRequisicaoIngredinetes(): ?array
+    {
+        return $this->requisicaoIngredinetes;
+    }
+
+    public function setRequisicaoIngredinetes(?array $requisicaoIngredinetes): self
+    {
+        $this->requisicaoIngredinetes = $requisicaoIngredinetes;
+
+        return $this;
+    }
 }
