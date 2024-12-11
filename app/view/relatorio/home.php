@@ -26,7 +26,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <h5 class="card-title">Gráficos</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">Acompanhar gráficos</h6>
                     <p class="card-text">Ver os gráficos de requisições de aulas</p>
-                    <a href="<?= BASEURL . '/controller/RelatorioController.php?action=reqGeral' ?>" class="btn btn-primary">Gerar!</a>
+                    <a href="<?= BASEURL . '/controller/RelatorioController.php?action=graficos' ?>" class="btn btn-primary">Visualizar!</a>
                 </div>
             </div>
         </div>

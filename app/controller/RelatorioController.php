@@ -61,6 +61,14 @@ class RelatorioController extends Controller
     
         $this->loadView("relatorio/reqGeral.php", $dados);
     }
+
+    protected function graficos() {
+        $dados["reqMes"] = $this->relatorioService->monthCount($this->reqsuisicaoDAO->list());
+        $dados["reqAno"] = $this->relatorioService->yearCount($this->reqsuisicaoDAO->list());
+        $dados["reqAnalise"] = $this->relatorioService->analiseCount($this->reqsuisicaoDAO->list());
+        $dados["reqAlteracao"] = $this->relatorioService->alteracaoCount($this->reqsuisicaoDAO->list());
+        $this->loadView("relatorio/graficos.php", $dados);
+    }
     
     
 }
