@@ -41,40 +41,18 @@ require_once(__DIR__ . "/../include/menu.php");
         </div>
     </div>
 
+    <?= "<pre>" ?>
+    <?= print_r($dados["reqPorMes"]);?>
+    <?= "</pre>" ?>
 
-    <canvas id="donut-chart" width="400" height="400"></canvas>
+    <canvas id="bar-chart" width="100" height="100"></canvas>
+    <canvas id="donut-chart" width="100" height="100"></canvas>
 </div>
 
 <!-- Importando o Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-    // Configuração do gráfico do tipo 'doughnut' com Chart.js
-    const ctx = document.getElementById('donut-chart').getContext('2d');
-    const donutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Blue', 'Orange', 'Green'], // Rótulos das categorias
-            datasets: [{
-                data: [2, 4, 3], // Dados para o gráfico
-                backgroundColor: [
-                    'blue',
-                    'orange',
-                    'green'
-                ],
-                hoverOffset: 4 // Destaque ao passar o mouse
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Exemplo de Gráfico Donut'
-                }
-            }
-        }
-    });
-</script>
+<script src="<?= BASEURL ?>/view/relatorio/graficos.js"></script>
 
 <?php
 require_once(__DIR__ . "/../include/footer.php");

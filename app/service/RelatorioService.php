@@ -88,4 +88,87 @@ class RelatorioService
         }
         return $alteracaoCount;
     }
+
+    public function reqPorMes(array $requisicoes)
+    {
+        $reqPorMes = [
+            1 => 0,
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            7 => 0,
+            8 => 0,
+            8 => 0,
+            10 => 0,
+            11 => 0,
+            12 => 0
+        ];
+
+        $reqPorMes = [
+            1 => [
+                "nome" => "Janeiro",
+                "count" => 0
+            ],
+            2 => [
+                "nome" => "Fevereiro",
+                "count" => 0
+            ],
+            3 => [
+                "nome" => "Março",
+                "count" => 0
+            ],
+            4 => [
+                "nome" => "Abril",
+                "count" => 0
+            ],
+            5 => [
+                "nome" => "Maio",
+                "count" => 0
+            ],
+            6 => [
+                "nome" => "Junho",
+                "count" => 0
+            ],
+            7 => [
+                "nome" => "Julho",
+                "count" => 0
+            ],
+            8 => [
+                "nome" => "Agosto",
+                "count" => 0
+            ],
+            9 => [
+                "nome" => "Setembro",
+                "count" => 0
+            ],
+            10 => [
+                "nome" => "Outubro",
+                "count" => 0
+            ],
+            11 => [
+                "nome" => "Novembro",
+                "count" => 0
+            ],
+            12 => [
+                "nome" => "Dezembro",
+                "count" => 0
+            ]
+        ];
+
+        $anoAtual = date('Y');
+
+        foreach ($requisicoes as $requisicao) {
+
+            $data = strtotime($requisicao->getDataAula());
+            $mes = date("m", $data);
+            $ano = date("Y",$data);
+            if($ano == $anoAtual){
+                $reqPorMes[($mes)]["count"] = $reqPorMes[($mes)]["count"] + 1;
+            }
+        }
+
+        return json_encode($reqPorMes);
+    }
 }
