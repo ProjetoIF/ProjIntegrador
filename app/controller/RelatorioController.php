@@ -68,6 +68,7 @@ class RelatorioController extends Controller
         $dados["reqAnalise"] = $this->relatorioService->analiseCount($this->reqsuisicaoDAO->list());
         $dados["reqAlteracao"] = $this->relatorioService->alteracaoCount($this->reqsuisicaoDAO->list());
         $dados["reqPorMes"] = $this->relatorioService->reqPorMes($this->reqsuisicaoDAO->list());
+        $dados["reqPorTurma"] = $this->relatorioService->reqPorTurma($this->reqsuisicaoDAO->list());
         $this->loadView("relatorio/graficos.php", $dados);
     }
     

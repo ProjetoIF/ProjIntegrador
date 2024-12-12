@@ -1,6 +1,14 @@
 <?php
+require_once(__DIR__ . "/../dao/TurmaDAO.php");
+
 class RelatorioService
 {
+    private TurmaDAO $turmaDAO;
+
+    public function __construct() {
+        $this->turmaDAO = new TurmaDAO();
+    }
+
     public function calcularRequisicaoGeral(array $requisicoes): array
     {
         $somaIngredientes = [];
@@ -92,21 +100,6 @@ class RelatorioService
     public function reqPorMes(array $requisicoes)
     {
         $reqPorMes = [
-            1 => 0,
-            2 => 0,
-            3 => 0,
-            4 => 0,
-            5 => 0,
-            6 => 0,
-            7 => 0,
-            8 => 0,
-            8 => 0,
-            10 => 0,
-            11 => 0,
-            12 => 0
-        ];
-
-        $reqPorMes = [
             1 => [
                 "nome" => "Janeiro",
                 "count" => 0
@@ -171,4 +164,34 @@ class RelatorioService
 
         return json_encode($reqPorMes);
     }
+
+    public function reqPorTurma(array $requisicoes)
+{
+    $reqPorTurma = [];
+
+    $anoAtual = date('Y');
+
+    foreach ($requisicoes as $requisicao) {
+
+        $data = strtotime($requisicao->getDataAula());
+
+        $requisicao->setTurma($this->turmaDAO->findById($requisicao->getIdTurma()));
+
+        $turma = $requisicao->getTurma();
+
+        $ano = date("Y", $data);
+
+        if ($ano == $anoAtual) {
+
+            if (isset($reqPorTurma[$turma->getNome()])) {
+                $reqPorTurma[$turma->getNome()]++;
+            } else {
+
+                $reqPorTurma[$turma->getNome()] = 1;
+            }
+        }
+    }
+    
+    return json_encode($reqPorTurma);
+}
 }
