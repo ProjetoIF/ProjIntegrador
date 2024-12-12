@@ -11,57 +11,77 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="card text-bg-primary mb-3 m-2" style="max-width: 18rem;">
-            <div class="card-header">Quantidade de requisições em <?= date("m") . "/" . date("Y"); ?></div>
-            <div class="card-body">
-                <h5 class="card-title"> Quantidade: <?= $dados["reqMes"] ?></h5>
+    <div class="row justify-content-center mb-4">
+
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="card text-bg-primary h-100">
+                <div class="card-header">Quantidade de requisições em <?= date("m") . "/" . date("Y"); ?></div>
+                <div class="card-body">
+                    <h5 class="card-title">Quantidade: <?= $dados["reqMes"] ?></h5>
+                </div>
             </div>
         </div>
 
-        <div class="card text-bg-info mb-3 m-2" style="max-width: 18rem;">
-            <div class="card-header">Quantidade de requisições em <?= date("Y"); ?></div>
-            <div class="card-body">
-                <h5 class="card-title"> Quantidade: <?= $dados["reqAno"] ?></h5>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="card text-bg-info h-100">
+                <div class="card-header">Quantidade de requisições em <?= date("Y"); ?></div>
+                <div class="card-body">
+                    <h5 class="card-title">Quantidade: <?= $dados["reqAno"] ?></h5>
+                </div>
             </div>
         </div>
 
-        <div class="card text-bg-warning mb-3 m-2" style="max-width: 18rem;">
-            <div class="card-header">Quantidade de requisições atualmente em análise</div>
-            <div class="card-body">
-                <h5 class="card-title"> Quantidade: <?= $dados["reqAnalise"] ?></h5>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="card text-bg-warning h-100">
+                <div class="card-header">Quantidade de requisições atualmente em análise</div>
+                <div class="card-body">
+                    <h5 class="card-title">Quantidade: <?= $dados["reqAnalise"] ?></h5>
+                </div>
             </div>
         </div>
 
-        <div class="card text-bg-danger mb-3 m-2" style="max-width: 18rem;">
-            <div class="card-header">Quantidade de requisições atualmente em alteração</div>
-            <div class="card-body">
-                <h5 class="card-title"> Quantidade: <?= $dados["reqAlteracao"] ?></h5>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="card text-bg-danger h-100">
+                <div class="card-header">Quantidade de requisições atualmente em alteração</div>
+                <div class="card-body">
+                    <h5 class="card-title">Quantidade: <?= $dados["reqAlteracao"] ?></h5>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-7">
-            <canvas id="chartTurma"></canvas>
-        </div>
-        <div class="col-5">
-            <canvas id="donut-chart"></canvas>
+
+    <div class="row justify-content-start mb-4">
+        <div class="col-12 col-md-10">
+
+            <div class="bg-light p-4 rounded">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-4">
+                        <canvas id="chartTurma"></canvas>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <canvas id="donut-chart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <canvas id="chartMes"></canvas>
+
+    <div class="row justify-content-start">
+        <div class="col-12 col-md-6">
+            <div class="bg-light p-4 rounded">
+                <canvas id="chartMes"></canvas>
+            </div>
         </div>
     </div>
 </div>
-
 
 <!-- Importando o Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     const barChartDadosMes = JSON.parse(<?php echo json_encode($dados["reqPorMes"]); ?>)
-    const barChartDadosTumas = JSON.parse(<?php echo json_encode($dados["reqPorTurma"]); ?>)
+    const barChartDadosTurmas = JSON.parse(<?php echo json_encode($dados["reqPorTurma"]); ?>)
+    const donutChartDadosIngredientes = JSON.parse(<?php echo json_encode($dados["reqPorIngrediente"]); ?>)
 </script>
 
 <script src="<?= BASEURL ?>/view/relatorio/graficos.js"></script>

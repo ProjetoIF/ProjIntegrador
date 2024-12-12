@@ -19,18 +19,16 @@ function generateColors(numColors) {
   return colors;
 }
 
+const donutChartColorsIngredientes = generateColors(Object.keys(donutChartDadosIngredientes).length);
+
 const ctx = document.getElementById('donut-chart').getContext('2d');
 const donutChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ['Blue', 'Orange', 'Green'], // Rótulos das categorias
+    labels: Object.keys(donutChartDadosIngredientes),
     datasets: [{
-      data: [2, 4, 3], // Dados para o gráfico
-      backgroundColor: [
-        'blue',
-        'orange',
-        'green'
-      ],
+      data: Object.values(donutChartDadosIngredientes), // Dados para o gráfico
+      backgroundColor: donutChartColorsIngredientes.map(c => c.backgroundColor),
       hoverOffset: 4 // Destaque ao passar o mouse
     }]
   },
@@ -38,7 +36,7 @@ const donutChart = new Chart(ctx, {
     plugins: {
       title: {
         display: true,
-        text: 'Exemplo de Gráfico Donut'
+        text: 'Total de ingredientes já requisitados'
       }
     }
   }
@@ -88,7 +86,7 @@ const graphBarTurma = document.getElementById('chartTurma').getContext('2d');
 const labelsBarChartTurma = [];
 const arrDataBarChartTurma = [];
 
-Object.entries(barChartDadosTumas).forEach(([turma, quantidade]) => {
+Object.entries(barChartDadosTurmas).forEach(([turma, quantidade]) => {
   labelsBarChartTurma.push(turma);
   arrDataBarChartTurma.push(quantidade);
 });

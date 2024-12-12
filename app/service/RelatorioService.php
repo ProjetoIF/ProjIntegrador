@@ -5,7 +5,8 @@ class RelatorioService
 {
     private TurmaDAO $turmaDAO;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->turmaDAO = new TurmaDAO();
     }
 
@@ -47,8 +48,8 @@ class RelatorioService
         foreach ($requisicoes as $requisicao) {
             $data = strtotime($requisicao->getDataAula());
             $mes = date("m", $data);
-            $ano = date("Y",$data);
-            if($mes == $mesAtual && $ano == $anoAtual){
+            $ano = date("Y", $data);
+            if ($mes == $mesAtual && $ano == $anoAtual) {
                 $monthCount++;
             }
         }
@@ -63,8 +64,8 @@ class RelatorioService
 
         foreach ($requisicoes as $requisicao) {
             $data = strtotime($requisicao->getDataAula());
-            $ano = date("Y",$data);
-            if($ano == $anoAtual){
+            $ano = date("Y", $data);
+            if ($ano == $anoAtual) {
                 $yearCount++;
             }
         }
@@ -77,7 +78,7 @@ class RelatorioService
 
         foreach ($requisicoes as $requisicao) {
             $status = $requisicao->getStatus();
-            if($status == "ENVIADO"){
+            if ($status == "ENVIADO") {
                 $analiseCount++;
             }
         }
@@ -90,7 +91,7 @@ class RelatorioService
 
         foreach ($requisicoes as $requisicao) {
             $status = $requisicao->getStatus();
-            if($status == "REJEITADO"){
+            if ($status == "REJEITADO") {
                 $alteracaoCount++;
             }
         }
@@ -156,8 +157,8 @@ class RelatorioService
 
             $data = strtotime($requisicao->getDataAula());
             $mes = date("m", $data);
-            $ano = date("Y",$data);
-            if($ano == $anoAtual){
+            $ano = date("Y", $data);
+            if ($ano == $anoAtual) {
                 $reqPorMes[($mes)]["count"] = $reqPorMes[($mes)]["count"] + 1;
             }
         }
@@ -166,32 +167,51 @@ class RelatorioService
     }
 
     public function reqPorTurma(array $requisicoes)
-{
-    $reqPorTurma = [];
+    {
+        $reqPorTurma = [];
 
-    $anoAtual = date('Y');
+        $anoAtual = date('Y');
 
-    foreach ($requisicoes as $requisicao) {
+        foreach ($requisicoes as $requisicao) {
 
-        $data = strtotime($requisicao->getDataAula());
+            $data = strtotime($requisicao->getDataAula());
 
-        $requisicao->setTurma($this->turmaDAO->findById($requisicao->getIdTurma()));
+            $requisicao->setTurma($this->turmaDAO->findById($requisicao->getIdTurma()));
 
-        $turma = $requisicao->getTurma();
+            $turma = $requisicao->getTurma();
 
-        $ano = date("Y", $data);
+            $ano = date("Y", $data);
 
-        if ($ano == $anoAtual) {
+            if ($ano == $anoAtual) {
 
-            if (isset($reqPorTurma[$turma->getNome()])) {
-                $reqPorTurma[$turma->getNome()]++;
-            } else {
+                if (isset($reqPorTurma[$turma->getNome()])) {
+                    $reqPorTurma[$turma->getNome()]++;
+                } else {
 
-                $reqPorTurma[$turma->getNome()] = 1;
+                    $reqPorTurma[$turma->getNome()] = 1;
+                }
             }
         }
+
+        return json_encode($reqPorTurma);
     }
-    
-    return json_encode($reqPorTurma);
-}
+
+    public function reqPorIngrediente(array $requisicoes)
+    {
+        $reqPorIngrediente = [];
+
+        foreach ($requisicoes as $requisicao) {
+
+            $ingrediente = $requisicao->getIngrediente();
+
+            $nomeIngrediente = $ingrediente->getNome();
+
+            if (isset($reqPorIngrediente[$nomeIngrediente])) {
+                $reqPorIngrediente[$nomeIngrediente]++;
+            } else {
+                $reqPorIngrediente[$nomeIngrediente] = 1;
+            }
+        }
+        return json_encode($reqPorIngrediente);
+    }
 }
