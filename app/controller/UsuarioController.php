@@ -62,6 +62,9 @@ class UsuarioController extends Controller {
             }
         }
 
+        if ($caminhoImagem == null) {
+            $caminhoImagem = 'userDefault.jpeg';
+        }
 
         //Cria objeto Usuario
         $usuario = new Usuario();

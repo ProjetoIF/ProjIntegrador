@@ -1,8 +1,18 @@
 # Ignorar todos os arquivos dentro de uploads
 uploads/*
 
-# Mas não ignorar o próprio diretório
+# Exceto os diretórios necessários
 !uploads/
+!uploads/ingredientes/
+!uploads/usuarios/
+
+# Ignorar todos os arquivos dentro de ingredientes e usuarios
+uploads/ingredientes/*
+uploads/usuarios/*
+
+# Exceto as imagens padrão
+!uploads/ingredientes/ingredienteDefault.jpeg
+!uploads/usuarios/userDefault.jpeg
 
 # Ignorar arquivos ocultos (como .DS_Store no macOS)
-uploads/.*
+uploads/.* 

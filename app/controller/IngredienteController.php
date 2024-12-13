@@ -56,6 +56,10 @@ class IngredienteController extends Controller
             }
         }
 
+        if ($caminhoImagem == null) {
+            $caminhoImagem = 'ingredienteDefault.jpeg';
+        }
+
         // Criar objeto Ingrediente
         $ingrediente = new Ingrediente();
         $ingrediente->setNome($nome);
