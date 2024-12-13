@@ -8,11 +8,11 @@ class UnidadeDeMedidaService
 
         // Validar campos obrigatórios
         if (!$unidade->getNome()) {
-            array_push($erros, "O campo [Nome] é obrigatório.");
+            array_push($erros, "O campo <b>Nome</b> é obrigatório.");
         }
 
         if (!$unidade->getSigla()) {
-            array_push($erros, "O campo [Sigla] é obrigatório.");
+            array_push($erros, "O campo <b>Sigla</b> é obrigatório.");
         }
 
         // Retornar array de erros, mesmo que vazio

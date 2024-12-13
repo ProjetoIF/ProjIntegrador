@@ -8,11 +8,11 @@ class DisciplinaService
 
         //Validar campos vazios
         if (! $disciplina->getNome()) {
-            array_push($erros, "O campo [Nome] é obrigatório.");
+            array_push($erros, "O campo <b>Nome</b> é obrigatório.");
         }
 
         if (! $disciplina->getCargaHoraria()) {
-            array_push($erros, "O campo [Carga horária] é obrigatório.");
+            array_push($erros, "O campo <b>Carga horária</b> é obrigatório.");
         }
 
         // Retornar array de erros, mesmo que vazio

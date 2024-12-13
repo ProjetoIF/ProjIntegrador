@@ -18,15 +18,15 @@ class RequisicoesService
 
         //Validar campos vazios
         if (! $requisicao->getDescricao()) {
-            array_push($erros, "O campo [Descrição] é obrigatório.");
+            array_push($erros, "O campo <b>Descrição</b> é obrigatório.");
         }
 
         if (! $requisicao->getDataAula()) {
-            array_push($erros, "O campo [Data da aula] é obrigatório.");
+            array_push($erros, "O campo <b>Data da aula</b> é obrigatório.");
         }
 
         if (! $requisicao->getIdTurma()) {
-            array_push($erros, "O campo [Turma] é obrigatório.");
+            array_push($erros, "O campo <b>Turma</b> é obrigatório.");
         }
 
         // Retornar array de erros, mesmo que vazio

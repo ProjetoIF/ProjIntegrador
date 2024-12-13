@@ -17,19 +17,19 @@ class TurmaService {
 
         //Validar campos vazios
         if(! $turma->getNome())
-            array_push($erros, "O campo [Nome] é obrigatório.");
+            array_push($erros, "O campo <b>Nome</b> é obrigatório.");
 
         if(! $turma->getAnoDeInicio())
-            array_push($erros, "O campo [Ano de Início] é obrigatório.");
+            array_push($erros, "O campo <b>Ano de Início</b> é obrigatório.");
 
         if(! $turma->getSemestre())
-            array_push($erros, "O campo [Semestre] é obrigatório.");
+            array_push($erros, "O campo <b>Semestre</b> é obrigatório.");
 
         if(! $turma->getIdProfessor())
-            array_push($erros, "O campo [Professor] é obrigatório.");
+            array_push($erros, "O campo <b>Professor</b> é obrigatório.");
 
         if(! $turma->getIdDisciplina())
-            array_push($erros, "O campo [Disciplina] é obrigatório.");
+            array_push($erros, "O campo <b>Disciplina</b> é obrigatório.");
 
         return $erros;
     }

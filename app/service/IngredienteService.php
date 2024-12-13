@@ -7,19 +7,19 @@ class IngredienteService
 
         //Validar campos vazios
         if (! $ingrediente->getNome()) {
-            array_push($erros, "O campo [Nome] é obrigatório.");
+            array_push($erros, "O campo <b>Nome</b> é obrigatório.");
         }
 
         if (! $ingrediente->getUnidadeDeMedida()) {
-            array_push($erros, "O campo [Unidade de Medida] é obrigatório.");
+            array_push($erros, "O campo <b>Unidade de Medida</b> é obrigatório.");
         }
 
         if (! $ingrediente->getDescricao()) {
-            array_push($erros, "O campo [Descrição] é obrigatório.");
+            array_push($erros, "O campo <b>Descrição</b> é obrigatório.");
         }
 
         if (! $ingrediente->getCaminhoImagem()) {
-            array_push($erros, "O campo [Caminho da imagem] é obrigatório.");
+            array_push($erros, "O campo <b>Imagem</b> é obrigatório.");
         }
 
         // Retornar array de erros, mesmo que vazio
