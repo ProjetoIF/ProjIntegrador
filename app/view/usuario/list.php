@@ -38,6 +38,7 @@ require_once(__DIR__ . "/../include/menu.php");
                         <th>Telefone</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Imagem</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
@@ -52,6 +53,7 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $usu->getTelefone(); ?></td>
                             <td><?= $usu->getEmail(); ?></td>
                             <td><?= $usu->isActive(); ?></td>
+                            <td><img src="<?= BASEURL_USER_IMG. $usu->getCaminhoImagem(); ?>" alt="<?= $usu->getNome(); ?>" style="max-width: 100px;"></td>
                             <td><a class="btn btn-primary"
                                    href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getId() ?>">
                                     <i class="fa-regular fa-pen-to-square"></i> Alterar</a>

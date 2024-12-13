@@ -19,7 +19,7 @@ require_once(__DIR__ . "/../include/menu.php");
     <div class="row" style="margin-top: 10px;">
 
         <div class="frm-centralize col">
-            <form class="frm-style" method="POST"
+            <form class="frm-style" method="POST" enctype="multipart/form-data"
                 action="<?= BASEURL ?>/controller/UsuarioController.php?action=save" >
                 <div class="form-group">
                     <label for="txtNome"> <i class="fa-solid fa-user"></i> Nome comlpeto:</label>
@@ -78,6 +78,20 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control frm-input" type="text" id="txtEmail" name="email"
                            maxlength="100" placeholder="Informe o email"
                            value="<?php echo isset($dados['email']) ? $dados['email'] : '';?>"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="ImgUsuario"><i class="fa-solid fa-image"></i> Imagem:</label>
+
+                    <!-- Exibir imagem existente, se houver -->
+                    <?php if (isset($dados["usuario"]) && $dados["usuario"]->getCaminhoImagem()) : ?>
+                        <div class="current-image">
+                            <img src="<?= BASEURL_USER_IMG . $dados["usuario"]->getCaminhoImagem(); ?>" alt="Imagem Atual do Usuario" style="max-width: 200px; margin-bottom: 10px;">
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- Campo de upload para nova imagem -->
+                    <input class="form-control frm-input" type="file" id="ImgUsuario" name="imagem" accept="image/*" />
                 </div>
 
                 <input type="hidden" id="hddId" name="id"

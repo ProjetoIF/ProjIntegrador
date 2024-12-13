@@ -70,8 +70,8 @@ class UsuarioDAO {
     public function insert(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO usuarios (nomeCompleto, login, senha, papel, telefone, email, ativo)" .
-               " VALUES (:nome, :login, :senha, :papel, :telefone, :email, :ativo)";
+        $sql = "INSERT INTO usuarios (nomeCompleto, login, senha, papel, telefone, email, ativo, caminhoImagem)" .
+               " VALUES (:nome, :login, :senha, :papel, :telefone, :email, :ativo, :caminhoImagem)";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNome());
@@ -82,6 +82,7 @@ class UsuarioDAO {
         $stm->bindValue("telefone", $usuario->getTelefone());
         $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("ativo", 0);
+        $stm->bindValue("caminhoImagem", $usuario->getCaminhoImagem());
         $stm->execute();
     }
 
@@ -90,7 +91,7 @@ class UsuarioDAO {
         $conn = Connection::getConn();
 
         $sql = "UPDATE usuarios SET nomeCompleto = :nome, login = :login," .
-               " senha = :senha, papel = :papel, telefone = :telefone, email = :email".
+               " senha = :senha, papel = :papel, telefone = :telefone, email = :email, caminhoImagem = :caminhoImagem".
                " WHERE idUsuario = :id";
         
         $stm = $conn->prepare($sql);
@@ -102,6 +103,7 @@ class UsuarioDAO {
         $stm->bindValue("id", $usuario->getId());
         $stm->bindValue("telefone", $usuario->getTelefone());
         $stm->bindValue("email", $usuario->getEmail());
+        $stm->bindValue("caminhoImagem", $usuario->getCaminhoImagem());
         $stm->execute();
     }
 
@@ -140,6 +142,7 @@ class UsuarioDAO {
             $usuario->setTelefone($reg['telefone']);
             $usuario->setEmail($reg['email']);
             $usuario->setAtivo($reg['ativo']);
+            $usuario->setCaminhoImagem($reg['caminhoImagem']);
             array_push($usuarios, $usuario);
         }
 

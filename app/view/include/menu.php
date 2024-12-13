@@ -9,10 +9,11 @@ $papel = "";
 if(isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
     $papel = $_SESSION[SESSAO_USUARIO_PAPEL];
+    $img = $_SESSION[SESSAO_USUARIO_IMG];
 ?>
 <div class="sidebar" id="sidebar">
     <div class="user-info container d-flex">
-        <img src="caminho_para_imagem_do_usuario" alt="User Image" class="user-image">
+        <img src="<?= BASEURL_USER_IMG. $img; ?>" alt="User Image" class="user-image">
         <div class="col">
             <div class="row">
                 <p class="text" id="userName"><?= $nome ?></p>

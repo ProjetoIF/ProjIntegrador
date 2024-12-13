@@ -17,6 +17,8 @@ define('BASEURL_UPLOADS', '/ProjIntegrador/uploads/');
 
 define('BASEURL_ING_IMG', '/ProjIntegrador/uploads/ingredientes/');
 
+define('BASEURL_USER_IMG', '/ProjIntegrador/uploads/usuarios/');
+
 //Nome do sistema
 define('APP_NAME', 'Projeto Integrador');
 
@@ -33,6 +35,7 @@ define('HOME_PAGE', BASEURL . '/controller/HomeController.php?action=home');
 define('SESSAO_USUARIO_ID', "usuarioLogadoId");
 define('SESSAO_USUARIO_NOME', "usuarioLogadoNome");
 define('SESSAO_USUARIO_PAPEL', "usuarioLogadoPapel");
+define('SESSAO_USUARIO_IMG', "usuarioLogadoImg");
 
 
 
