@@ -92,6 +92,10 @@ require_once(__DIR__ . "/../include/menu.php");
 
                     <!-- Campo de upload para nova imagem -->
                     <input class="form-control frm-input" type="file" id="ImgUsuario" name="imagem" accept="image/*" />
+
+                    <!-- Campo para o nome da imagem atual do usuario-->
+                    <input type="hidden" name="imagemAtual" accept="image/*"  
+                        value="<?= (isset($dados["usuario"]) && $dados["usuario"]->getCaminhoImagem()) ? $dados["usuario"]->getCaminhoImagem() : '' ?>" />
                 </div>
 
                 <input type="hidden" id="hddId" name="id"

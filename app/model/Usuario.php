@@ -6,6 +6,8 @@ require_once(__DIR__ . "/enum/UsuarioPapel.php");
 
 class Usuario implements JsonSerializable {
 
+    const IMG_DEFAULT = "userDefault.jpeg";
+
     private ?int $id;
     private ?string $nome;
     private ?string $login;
