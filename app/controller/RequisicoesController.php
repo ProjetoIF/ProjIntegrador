@@ -61,6 +61,9 @@ class RequisicoesController extends Controller
 
     protected function save()
     {
+
+        $papel = $_SESSION[SESSAO_USUARIO_PAPEL];
+
         //Captura os dados do formulário  descricao, dataaula, status, 
         $dados["id"] = isset($_POST['id']) ? $_POST['id'] : 0;
         $descricao = trim($_POST['descricao']) ? trim($_POST['descricao']) : NULL;
@@ -89,7 +92,12 @@ class RequisicoesController extends Controller
 
                 //TODO - Enviar mensagem de sucesso
                 $msg = "Requisição salva com sucesso.";
-                $this->list("", $msg);
+                if ($papel == "PROFESSOR"){
+                    header("Location: ".BASEURL."/controller/RequisicoesController.php?action=minhasRequisicoes");
+                }
+                else{
+                    $this->list("", $msg);
+                }
                 exit;
             } catch (PDOException $e) {
                 array_push($erros, "Erro ao salvar a requisição na base de dados." . $e);
