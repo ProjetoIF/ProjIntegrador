@@ -20,7 +20,7 @@ define('BASEURL_ING_IMG', '/ProjIntegrador/uploads/ingredientes/');
 define('BASEURL_USER_IMG', '/ProjIntegrador/uploads/usuarios/');
 
 //Nome do sistema
-define('APP_NAME', 'Projeto Integrador');
+define('APP_NAME', 'Chef Track');
 
 //Página de logout do sistema
 define('LOGIN_PAGE', BASEURL . '/controller/LoginController.php?action=login');

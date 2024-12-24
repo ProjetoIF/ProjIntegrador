@@ -270,7 +270,7 @@
 /* Media query para telas menores que 768px */
 @media (max-width: 768px) {
     #userName {
-        visibility: hidden;
+        visibility: visible;
     }
     .sidebar {
         width: 60vw; /* Sidebar mais estreita em telas pequenas */
@@ -434,7 +434,7 @@
 /* Media query para telas entre 768px e 1850px */
 @media (min-width: 768px) and (max-width: 1850px) {
     #userName {
-        visibility: hidden;
+        visibility: visible;
     }
     .sidebar {
         width: 20vw; /* Sidebar mais estreita em telas médias */
