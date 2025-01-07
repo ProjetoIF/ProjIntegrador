@@ -156,7 +156,7 @@ class RelatorioService
         foreach ($requisicoes as $requisicao) {
 
             $data = strtotime($requisicao->getDataAula());
-            $mes = date("m", $data);
+            $mes = (int) date("m", $data);
             $ano = date("Y", $data);
             if ($ano == $anoAtual) {
                 $reqPorMes[($mes)]["count"] = $reqPorMes[($mes)]["count"] + 1;
