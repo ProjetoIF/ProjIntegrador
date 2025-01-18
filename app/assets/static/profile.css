@@ -1,0 +1,37 @@
+/* Estilos para o efeito de hover na imagem */
+.perfil-imagem {
+    transition: all 0.3s ease;
+}
+
+/* Quando passar o mouse sobre a imagem */
+.bg-primary:hover .perfil-imagem {
+    opacity: 0.6; /* Ajuste a opacidade para suavizar a imagem */
+    filter: grayscale(200%); /* Faz a imagem ficar em tons de cinza */
+}
+
+/* Estilo para esconder o ícone de edição inicialmente */
+.editar-icon {
+    display: none; /* O ícone estará oculto por padrão */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    font-weight: bold;
+}
+
+/* Quando o mouse passar sobre a área da imagem (div.bg-primary), o ícone de edição aparecerá */
+.bg-primary:hover .editar-icon {
+    display: block; /* Exibe o ícone */
+}
+
+/* Altera a opacidade do ícone quando o mouse passa sobre ele */
+.editar-icon:hover {
+    opacity: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Sombra escura */
+}
+

@@ -12,14 +12,16 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
     $img = $_SESSION[SESSAO_USUARIO_IMG];
 ?>
 <div class="sidebar" id="sidebar">
-    <div class="user-info container d-flex">
-        <img src="<?= BASEURL_USER_IMG. $img; ?>" alt="User Image" class="user-image">
-        <div class="col">
-            <div class="row">
-                <p class="text" id="userName"><?= $nome ?></p>
+    <a href="<?= BASEURL . '/controller/UsuarioController.php?action=profile' ?>" style="text-decoration: none;">
+        <div class="user-info container d-flex">
+            <img src="<?= BASEURL_USER_IMG. $img; ?>" alt="User Image" class="user-image">
+            <div class="col">
+                <div class="row">
+                    <p class="text" id="userName"><?= $nome ?></p>
+                </div>
             </div>
         </div>
-    </div>
+    </a>
     <ul class="sidebar-menu">
     <li><a href="<?= BASEURL . '/controller/RequisicoesController.php?action=minhasRequisicoes' ?>"><i class="fa-solid fa-clipboard-check"></i>Minhas Requisições</a></li>
     <li><a href="<?= BASEURL . '/controller/RequisicoesController.php?action=create' ?>"><i class="fa-solid fa-clipboard-check"></i>Criar Requisição</a></li>
@@ -32,7 +34,6 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
             <li><a href="<?= BASEURL . '/controller/IngredienteController.php?action=list' ?>"><i class="fa-solid fa-utensils"></i>Ingredientes</a></li>
             <li><a href="<?= BASEURL . '/controller/UnidadeDeMedidaController.php?action=list' ?>"><i class="fa-solid fa-scale-unbalanced-flip"></i>Unidades de Medidas</a></li>
             <li><a href="<?= BASEURL . '/controller/RelatorioController.php?action=home' ?>"><i class="fa-solid fa-chart-simple"></i>Relatórios</a></li>
-            <li><a href="<?= BASEURL ?>/controller/UsuarioController.php?action=create"><i class="fa-solid fa-user-plus"></i>Adicionar usuários</a></li>
         <?php endif;?>
         <li><a href="<?= LOGOUT_PAGE ?>"><i class="fa-solid fa-right-from-bracket"></i>Sair</a></li>
     </ul>

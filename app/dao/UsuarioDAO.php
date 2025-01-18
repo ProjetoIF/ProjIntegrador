@@ -149,4 +149,53 @@ class UsuarioDAO {
         return $usuarios;
     }
 
+    public function updateLogin(Usuario $usuario, $newLogin)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET login = :login WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("login", $newLogin);
+        $stm->bindValue("id", $usuario->getId());
+        $stm->execute();
+    }
+
+    public function updateEmail(Usuario $usuario, $newEmail)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET email = :email WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("email", $newEmail);
+        $stm->bindValue("id", $usuario->getId());
+        $stm->execute();
+    }
+
+    public function updateTelefone(Usuario $usuario, $newTelefone)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET telefone = :telefone WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("telefone", $newTelefone);
+        $stm->bindValue("id", $usuario->getId());
+        $stm->execute();
+    }
+
+    public function updateSenha(Usuario $usuario, $newSenha)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET senha = :senha WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $senhaCript = password_hash($newSenha, PASSWORD_DEFAULT);
+        $stm->bindValue("senha", $senhaCript);
+        $stm->bindValue("id", $usuario->getId());
+        $stm->execute();
+    }
+
 }

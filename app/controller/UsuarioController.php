@@ -20,11 +20,6 @@ class UsuarioController extends Controller
         if (! $this->usuarioLogado())
             exit;
 
-        if ($this->usuarioIsAdmin()) {
-            $this->loadView("errors/403.php", [], "", "");
-            exit;
-        }
-
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
         $this->salvarImagemService = new SalvarImagemService();
@@ -184,6 +179,57 @@ class UsuarioController extends Controller
 
         $usuario = $this->usuarioDao->findById($id);
         return $usuario;
+    }
+
+    protected function profile(string $msgErro = "", string $msgSucesso = "")
+    {
+        $usuario = $this->usuarioDao->findById($_SESSION[SESSAO_USUARIO_ID]);
+        $dados["usuario"] = $usuario;
+
+        $this->loadView("usuario/profile.php", $dados, $msgErro, $msgSucesso);
+    }
+
+    protected function editLogin()
+    {
+        if (isset($_GET['newLogin']) && isset($_GET['userId'])) {
+            $newLogin = $_GET['newLogin'];
+            $userId = $_GET['userId'];
+            
+            $usuario = $this->usuarioDao->findById($userId);
+            $this->usuarioDao->updateLogin($usuario,$newLogin);
+        }
+    }
+
+    protected function editEmail()
+    {
+        if (isset($_GET['newEmail']) && isset($_GET['userId'])) {
+            $newEmail = $_GET['newEmail'];
+            $userId = $_GET['userId'];
+            
+            $usuario = $this->usuarioDao->findById($userId);
+            $this->usuarioDao->updateEmail($usuario,$newEmail);
+        }
+    }
+
+    protected function editTelefone()
+    {
+        if (isset($_GET['newTelefone']) && isset($_GET['userId'])) {
+            $newTelefone = $_GET['newTelefone'];
+            $userId = $_GET['userId'];
+            
+            $usuario = $this->usuarioDao->findById($userId);
+            $this->usuarioDao->updateTelefone($usuario,$newTelefone);
+        }
+    }
+    protected function editSenha()
+    {
+        if (isset($_GET['newSenha']) && isset($_GET['userId'])) {
+            $newSenha = $_GET['newSenha'];
+            $userId = $_GET['userId'];
+            
+            $usuario = $this->usuarioDao->findById($userId);
+            $this->usuarioDao->updateSenha($usuario,$newSenha);
+        }
     }
 }
 
