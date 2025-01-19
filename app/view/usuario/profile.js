@@ -1,3 +1,7 @@
+const baseURL = document.getElementById("baseurl").value
+console.log(baseURL);
+
+
 // Função para editar o campo de usuário (login, email, telefone)
 function editarCampo(campo) {
     const valorAtual = document.getElementById(campo).textContent;
@@ -42,7 +46,7 @@ function salvarAlteracoes(campo) {
 // Função para atualizar o login via AJAX
 function atualizarLogin(novoLogin, userId) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/UsuarioController.php?action=editLogin&newLogin=${novoLogin}&userId=${userId}`, true);
+    xhr.open("GET", baseURL+`/controller/UsuarioController.php?action=editLogin&newLogin=${novoLogin}&userId=${userId}`, true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -65,7 +69,7 @@ function atualizarLogin(novoLogin, userId) {
 // Função para atualizar o email via AJAX
 function atualizarEmail(novoEmail, userId) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/UsuarioController.php?action=editEmail&newEmail=${novoEmail}&userId=${userId}`, true);
+    xhr.open("GET", baseURL+`/controller/UsuarioController.php?action=editEmail&newEmail=${novoEmail}&userId=${userId}`, true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -88,7 +92,7 @@ function atualizarEmail(novoEmail, userId) {
 // Função para atualizar o telefone via AJAX
 function atualizarTelefone(novoTelefone, userId) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/UsuarioController.php?action=editTelefone&newTelefone=${novoTelefone}&userId=${userId}`, true);
+    xhr.open("GET", baseURL+`/controller/UsuarioController.php?action=editTelefone&newTelefone=${novoTelefone}&userId=${userId}`, true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -110,7 +114,7 @@ function atualizarTelefone(novoTelefone, userId) {
 
 function atualizarSenha(novaSenha, userId) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://localhost/ProjIntegrador/app/controller/UsuarioController.php?action=editSenha&newSenha=${novaSenha}&userId=${userId}`, true);
+    xhr.open("GET", baseURL+`/controller/UsuarioController.php?action=editSenha&newSenha=${novaSenha}&userId=${userId}`, true);
 
     xhr.onload = function () {
         if (xhr.status === 200) {
@@ -237,4 +241,36 @@ function exibirAlertaSucesso(mensagem) {
     }, 5000); // Alerta desaparece após 5 segundos
 }
 
+document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); // Impede o envio padrão do formulário
+
+    const form = event.target; // Obtém o formulário
+    const formData = new FormData(form); // Cria o objeto FormData com os dados do formulário
+    const userId = form.getAttribute("data-user-id"); // Obtém o ID do usuário
+
+    formData.append("userId", userId); // Adiciona o ID do usuário ao FormData
+
+    try {
+        // Envia os dados via fetch
+        const response = await fetch(baseURL+"/controller/UsuarioController.php?action=editImg", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error("Erro ao enviar o formulário.");
+        }
+
+        const result = await response.json(); // Parse da resposta JSON
+        if (result.success) {
+            alert("Imagem atualizada com sucesso!");
+            // Atualizar a imagem na página sem recarregar, se necessário
+        } else {
+            alert("Erro: " + result.message);
+        }
+    } catch (error) {
+        console.error("Erro no envio:", error);
+        alert("Erro ao processar a solicitação.");
+    }
+});
 

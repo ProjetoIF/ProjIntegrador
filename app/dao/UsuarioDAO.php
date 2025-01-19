@@ -198,4 +198,16 @@ class UsuarioDAO {
         $stm->execute();
     }
 
+    public function updateImg(Usuario $usuario, $newImg)
+    {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET caminhoImagem = :caminhoImagem WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("caminhoImagem", $newImg);
+        $stm->bindValue("id", $usuario->getId());
+        $stm->execute();
+    }
+
 }

@@ -194,9 +194,9 @@ class UsuarioController extends Controller
         if (isset($_GET['newLogin']) && isset($_GET['userId'])) {
             $newLogin = $_GET['newLogin'];
             $userId = $_GET['userId'];
-            
+
             $usuario = $this->usuarioDao->findById($userId);
-            $this->usuarioDao->updateLogin($usuario,$newLogin);
+            $this->usuarioDao->updateLogin($usuario, $newLogin);
         }
     }
 
@@ -205,9 +205,9 @@ class UsuarioController extends Controller
         if (isset($_GET['newEmail']) && isset($_GET['userId'])) {
             $newEmail = $_GET['newEmail'];
             $userId = $_GET['userId'];
-            
+
             $usuario = $this->usuarioDao->findById($userId);
-            $this->usuarioDao->updateEmail($usuario,$newEmail);
+            $this->usuarioDao->updateEmail($usuario, $newEmail);
         }
     }
 
@@ -216,9 +216,9 @@ class UsuarioController extends Controller
         if (isset($_GET['newTelefone']) && isset($_GET['userId'])) {
             $newTelefone = $_GET['newTelefone'];
             $userId = $_GET['userId'];
-            
+
             $usuario = $this->usuarioDao->findById($userId);
-            $this->usuarioDao->updateTelefone($usuario,$newTelefone);
+            $this->usuarioDao->updateTelefone($usuario, $newTelefone);
         }
     }
     protected function editSenha()
@@ -226,9 +226,28 @@ class UsuarioController extends Controller
         if (isset($_GET['newSenha']) && isset($_GET['userId'])) {
             $newSenha = $_GET['newSenha'];
             $userId = $_GET['userId'];
-            
+
             $usuario = $this->usuarioDao->findById($userId);
-            $this->usuarioDao->updateSenha($usuario,$newSenha);
+            $this->usuarioDao->updateSenha($usuario, $newSenha);
+        }
+    }
+    protected function editImg()
+    {
+        header('Content-Type: application/json'); // Define o cabeçalho para JSON
+
+        if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK && isset($_POST['userId'])) {
+            $nomeArquivo = $this->salvarImagemService->salvarImagem($_FILES['imagem'], 'usuario');
+            $userId = $_POST['userId'];
+            $usuario = $this->usuarioDao->findById($userId);
+
+            if ($nomeArquivo) {
+                $this->usuarioDao->updateImg($usuario, $nomeArquivo);
+                echo json_encode(['success' => true, 'message' => 'Imagem atualizada com sucesso.']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Erro ao salvar a imagem.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Dados inválidos.']);
         }
     }
 }

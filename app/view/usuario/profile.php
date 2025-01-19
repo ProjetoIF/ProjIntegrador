@@ -29,7 +29,7 @@ $usuario = $dados["usuario"];
 
                 <!-- Ícone de Edição -->
                 <div class="editar-icon">
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i class="fa-regular fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#imgModal"></i>
                 </div>
 
                 <!-- Nome e Papel do Usuário -->
@@ -95,13 +95,41 @@ $usuario = $dados["usuario"];
                         </div>
                     </div>
                     <button id="salvar-senha-btn" class="btn btn-primary btn-sm" style="display: none;" onclick="salvarSenha()">Salvar Senha</button>
-                    
+
                     <!-- Campo escondido para o userId -->
                     <input type="hidden" id="userId" value="<?= $usuario->getId() ?>">
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="imgModal" tabindex="-1" aria-labelledby="imgModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="imgModalLabel">Upload nova imagem</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3">
+                    <form
+                        id="uploadForm"
+                        enctype="multipart/form-data"
+                        data-user-id="<?= $usuario->getId() ?>">
+                        <div class="form-group">
+                            <label for="ImgUsuario"><i class="fa-solid fa-image"></i> Imagem:</label>
+                            <input class="form-control" type="file" id="ImgUsuario" name="imagem" accept="image/*" />
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="baseurl" value="<?= BASEURL ?>">
+
 </div>
 
 <script src="<?= BASEURL ?>/view/usuario/profile.js"></script>
