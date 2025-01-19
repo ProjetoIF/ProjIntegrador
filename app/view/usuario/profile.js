@@ -142,6 +142,12 @@ function salvarSenha() {
     const novaSenha = document.getElementById("nova-senha").value;
     const confirmarSenha = document.getElementById("confirmar-senha").value;
 
+    if (!novaSenha || !confirmarSenha) {
+        exibirAlerta("A senha não pode estar vazia. Preencha os campos e tente novamente.");
+        return;
+    }
+
+
     if (novaSenha === confirmarSenha) {
 
         atualizarSenha(novaSenha, userId.value);
