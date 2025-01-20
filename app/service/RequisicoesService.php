@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../model/Requisicao.php");
 require_once(__DIR__ . "/../dao/TurmaDAO.php");
 require_once(__DIR__ . "/../dao/DisciplinaDAO.php");
 require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
+require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 
 class RequisicoesService
 {
@@ -11,6 +12,7 @@ class RequisicoesService
     private RequisicoesDAO $requisicaoDao;
     private Requisicao $requisicao;
     private DisciplinaDAO $disciplinaDAO;
+    private UsuarioDAO $usuarioDAO;
 
     public function validarDados(Requisicao $requisicao)
     {
@@ -42,7 +44,12 @@ class RequisicoesService
         $requisicoes = $this->requisicaoDao->list();
 
         foreach ($requisicoes as $req) {
+
+            $this->usuarioDAO = new UsuarioDAO();
+
             $req->setTurma($this->turmaDAO->findById($req->getIdTurma()));
+            //Busca o professor referente a sua turma
+            $req->getTurma()->setProfessor($this->usuarioDAO->findById($req->getTurma()->getIdProfessor()));
         }
 
 

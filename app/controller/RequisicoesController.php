@@ -52,8 +52,11 @@ class RequisicoesController extends Controller
     protected function list(string $msgErro = "", string $msgSucesso = "")
     {
         $requisicoes = $this->requisicoesService->listRequisicoes();
+        // echo "<pre>";
         // print_r($requisicoes);
+        // echo "</pre>";
         // exit;
+        
         $dados["lista"] = $requisicoes;
 
         $this->loadView("requisicao/list.php", $dados, $msgErro, $msgSucesso);

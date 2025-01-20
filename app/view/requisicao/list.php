@@ -47,7 +47,11 @@ require_once(__DIR__ . "/../include/menu.php");
                             <td><?= $req->getDescricao(); ?></td>
                             <td><?= $req->getDataAula(); ?></td>
                             <td><?= $req->getStatus(); ?></td>
-                            <td><?= $req->getTurma()->getNome(); ?></td>
+                            <td>
+                                <b><?= $req->getTurma()->getNome(); ?></b>
+                                <br>
+                                (<?= $req->getTurma()->getProfessor()->getNome(); ?>)
+                            </td>
                             <td><?= $req->getMotivoDevolucao(); ?></td>
                             <td><a class="btn btn-primary"
                                    href="<?= BASEURL ?>/controller/RequisicoesController.php?action=edit&id=<?= $req->getId() ?>">
