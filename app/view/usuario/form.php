@@ -8,7 +8,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <div class="nav-pages">
     <h3 class="nav-pages-title font-weight-bold poppins-extrabold">
-        <?php if($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?>
+        <?php if ($dados['id'] == 0) echo "Inserir"; else echo "Alterar"; ?>
         Usuário
     </h3>
     <a class="btn-padrao btn" href="<?= HOME_PAGE ?>"><i class="fa-solid fa-house"></i>Home</a>
@@ -20,7 +20,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <div class="frm-centralize col">
             <form class="frm-style" method="POST" enctype="multipart/form-data"
-                action="<?= BASEURL ?>/controller/UsuarioController.php?action=save" >
+                action="<?= BASEURL ?>/controller/UsuarioController.php?action=save">
                 <div class="form-group">
                     <label for="txtNome"> <i class="fa-solid fa-user"></i> Nome comlpeto:</label>
                     <input class="form-control frm-input" type="text" id="txtNome" name="nome"
@@ -32,34 +32,49 @@ require_once(__DIR__ . "/../include/menu.php");
                     <label for="txtLogin"> <i class="fa-solid fa-right-to-bracket"></i> Login:</label>
                     <input class="form-control frm-input" type="text" id="txtLogin" name="login"
                         maxlength="45" placeholder="Informe o login"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getLogin() : ''); ?>"/>
+                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getLogin() : ''); ?>" />
                 </div>
+                <?php if ($dados['id'] != 0) : ?>
+                    <div class="form-group">
+                        <i class="fa-solid fa-user-lock"></i><label for="" style="margin-left: 0.2rem;">Deseja alterar a senha?</label>
+                        <div class="frm-input">
+                            <div>
+                                <label for="alterarSenha">Sim</label>
+                                <input type="radio" name="alterarSenha" id="alterarSenha" value="yes">
+                                <label for="alterarSenhaNo">Não</label>
+                                <input type="radio" name="alterarSenha" id="alterarSenhaNo" value="no" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="alertaAlterarSenha" class="alert alert-warning" role="alert" style="display: none;">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Atenção: Essa alteração pode afetar o usuário caso ele não esteja ciente dessa mudança.
+                    </div>
+                <?php endif; ?>
 
-                <div class="form-group">
+                <div class="form-group" id="senhaGroup">
                     <label for="txtSenha"><i class="fa-solid fa-lock"></i> Senha:</label>
                     <input class="form-control frm-input" type="password" id="txtPassword" name="senha"
                         maxlength="200" placeholder="Informe a senha"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>"/>
+                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getSenha() : ''); ?>" />
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="confSenhaGroup">
                     <label for="txtConfSenha"><i class="fa-solid fa-lock"></i> Confirmação da senha:</label>
                     <input class="form-control frm-input" type="password" id="txtConfSenha" name="conf_senha"
                         maxlength="200" placeholder="Informe a confirmação da senha"
-                        value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : '';?>"/>
+                        value="<?php echo isset($dados['confSenha']) ? $dados['confSenha'] : ''; ?>" />
                 </div>
 
                 <div class="form-group">
                     <label><i class="fa-solid fa-chalkboard-user"></i> Papel</label>
                     <select class="form-control frm-input" name="papel" id="selPapel">
                         <option value="">Selecione o papel</option>
-                        <?php foreach($dados["papeis"] as $papel): ?>
+                        <?php foreach ($dados["papeis"] as $papel): ?>
                             <option value="<?= $papel ?>"
                                 <?php
-                                    if(isset($dados["usuario"]) && $dados["usuario"]->getPapel() == $papel)
-                                        echo "selected";
-                                ?>
-                            >
+                                if (isset($dados["usuario"]) && $dados["usuario"]->getPapel() == $papel)
+                                    echo "selected";
+                                ?>>
                                 <?= $papel ?>
                             </option>
                         <?php endforeach; ?>
@@ -70,14 +85,14 @@ require_once(__DIR__ . "/../include/menu.php");
                 <div class="form-group">
                     <label for="txtTelefone"><i class="fa-solid fa-phone"></i> Telefone:</label>
                     <input class="form-control frm-input" type="text" id="txtTelefone" name="telefone"
-                           maxlength="45" placeholder="Informe o telefone"
-                           value="<?php echo isset($dados['telefone']) ? $dados['telefone'] : '';?>"/>
+                        maxlength="45" placeholder="Informe o telefone"
+                        value="<?php echo isset($dados['telefone']) ? $dados['telefone'] : ''; ?>" />
                 </div>
                 <div class="form-group">
                     <label for="txtEmail"><i class="fa-solid fa-envelope"></i> Email:</label>
                     <input class="form-control frm-input" type="text" id="txtEmail" name="email"
-                           maxlength="100" placeholder="Informe o email"
-                           value="<?php echo isset($dados['email']) ? $dados['email'] : '';?>"/>
+                        maxlength="100" placeholder="Informe o email"
+                        value="<?php echo isset($dados['email']) ? $dados['email'] : ''; ?>" />
                 </div>
 
                 <div class="form-group">
@@ -94,7 +109,7 @@ require_once(__DIR__ . "/../include/menu.php");
                     <input class="form-control frm-input" type="file" id="ImgUsuario" name="imagem" accept="image/*" />
 
                     <!-- Campo para o nome da imagem atual do usuario-->
-                    <input type="hidden" name="imagemAtual" accept="image/*"  
+                    <input type="hidden" name="imagemAtual" accept="image/*"
                         value="<?= (isset($dados["usuario"]) && $dados["usuario"]->getCaminhoImagem()) ? $dados["usuario"]->getCaminhoImagem() : '' ?>" />
                 </div>
 
@@ -116,13 +131,15 @@ require_once(__DIR__ . "/../include/menu.php");
     <!--<div class="row" style="margin-top: 30px;">
         <div class="col-12">
         <a class="btn btn-secondary"
-                href="<?php /*= BASEURL */?>/controller/UsuarioController.php?action=list">Voltar</a>
+                href="<?php /*= BASEURL */ ?>/controller/UsuarioController.php?action=list">Voltar</a>
         </div>
     </div>--> <!--Talvez esse botão volte-->
 
 
 </div>
 
-<?php  
+<script src="<?= BASEURL ?>/view/usuario/form.js"></script>
+
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
