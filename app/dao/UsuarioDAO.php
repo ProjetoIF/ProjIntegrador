@@ -229,4 +229,47 @@ class UsuarioDAO {
         $stm->execute();
     }
 
+    public function isUsuarioCadastradoNaTurma(int $idUsuario) {
+        // Obtenha a conexão com o banco
+        $conn = Connection::getConn();
+    
+        // SQL para verificar se o usuário (idUsuario) é professor de alguma turma
+        $sql = "SELECT COUNT(*) AS total
+                FROM turmas
+                WHERE idProfessor = ?";
+    
+        // Preparando e executando a consulta
+        $stm = $conn->prepare($sql);
+        $stm->execute([$idUsuario]);
+    
+        // Obtendo o resultado
+        $result = $stm->fetch();
+    
+        // Verificando se o usuário está cadastrado em alguma turma
+        if ($result['total'] > 0) {
+            return true;  // Usuário está cadastrado em uma turma
+        } else {
+            return false; // Usuário não está cadastrado em nenhuma turma
+        }
+    }
+    
+    public function updateStatus(int $usuarioId, $status)
+    {
+        if ($status == "ativo") {
+            $ativo = 1;
+        }
+        if ($status == "inativo") {
+            $ativo = 0;
+        }
+
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET ativo = :ativo WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("ativo", $ativo);
+        $stm->bindValue("id", $usuarioId);
+        $stm->execute();
+    }
+
 }

@@ -57,10 +57,14 @@ class TurmaController extends Controller {
         if(empty($erros)) {
             //Persiste o objeto
             try {
-                if($dados["id"] == 0)  //Inserindo
-                    $this->turmaDao->insert($turma);
+                if($dados["id"] == 0){
+                    //Inserindo
+                    $this->usuarioDAO->updateStatus($idProfessor, "ativo");
+                    $this->turmaDao->insert($turma); 
+                }  
                 else { //Alterando
                     $turma->setId($dados["id"]);
+                    $this->usuarioDAO->updateStatus($idProfessor, "ativo");
                     $this->turmaDao->update($turma);
                 }
 

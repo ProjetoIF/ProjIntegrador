@@ -166,8 +166,12 @@ class UsuarioController extends Controller
         $usuario = $this->findUsuarioById();
         if ($usuario) {
             //Excluir
-            $this->usuarioDao->deleteById($usuario->getId());
-            $this->list("", "Usuário excluído com sucesso!");
+            if ($this->usuarioDao->isUsuarioCadastradoNaTurma($usuario->getId())) {
+                $this->list("Usuário não pode ser excluído");
+            }else {
+                $this->usuarioDao->deleteById($usuario->getId());
+                $this->list("", "Usuário excluído com sucesso!");
+            }
         } else {
             //Mensagem q não encontrou o usuário
             $this->list("Usuário não encontrado!");
