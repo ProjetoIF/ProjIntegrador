@@ -5,7 +5,7 @@ require_once(__DIR__ . "/../model/Usuario.php");
 class UsuarioService {
 
     /* Método para validar os dados do usuário que vem do formulário */
-    public function validarDados(Usuario $usuario, ?string $confSenha) {
+    public function validarDados(Usuario $usuario, ?string $confSenha, ?bool $alterarSenha) {
         $erros = array();
 
         //Validar campos vazios
@@ -15,11 +15,14 @@ class UsuarioService {
         if(! $usuario->getLogin())
             array_push($erros, "O campo <b>Login</b> é obrigatório.");
 
-        if(! $usuario->getSenha())
-            array_push($erros, "O campo <b>Senha</b> é obrigatório.");
+        if ($alterarSenha){
+            if(! $usuario->getSenha())
+                array_push($erros, "O campo <b>Senha</b> é obrigatório.");
+    
+            if(! $confSenha)
+                array_push($erros, "O campo <b>Confirmação da senha</b> é obrigatório.");
+        }
 
-        if(! $confSenha)
-            array_push($erros, "O campo <b>Confirmação da senha</b> é obrigatório.");
 
         if(! $usuario->getPapel()) 
             array_push($erros, "O campo <b>Papel</b> é obrigatório");

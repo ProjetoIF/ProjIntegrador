@@ -210,4 +210,23 @@ class UsuarioDAO {
         $stm->execute();
     }
 
+    //Método para atualizar um Usuario sem alterar a senha
+    public function updateNoPass(Usuario $usuario) {
+        $conn = Connection::getConn();
+
+        $sql = "UPDATE usuarios SET nomeCompleto = :nome, login = :login," .
+               " papel = :papel, telefone = :telefone, email = :email, caminhoImagem = :caminhoImagem".
+               " WHERE idUsuario = :id";
+        
+        $stm = $conn->prepare($sql);
+        $stm->bindValue("nome", $usuario->getNome());
+        $stm->bindValue("login", $usuario->getLogin());
+        $stm->bindValue("papel", $usuario->getPapel());
+        $stm->bindValue("id", $usuario->getId());
+        $stm->bindValue("telefone", $usuario->getTelefone());
+        $stm->bindValue("email", $usuario->getEmail());
+        $stm->bindValue("caminhoImagem", $usuario->getCaminhoImagem());
+        $stm->execute();
+    }
+
 }

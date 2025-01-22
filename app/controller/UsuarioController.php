@@ -48,7 +48,14 @@ class UsuarioController extends Controller
         $telefone = trim($_POST['telefone']) ? trim($_POST['telefone']) : NULL;
         $email = trim($_POST['email']) ? trim($_POST['email']) : NULL;
         $caminhoImagem = trim($_POST['imagemAtual']) ? trim($_POST['imagemAtual']) : NULL;
+        $alterarSenha = $_POST["alterarSenha"];
 
+        if ($alterarSenha == "yes") {
+            $alterarSenhaBoolean = true;
+        }else{
+            $alterarSenhaBoolean = false;
+        }
+        
         // Recuperar o caminho da imagem atual (se existir)
         //$caminhoImagem = '';//(isset($dados["usuario"]) && is_object($dados["usuario"])) ? $dados["usuario"]->getCaminhoImagem() : NULL;
 
@@ -66,7 +73,7 @@ class UsuarioController extends Controller
         // exit;
 
         //Validar os dados
-        $erros = $this->usuarioService->validarDados($usuario, $confSenha);
+        $erros = $this->usuarioService->validarDados($usuario, $confSenha, $alterarSenhaBoolean);
         if (empty($erros)) {
             // Processar o upload da nova imagem (se houver)
             if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
@@ -91,7 +98,11 @@ class UsuarioController extends Controller
                     $this->usuarioDao->insert($usuario);
                 else { //Alterando
                     $usuario->setId($dados["id"]);
-                    $this->usuarioDao->update($usuario);
+                    if ($alterarSenhaBoolean) { // se for alterar a senha
+                        $this->usuarioDao->update($usuario);
+                    }else{
+                        $this->usuarioDao->updateNoPass($usuario);
+                    }
                 }
 
                 //TODO - Enviar mensagem de sucesso
