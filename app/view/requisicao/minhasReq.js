@@ -1,3 +1,7 @@
+const baseURL = document.getElementById("baseurl").value
+
+console.log(baseURL);
+
 document.addEventListener("DOMContentLoaded", function () {
     const cards = document.querySelectorAll(".cardReq");
 
@@ -8,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const motivoDevolucao = card.dataset.motivo;
 
             // Faz a requisição para obter os ingredientes
-            fetch(`http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=${requisicaoId}`)
+            fetch(`${baseURL}/controller/RequisicoesController.php?action=listJsonSelectedIngredientes&id=${requisicaoId}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Erro ao carregar os ingredientes.");
@@ -40,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             </p>`;
 
                         const formHtml = `
-                            <form action="http://localhost/ProjIntegrador/app/controller/RequisicoesController.php?action=updateReqStatus" method="post"
+                            <form action="${baseURL}/controller/RequisicoesController.php?action=updateReqStatus" method="post"
                                 onsubmit="return confirm('Tem certeza de que deseja alterar o status para preenchimento?');">
                                 <div class="buttons mt-3">
                                     <button id="send" class="btn btn-warning">Alterar para Preenchimento</button>
