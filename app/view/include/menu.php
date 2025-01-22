@@ -10,8 +10,9 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
     $papel = $_SESSION[SESSAO_USUARIO_PAPEL];
     $img = $_SESSION[SESSAO_USUARIO_IMG];
+    $id = $_SESSION[SESSAO_USUARIO_ID];
 ?>
-<div class="sidebar" id="sidebar">
+<div class="sidebar" id="sidebar" data-user-id="<?= $id; ?>" data-base-url="<?= BASEURL; ?>">
     <a href="<?= BASEURL . '/controller/UsuarioController.php?action=profile' ?>" style="text-decoration: none;">
         <div class="user-info container d-flex">
             <img src="<?= BASEURL_USER_IMG. $img; ?>" alt="User Image" class="user-image">

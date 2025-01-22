@@ -1,5 +1,5 @@
 const baseURL = document.getElementById("baseurl").value
-console.log(baseURL);
+//console.log(baseURL);
 
 
 // Função para editar o campo de usuário (login, email, telefone)
@@ -252,7 +252,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
 
     try {
         // Envia os dados via fetch
-        const response = await fetch(baseURL+"/controller/UsuarioController.php?action=editImg", {
+        const response = await fetch(baseURL + "/controller/UsuarioController.php?action=editImg", {
             method: "POST",
             body: formData,
         });
@@ -264,7 +264,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
         const result = await response.json(); // Parse da resposta JSON
         if (result.success) {
             alert("Imagem atualizada com sucesso!");
-            // Atualizar a imagem na página sem recarregar, se necessário
+            window.location.reload(); // Recarrega a página
         } else {
             alert("Erro: " + result.message);
         }
@@ -273,4 +273,3 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
         alert("Erro ao processar a solicitação.");
     }
 });
-

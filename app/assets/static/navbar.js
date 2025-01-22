@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         openBtn.style.visibility = "hidden"
         closeBtn.style.visibility = "visible"
         closeWasClicl = false
-        console.log(closeWasClicl)
+        //console.log(closeWasClicl)
     });
 
     closeBtn.addEventListener('click', function() {
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         openBtn.style.visibility = "visible"
         closeBtn.style.visibility = "hidden"
         closeWasClicl = true
-        console.log(closeWasClicl)
+        //console.log(closeWasClicl)
     });
 });
 window.addEventListener("resize", function() {
@@ -33,6 +33,31 @@ window.addEventListener("resize", function() {
         if (!closeWasClicl){
             openBtn.style.visibility = "visible"
             closeBtn.style.visibility = "hidden"
+        }
+    }
+});
+document.addEventListener("DOMContentLoaded", async () => {
+    const sidebar = document.getElementById("sidebar");
+    const userId = sidebar.dataset.userId; // Obtém o ID do usuário do atributo data-user-id
+    const baseURL = sidebar.dataset.baseUrl;
+    //console.log(baseURL);
+    
+
+    if (userId) {
+        try {
+            const response = await fetch(baseURL+`/controller/UsuarioController.php?action=returnImage&userid=${userId}`);
+            const data = await response.json();
+
+            if (data.success) {
+                const userImage = document.querySelector(".user-image");
+                if (userImage) {
+                    userImage.src = `${data.imagePath}`; // Atualiza o caminho da imagem
+                }
+            } else {
+                console.error("Erro ao buscar imagem:", data.message);
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
         }
     }
 });

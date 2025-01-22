@@ -52,10 +52,10 @@ class UsuarioController extends Controller
 
         if ($alterarSenha == "yes") {
             $alterarSenhaBoolean = true;
-        }else{
+        } else {
             $alterarSenhaBoolean = false;
         }
-        
+
         // Recuperar o caminho da imagem atual (se existir)
         //$caminhoImagem = '';//(isset($dados["usuario"]) && is_object($dados["usuario"])) ? $dados["usuario"]->getCaminhoImagem() : NULL;
 
@@ -100,7 +100,7 @@ class UsuarioController extends Controller
                     $usuario->setId($dados["id"]);
                     if ($alterarSenhaBoolean) { // se for alterar a senha
                         $this->usuarioDao->update($usuario);
-                    }else{
+                    } else {
                         $this->usuarioDao->updateNoPass($usuario);
                     }
                 }
@@ -260,6 +260,41 @@ class UsuarioController extends Controller
         } else {
             echo json_encode(['success' => false, 'message' => 'Dados inválidos.']);
         }
+    }
+
+    protected function returnImage()
+    {
+        header('Content-Type: application/json'); // Define o cabeçalho para JSON
+
+        if (isset($_GET['userid'])) {
+            $userId = intval($_GET['userid']); // Converte o ID para inteiro
+
+            // Busca o usuário no banco de dados
+            $usuario = $this->usuarioDao->findById($userId);
+
+            // Verifica se o usuário foi encontrado
+            if ($usuario !== null) {
+                echo json_encode([
+                    'success' => true,
+                    'imagePath' => BASEURL_USER_IMG.$usuario->getCaminhoImagem(),
+                ]);
+                return;
+            }
+
+            // Caso o usuário não seja encontrado
+            echo json_encode([
+                'success' => false,
+                'message' => 'Usuário não encontrado.',
+            ]);
+            return;
+        }
+
+        // Caso o parâmetro 'userid' não seja enviado
+        echo json_encode([
+            'success' => false,
+            'message' => 'Parâmetro "userid" não especificado.',
+        ]);
+        return;
     }
 }
 
