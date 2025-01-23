@@ -111,5 +111,27 @@ class IngredientesDAO {
         return $ingredientes;
     }
 
+    public function isIngredienteCadastradoNaRequisicao(int $idIngrediente) {
+        // Obtenha a conexão com o banco
+        $conn = Connection::getConn();
+
+        $sql = "SELECT COUNT(*) AS total
+                FROM requisicoesIngredientes
+                WHERE idIngrediente = ?";
+    
+        // Preparando e executando a consulta
+        $stm = $conn->prepare($sql);
+        $stm->execute([$idIngrediente]);
+    
+        // Obtendo o resultado
+        $result = $stm->fetch();
+
+        if ($result['total'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
 

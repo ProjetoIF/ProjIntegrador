@@ -133,8 +133,14 @@ class IngredienteController extends Controller
         $ingrediente = $this->findIngredienteById();
         if($ingrediente) {
             //Excluir
-            $this->ingredientesDAO->deleteById($ingrediente->getId());
-            $this->list("", "Ingrediente excluído com sucesso!");
+
+            if ($this->ingredientesDAO->isIngredienteCadastradoNaRequisicao($ingrediente->getId())) {
+                $this->list("Ingrediente não pode ser excluído! Esse Ingrediente é utilizado por uma requisição!");
+            } else {
+                $this->ingredientesDAO->deleteById($ingrediente->getId());
+                $this->list("", "Ingrediente excluído com sucesso!");
+            }
+
         } else {
             //Mensagem q não encontrou o usuário
             $this->list("Ingrediente não encontrado!");
