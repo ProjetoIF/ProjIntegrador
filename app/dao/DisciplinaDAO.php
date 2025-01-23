@@ -82,4 +82,26 @@ class DisciplinaDAO
         $stm->bindValue("id", $disciplina->getId());
         $stm->execute();
     }
+
+    public function isDisciplinaCadastradoNaTurma(int $idDisciplina) {
+        // Obtenha a conexão com o banco
+        $conn = Connection::getConn();
+    
+        $sql = "SELECT COUNT(*) AS total
+                FROM turmas
+                WHERE idDisciplina = ?";
+    
+        // Preparando e executando a consulta
+        $stm = $conn->prepare($sql);
+        $stm->execute([$idDisciplina]);
+    
+        // Obtendo o resultado
+        $result = $stm->fetch();
+    
+        if ($result['total'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

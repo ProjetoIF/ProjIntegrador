@@ -167,7 +167,7 @@ class UsuarioController extends Controller
         if ($usuario) {
             //Excluir
             if ($this->usuarioDao->isUsuarioCadastradoNaTurma($usuario->getId())) {
-                $this->list("Usuário não pode ser excluído");
+                $this->list("Usuário não pode ser excluído! Está sendo utilizada por uma turma!");
             }else {
                 $this->usuarioDao->deleteById($usuario->getId());
                 $this->list("", "Usuário excluído com sucesso!");

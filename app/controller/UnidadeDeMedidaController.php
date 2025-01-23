@@ -93,7 +93,7 @@ class UnidadeDeMedidaController extends Controller
         if ($unidade) {
 
             if ($this->unidadeDeMedidaDAO->isUnidadeCadastradoNoIngrediente($unidade->getId())) {
-                $this->list("Unidade de medida não pode ser excluída!");
+                $this->list("Unidade de medida não pode ser excluída! Está sendo utilizada por um ingrediente!");
             } else {
                 $this->unidadeDeMedidaDAO->deleteById($unidade->getId());
                 $this->list("", "Unidade de medida excluída com sucesso!");

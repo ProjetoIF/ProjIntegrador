@@ -84,8 +84,12 @@ class DisciplinaController extends Controller
         $disciplina = $this->findDisciplinaById();
         if($disciplina) {
             //Excluir
-            $this->disciplinaDao->deleteById($disciplina->getId());
-            $this->list("", "Disciplina excluída com sucesso!");
+            if ($this->disciplinaDao->isDisciplinaCadastradoNaTurma($disciplina->getId())) {
+                $this->list("Disciplina não pode ser excluída! Está sendo utilizada por uma turma!");
+            } else {
+                $this->disciplinaDao->deleteById($disciplina->getId());
+                $this->list("", "Disciplina excluída com sucesso!");
+            }
         } else {
             //Mensagem q não encontrou o usuário
             $this->list("Disciplina não encontrada!");
