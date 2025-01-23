@@ -111,4 +111,26 @@ class TurmaDAO {
         return $this->mapTurmas($result);
     }
 
+    public function isTurmaCadastradoNaRequisicao(int $idTurma) {
+        // Obtenha a conexão com o banco
+        $conn = Connection::getConn();
+
+        $sql = "SELECT COUNT(*) AS total
+                FROM requisicoes
+                WHERE idTurma = ?";
+    
+        // Preparando e executando a consulta
+        $stm = $conn->prepare($sql);
+        $stm->execute([$idTurma]);
+    
+        // Obtendo o resultado
+        $result = $stm->fetch();
+
+        if ($result['total'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

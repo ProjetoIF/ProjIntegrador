@@ -115,8 +115,12 @@ class TurmaController extends Controller {
         $turma = $this->findTurmaById();
         if($turma) {
             //Excluir
-            $this->turmaDao->deleteById($turma->getId());
-            $this->list("", "Turma excluída com sucesso!");
+            if ($this->turmaDao->isTurmaCadastradoNaRequisicao($turma->getId())) {
+                $this->list("Turma não pode ser excluída! Essa turma possui uma requisição");
+            } else {
+                $this->turmaDao->deleteById($turma->getId());
+                $this->list("", "Turma excluída com sucesso!");
+            }
         } else {
             //Mensagem que não encontrou a turma
             $this->list("Turma não encontrada!");
