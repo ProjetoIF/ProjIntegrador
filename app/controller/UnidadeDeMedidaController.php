@@ -91,8 +91,13 @@ class UnidadeDeMedidaController extends Controller
         $unidade = $this->findUnidadeById();
 
         if ($unidade) {
-            $this->unidadeDeMedidaDAO->deleteById($unidade->getId());
-            $this->list("", "Unidade de medida excluída com sucesso!");
+
+            if ($this->unidadeDeMedidaDAO->isUnidadeCadastradoNoIngrediente($unidade->getId())) {
+                $this->list("Unidade de medida não pode ser excluída!");
+            } else {
+                $this->unidadeDeMedidaDAO->deleteById($unidade->getId());
+                $this->list("", "Unidade de medida excluída com sucesso!");
+            }
         } else {
             $this->list("Unidade de medida não encontrada!");
         }

@@ -97,5 +97,27 @@ class UnidadeDeMedidaDAO {
 
         return $unidades;
     }
+
+    public function isUnidadeCadastradoNoIngrediente(int $idUnidadade) {
+        // Obtenha a conexão com o banco
+        $conn = Connection::getConn();
+    
+        $sql = "SELECT COUNT(*) AS total
+                FROM ingredientes
+                WHERE unidadeDeMedidaId = ?";
+    
+        // Preparando e executando a consulta
+        $stm = $conn->prepare($sql);
+        $stm->execute([$idUnidadade]);
+    
+        // Obtendo o resultado
+        $result = $stm->fetch();
+    
+        if ($result['total'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
