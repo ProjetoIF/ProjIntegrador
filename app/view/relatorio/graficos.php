@@ -11,8 +11,28 @@ require_once(__DIR__ . "/../include/menu.php");
 </div>
 
 <div class="container">
-    <div class="row justify-content-center mb-4">
 
+    <form action="" class="m-5 row">
+        <input type="hidden" name="action" value="graficos">
+        <div class="col">
+            <div class="form-group">
+                <label for="idFiltroAno"><i class="fa-solid fa-calendar-days"></i> Ano de filtro:</label>
+                <select class="form-control frm-input" id="selAno" name="ano" required>
+                    <option value="">--Selecione o ano--</option>
+                    <?php foreach ($dados["anosDeRequisicao"] as $ano): ?>
+                        <option value="<?= $ano ?>" <?= isset($_GET['ano']) && $_GET['ano'] == $ano ? 'selected' : '' ?>>
+                            <?= $ano ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-4 mt-5">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+    </form>
+
+    <div class="row justify-content-center mb-4">
         <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
             <div class="card text-bg-primary h-100">
                 <div class="card-header">Quantidade de requisições em <?= date("m") . "/" . date("Y"); ?></div>
@@ -24,7 +44,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
         <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
             <div class="card text-bg-info h-100">
-                <div class="card-header">Quantidade de requisições em <?= date("Y"); ?></div>
+                <div class="card-header">Quantidade de requisições em <?= isset($_GET['ano']) ? $_GET['ano'] : date("Y"); ?></div>
                 <div class="card-body">
                     <h5 class="card-title">Quantidade: <?= $dados["reqAno"] ?></h5>
                 </div>

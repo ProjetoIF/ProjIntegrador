@@ -1,6 +1,9 @@
 
 const dataAtual = new Date()
 
+const anoSelecionado = new URLSearchParams(window.location.search).get('ano');
+const anoParaExibir = anoSelecionado ? anoSelecionado : new Date().getFullYear();
+
 function generateColors(numColors) {
   const colors = [];
   const baseColors = [
@@ -75,7 +78,7 @@ const barChartMes = new Chart(graphBarMes, {
     plugins: {
       title: {
         display: true,
-        text: `Quantidade de requisições por mês no ano de ${dataAtual.getFullYear()}`
+        text: `Quantidade de requisições por mês no ano de ${anoParaExibir}`
       }
     }
   },
@@ -114,7 +117,7 @@ const barChart = new Chart(graphBarTurma, {
     plugins: {
       title: {
         display: true,
-        text: `Quantidade de requisições por turma no ano de ${dataAtual.getFullYear()}`
+        text: `Quantidade de requisições por turma no ano de ${anoParaExibir}`
       }
     }
   },

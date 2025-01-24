@@ -63,13 +63,24 @@ class RelatorioController extends Controller
     }
 
     protected function graficos() {
-        $dados["reqMes"] = $this->relatorioService->monthCount($this->reqsuisicaoDAO->list());
-        $dados["reqAno"] = $this->relatorioService->yearCount($this->reqsuisicaoDAO->list());
+
         $dados["reqAnalise"] = $this->relatorioService->analiseCount($this->reqsuisicaoDAO->list());
         $dados["reqAlteracao"] = $this->relatorioService->alteracaoCount($this->reqsuisicaoDAO->list());
-        $dados["reqPorMes"] = $this->relatorioService->reqPorMes($this->reqsuisicaoDAO->list());
-        $dados["reqPorTurma"] = $this->relatorioService->reqPorTurma($this->reqsuisicaoDAO->list());
         $dados["reqPorIngrediente"] = $this->relatorioService->reqPorIngrediente($this->requisicaoIngredienteDAO->list());
+        $dados["anosDeRequisicao"] = $this->relatorioService->yearsOnReq($this->reqsuisicaoDAO->list());
+        $dados["reqMes"] = $this->relatorioService->monthCount($this->reqsuisicaoDAO->list());
+
+        if (isset($_GET['ano'])) {
+            $dados["reqAno"] = $this->relatorioService->yearCountByYear($this->reqsuisicaoDAO->list(),$_GET['ano']);
+            $dados["reqPorMes"] = $this->relatorioService->reqPorMesByYear($this->reqsuisicaoDAO->list(),$_GET['ano']);
+            $dados["reqPorTurma"] = $this->relatorioService->reqPorTurmaByYear($this->reqsuisicaoDAO->list(),$_GET['ano']);
+
+            
+        }else {
+            $dados["reqAno"] = $this->relatorioService->yearCount($this->reqsuisicaoDAO->list());
+            $dados["reqPorMes"] = $this->relatorioService->reqPorMes($this->reqsuisicaoDAO->list());
+            $dados["reqPorTurma"] = $this->relatorioService->reqPorTurma($this->reqsuisicaoDAO->list());
+        }
         
         $this->loadView("relatorio/graficos.php", $dados);
     }
