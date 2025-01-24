@@ -38,4 +38,12 @@ class HomeService
             return $requisicao->getStatus() === "PREENCHIMENTO";
         }));
     }
+
+    public function contarAprovadas(array $requisicoes): int
+    {
+        return count(array_filter($requisicoes, function ($requisicao) {
+            return $requisicao->getStatus() === "APROVADO";
+        }));
+    }
+
 }

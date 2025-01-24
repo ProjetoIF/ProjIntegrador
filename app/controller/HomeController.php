@@ -42,6 +42,7 @@ class HomeController extends Controller
         $dados["quantidadeRejeitadas"] = $this->homeService->contarRejeitadas($requisicoes);
         $dados["quantidadeEnviadas"] = $this->homeService->contarEnviadas($requisicoes);
         $dados["quantidadePreenchimento"] = $this->homeService->contarEmPreenchimento($requisicoes);
+        $dados["quantidadeAprovadas"] = $this->homeService->contarAprovadas($requisicoes);
 
         // Passar as requisições filtradas para a view
         $dados["requisicoes"] = $requisicoesFiltradas;

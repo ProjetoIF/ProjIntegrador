@@ -21,6 +21,15 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
         <h1 class="text-center mb-4">Status de suas requisições</h1>
 
         <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
+            <div class="card text-bg-success h-100">
+                <div class="card-header">Aprovadas</div>
+                <div class="card-body">
+                    <h5 class="card-title">Quantidade: <?= $dados["quantidadeAprovadas"] ?></h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-3">
             <div class="card text-bg-danger h-100">
                 <div class="card-header">Rejeitadas</div>
                 <div class="card-body">
