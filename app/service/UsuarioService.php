@@ -22,11 +22,11 @@ class UsuarioService
         if (! $usuario->getLogin()){
             array_push($erros, "O campo <b>Login</b> é obrigatório.");
         }
-        else{
-            if ($this->usuarioDao->verifyLoginUsage($usuario->getLogin())) {
-                array_push($erros, "O login <b>" . $usuario->getLogin() . "</b> já está em uso!");
-            }
-        }
+        // else{
+        //     if ($this->usuarioDao->verifyLoginUsage($usuario->getLogin())) {
+        //         array_push($erros, "O login <b>" . $usuario->getLogin() . "</b> já está em uso!");
+        //     }
+        // }
 
         if ($alterarSenha) {
             if (! $usuario->getSenha())
