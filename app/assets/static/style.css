@@ -60,7 +60,7 @@
 
 /* Barra lateral */
 .sidebar {
-    width: 15vw;
+    width: 15%;
     background: #1A222F;
     color: #fff;
     height: 100vh;
@@ -156,7 +156,7 @@
 
 /* Layout principal */
 .main-content {
-    margin-left: 20vw; /* Usa vw para largura da sidebar */
+    margin-left: 15%; /* Usa vw para largura da sidebar */
     padding: 2em;
     transition: margin-left 0.3s ease-in-out; /* Suave transição */
 }

@@ -45,6 +45,12 @@ require_once(__DIR__ . "/../include/header.php");
     </div>
 </div>
 
+<style>
+    body, html {
+    overflow: hidden;
+}
+
+</style>
 
 
 <?php

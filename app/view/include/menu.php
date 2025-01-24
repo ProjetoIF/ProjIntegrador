@@ -18,7 +18,7 @@ if(isset($_SESSION[SESSAO_USUARIO_NOME]))
             <img src="<?= BASEURL_USER_IMG. $img; ?>" alt="User Image" class="user-image">
             <div class="col">
                 <div class="row">
-                    <p class="text" id="userName"><?= $nome ?></p>
+                    <p class="text text-wrap" id="userName"><?= $nome ?></p>
                 </div>
             </div>
         </div>
