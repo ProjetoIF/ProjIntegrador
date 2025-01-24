@@ -272,4 +272,26 @@ class UsuarioDAO {
         $stm->execute();
     }
 
+    public function verifyLoginUsage($login)
+    {
+        $conn = Connection::getConn();
+    
+        $sql = "SELECT COUNT(*) AS total
+                FROM usuarios
+                WHERE login = ?";
+    
+        // Preparando e executando a consulta
+        $stm = $conn->prepare($sql);
+        $stm->execute([$login]);
+    
+        // Obtendo o resultado
+        $result = $stm->fetch();
+    
+        if ($result['total'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

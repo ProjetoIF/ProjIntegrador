@@ -48,7 +48,7 @@ class UsuarioController extends Controller
         $telefone = trim($_POST['telefone']) ? trim($_POST['telefone']) : NULL;
         $email = trim($_POST['email']) ? trim($_POST['email']) : NULL;
         $caminhoImagem = trim($_POST['imagemAtual']) ? trim($_POST['imagemAtual']) : NULL;
-        $alterarSenha = $_POST["alterarSenha"];
+        $alterarSenha = isset($_POST["alterarSenha"]) ? $_POST["alterarSenha"] : "yes";
 
         if ($alterarSenha == "yes") {
             $alterarSenhaBoolean = true;
@@ -94,8 +94,10 @@ class UsuarioController extends Controller
             //Persiste o objeto
             try {
 
-                if ($dados["id"] == 0)  //Inserindo
+                if ($dados["id"] == 0) {
+                    //Inserindo
                     $this->usuarioDao->insert($usuario);
+                }
                 else { //Alterando
                     $usuario->setId($dados["id"]);
                     if ($alterarSenhaBoolean) { // se for alterar a senha
