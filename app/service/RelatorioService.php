@@ -1,13 +1,15 @@
 <?php
 require_once(__DIR__ . "/../dao/TurmaDAO.php");
-
+require_once(__DIR__ . "/../dao/RequisicoesDAO.php");
 class RelatorioService
 {
     private TurmaDAO $turmaDAO;
+    private RequisicoesDAO $requisicoesDAO;
 
     public function __construct()
     {
         $this->turmaDAO = new TurmaDAO();
+        $this->requisicoesDAO = new RequisicoesDAO();
     }
 
     public function calcularRequisicaoGeral(array $requisicoes): array
@@ -241,6 +243,71 @@ class RelatorioService
         }
 
         return json_encode($reqPorTurma);
+    }
+
+    public function reqPorIngredienteByYear(array $requisicoesIngredientes, $anoDePesquisa)
+    {
+        $reqPorIngrediente = [];
+
+        foreach ($requisicoesIngredientes as $requisicaoIngrediente) {
+
+            $requisicao = $this->requisicoesDAO->findById($requisicaoIngrediente->getIdRequisicao());
+
+            $data = strtotime($requisicao->getDataAula());
+
+            $ano = date("Y", $data);
+
+            if ($anoDePesquisa == $ano) {
+                $ingrediente = $requisicaoIngrediente->getIngrediente();
+    
+                $nomeIngrediente = $ingrediente->getNome();
+    
+                if (isset($reqPorIngrediente[$nomeIngrediente])) {
+                    $reqPorIngrediente[$nomeIngrediente]++;
+                } else {
+                    $reqPorIngrediente[$nomeIngrediente] = 1;
+                }
+            }
+        }
+        return json_encode($reqPorIngrediente);
+    }
+
+    public function analiseCountByYear(array $requisicoes, $anoDePesquisa): int
+    {
+        $analiseCount = 0;
+
+        foreach ($requisicoes as $requisicao) {
+
+            $data = strtotime($requisicao->getDataAula());
+
+            $ano = date("Y", $data);
+            if ($anoDePesquisa == $ano) {
+                $status = $requisicao->getStatus();
+                if ($status == "ENVIADO") {
+                    $analiseCount++;
+                }
+            }
+        }
+        return $analiseCount;
+    }
+
+    public function alteracaoCountByYear(array $requisicoes, $anoDePesquisa): int
+    {
+        $alteracaoCount = 0;
+
+        foreach ($requisicoes as $requisicao) {
+
+            $data = strtotime($requisicao->getDataAula());
+            
+            $ano = date("Y", $data);
+            if ($anoDePesquisa == $ano) {
+                $status = $requisicao->getStatus();
+                if ($status == "REJEITADO") {
+                    $alteracaoCount++;
+                }
+            }
+        }
+        return $alteracaoCount;
     }
 
     public function getMesesArray()
