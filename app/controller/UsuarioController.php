@@ -73,7 +73,7 @@ class UsuarioController extends Controller
         // exit;
 
         //Validar os dados
-        $erros = $this->usuarioService->validarDados($usuario, $confSenha, $alterarSenhaBoolean);
+        $erros = $this->usuarioService->validarDados($usuario, $confSenha, $alterarSenhaBoolean, $dados["id"]);
         if (empty($erros)) {
             // Processar o upload da nova imagem (se houver)
             if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {

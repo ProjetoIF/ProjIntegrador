@@ -11,7 +11,7 @@ class UsuarioService
         $this->usuarioDao = new UsuarioDAO();
     }
     /* Método para validar os dados do usuário que vem do formulário */
-    public function validarDados(Usuario $usuario, ?string $confSenha, ?bool $alterarSenha)
+    public function validarDados(Usuario $usuario, ?string $confSenha, ?bool $alterarSenha, ?int $id)
     {
         $erros = array();
 
@@ -22,11 +22,11 @@ class UsuarioService
         if (! $usuario->getLogin()){
             array_push($erros, "O campo <b>Login</b> é obrigatório.");
         }
-        // else{
-        //     if ($this->usuarioDao->verifyLoginUsage($usuario->getLogin())) {
-        //         array_push($erros, "O login <b>" . $usuario->getLogin() . "</b> já está em uso!");
-        //     }
-        // }
+        else{
+            if ($this->usuarioDao->verifyLoginUsage($usuario->getLogin(),$id)) {
+                array_push($erros, "O login <b>" . $usuario->getLogin() . "</b> já está em uso!");
+            }
+        }
 
         if ($alterarSenha) {
             if (! $usuario->getSenha())
